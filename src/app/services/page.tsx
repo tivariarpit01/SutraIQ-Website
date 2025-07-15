@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { WebDevIcon } from '@/components/icons/WebDevIcon';
 import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon';
-import { DigitalMarketingIcon } from '@/components/icons/DigitalMarketingIcon';
-import { BpoServicesIcon } from '@/components/icons/BpoServicesIcon';
+import { AppDevIcon } from '@/components/icons/AppDevIcon';
+import { CloudSupportIcon } from '@/components/icons/CloudSupportIcon';
 import { ArrowRight } from 'lucide-react';
 
 const services = [
@@ -15,22 +15,22 @@ const services = [
     details: ['Custom UI/UX Design', 'Frontend & Backend Development', 'E-commerce Solutions', 'CMS Integration', 'Ongoing Maintenance & Support'],
   },
   {
+    icon: <AppDevIcon className="h-16 w-16" />,
+    title: 'App Development',
+    description: 'We design and develop intuitive, high-performance mobile applications for both iOS and Android platforms, ensuring a seamless user experience that aligns with your brand and business objectives.',
+    details: ['iOS & Android App Development', 'Cross-Platform Solutions', 'UI/UX for Mobile', 'App Maintenance & Support', 'App Store Optimization'],
+  },
+  {
     icon: <AiAutomationIcon className="h-16 w-16" />,
-    title: 'AI Automation',
-    description: 'Unlock efficiency and innovation with our AI automation services. We help businesses automate repetitive tasks, gain insights from data, and create intelligent systems that drive growth and reduce operational costs.',
+    title: 'AI Solutions',
+    description: 'Unlock efficiency and innovation with our AI services. We help businesses automate repetitive tasks, gain insights from data, and create intelligent systems that drive growth and reduce operational costs.',
     details: ['Process Automation (RPA)', 'AI-Powered Chatbots', 'Machine Learning Models', 'Data Analytics & Insights', 'Natural Language Processing (NLP)'],
   },
   {
-    icon: <DigitalMarketingIcon className="h-16 w-16" />,
-    title: 'Digital Marketing',
-    description: 'Amplify your brand\'s voice and reach your target audience with our comprehensive digital marketing strategies. We combine data-driven tactics with creative content to deliver measurable results and a high return on investment.',
-    details: ['Search Engine Optimization (SEO)', 'Pay-Per-Click (PPC) Advertising', 'Social Media Management', 'Content Marketing', 'Email Marketing Campaigns'],
-  },
-  {
-    icon: <BpoServicesIcon className="h-16 w-16" />,
-    title: 'BPO Services',
-    description: 'Focus on your core competencies while we handle your business processes. Our Business Process Outsourcing (BPO) services are designed to be a seamless extension of your team, ensuring quality and efficiency.',
-    details: ['Customer Support', 'Data Entry & Management', 'Back-Office Operations', 'Technical Support', 'Virtual Assistance'],
+    icon: <CloudSupportIcon className="h-16 w-16" />,
+    title: 'Cloud Support',
+    description: 'Leverage the power of the cloud with our expert support and management services. We ensure your cloud infrastructure is secure, scalable, and cost-effective, allowing you to focus on your core business.',
+    details: ['Cloud Migration Services', 'Infrastructure as a Service (IaaS)', 'DevOps & CI/CD', 'Cloud Security & Compliance', '24/7 Monitoring & Support'],
   },
 ];
 

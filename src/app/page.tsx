@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { WebDevIcon } from '@/components/icons/WebDevIcon';
 import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon';
-import { DigitalMarketingIcon } from '@/components/icons/DigitalMarketingIcon';
-import { BpoServicesIcon } from '@/components/icons/BpoServicesIcon';
+import { AppDevIcon } from '@/components/icons/AppDevIcon';
+import { CloudSupportIcon } from '@/components/icons/CloudSupportIcon';
 import { Star } from 'lucide-react';
 
 const services = [
@@ -16,19 +16,19 @@ const services = [
     description: 'Crafting stunning, high-performance websites that captivate and convert.',
   },
   {
+    icon: <AppDevIcon className="h-12 w-12" />,
+    title: 'App Development',
+    description: 'Building intuitive and scalable mobile applications for iOS and Android platforms.',
+  },
+  {
     icon: <AiAutomationIcon className="h-12 w-12" />,
-    title: 'AI Automation',
+    title: 'AI Solutions',
     description: 'Leveraging artificial intelligence to streamline operations and boost efficiency.',
   },
   {
-    icon: <DigitalMarketingIcon className="h-12 w-12" />,
-    title: 'Digital Marketing',
-    description: 'Driving growth with data-driven strategies that expand your online reach.',
-  },
-  {
-    icon: <BpoServicesIcon className="h-12 w-12" />,
-    title: 'BPO Services',
-    description: 'Providing reliable business process outsourcing to optimize your workflow.',
+    icon: <CloudSupportIcon className="h-12 w-12" />,
+    title: 'Cloud Support',
+    description: 'Providing reliable cloud infrastructure and support to ensure scalability and security.',
   },
 ];
 
