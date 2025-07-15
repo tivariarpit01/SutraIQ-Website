@@ -12,13 +12,14 @@ import { cn } from '@/lib/utils';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
+  { href: '/blog', label: 'Blog' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
 
 const NavLink = ({ href, label }: { href: string; label: string }) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = pathname === href || (href.startsWith('/blog') && pathname.startsWith('/blog'));
   return (
     <Link href={href} passHref>
       <span className={cn(
@@ -33,7 +34,7 @@ const NavLink = ({ href, label }: { href: string; label: string }) => {
 
 const MobileNavLink = ({ href, label }: { href: string; label: string }) => {
     const pathname = usePathname();
-    const isActive = pathname === href;
+    const isActive = pathname === href || (href.startsWith('/blog') && pathname.startsWith('/blog'));
     return (
         <SheetClose asChild>
             <Link href={href} passHref>

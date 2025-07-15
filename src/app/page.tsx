@@ -64,6 +64,20 @@ const testimonials = [
     avatar: 'https://placehold.co/100x100',
      dataAiHint: 'woman face',
   },
+   {
+    name: 'James White',
+    title: 'Founder, StartupX',
+    quote: 'Working with StackNova on our app was a breeze. They delivered a high-quality product on time and within budget. Their team is incredibly talented.',
+    avatar: 'https://placehold.co/100x100',
+    dataAiHint: 'man face professional',
+  },
+  {
+    name: 'Jessica Brown',
+    title: 'CTO, DataCorp',
+    quote: 'The cloud solutions provided by StackNova have been instrumental in our ability to scale. Their support team is responsive and knowledgeable.',
+    avatar: 'https://placehold.co/100x100',
+    dataAiHint: 'woman portrait professional',
+  }
 ];
 
 const trustedByLogos = ['Innovate Inc.', 'QuantumLeap', 'Stellar Solutions', 'Apex Enterprises', 'Visionary Ventures'];
