@@ -20,6 +20,7 @@ import {
   MessageSquare,
   Users,
   LogOut,
+  ShieldCheck,
 } from 'lucide-react'
 import { Logo } from '@/components/icons/Logo'
 import Link from 'next/link'
@@ -58,6 +59,11 @@ export default function AdminDashboardLayout({
   }
 
   const isBlogActive = pathname.startsWith('/admin/dashboard/blog');
+  const isServicesActive = pathname.startsWith('/admin/dashboard/services');
+  const isTeamActive = pathname.startsWith('/admin/dashboard/team');
+  const isTestimonialsActive = pathname.startsWith('/admin/dashboard/testimonials');
+  const isSettingsActive = pathname.startsWith('/admin/dashboard/settings');
+
 
   return (
     <SidebarProvider>
@@ -92,22 +98,28 @@ export default function AdminDashboardLayout({
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Services">
-                  <Briefcase />
-                  <span>Services</span>
-                </SidebarMenuButton>
+                <Link href="/admin/dashboard/services">
+                    <SidebarMenuButton tooltip="Services" isActive={isServicesActive}>
+                        <Briefcase />
+                        <span>Services</span>
+                    </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Testimonials">
-                  <MessageSquare />
-                  <span>Testimonials</span>
-                </SidebarMenuButton>
+                 <Link href="/admin/dashboard/testimonials">
+                    <SidebarMenuButton tooltip="Testimonials" isActive={isTestimonialsActive}>
+                        <MessageSquare />
+                        <span>Testimonials</span>
+                    </SidebarMenuButton>
+                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Team">
-                  <Users />
-                  <span>Team</span>
-                </SidebarMenuButton>
+                <Link href="/admin/dashboard/team">
+                    <SidebarMenuButton tooltip="Team" isActive={isTeamActive}>
+                        <Users />
+                        <span>Team</span>
+                    </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarContent>
@@ -120,10 +132,12 @@ export default function AdminDashboardLayout({
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Settings">
-                  <Settings />
-                  <span>Settings</span>
-                </SidebarMenuButton>
+                 <Link href="/admin/dashboard/settings">
+                    <SidebarMenuButton tooltip="Settings" isActive={isSettingsActive}>
+                        <Settings />
+                        <span>Settings</span>
+                    </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarFooter>
