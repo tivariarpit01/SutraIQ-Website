@@ -8,8 +8,6 @@ import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon';
 import { AppDevIcon } from '@/components/icons/AppDevIcon';
 import { CloudSupportIcon } from '@/components/icons/CloudSupportIcon';
 import { Star, ArrowRight } from 'lucide-react';
-import { DigitalMarketingIcon } from '@/components/icons/DigitalMarketingIcon';
-import { BpoServicesIcon } from '@/components/icons/BpoServicesIcon';
 
 const premiumServices = [
   {
@@ -100,10 +98,10 @@ export default function Home() {
           <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
             Designing Tomorrow's Innovations
           </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed mt-6">
+          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-6">
             StackNova is your partner in building the future. We merge cutting-edge design with powerful technology to create solutions that drive growth.
           </p>
-          <div className="mt-8 flex justify-center gap-4">
+          <div className="mt-8 flex justify-center gap-4 flex-wrap">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
               <Link href="/get-started">Get Started</Link>
             </Button>
@@ -137,7 +135,7 @@ export default function Home() {
                         className="transform hover:scale-105 transition-transform duration-500"
                       />
                   </div>
-                   <div className={`p-8 md:p-12 ${index % 2 !== 0 ? 'md:order-1' : 'md:order-2'}`}>
+                   <div className={`p-8 ${index % 2 !== 0 ? 'md:order-1' : 'md:order-2'}`}>
                     <div className="mb-4">
                       {service.icon}
                     </div>
@@ -165,7 +163,7 @@ export default function Home() {
           </div>
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
             {technologies.map((tech) => (
-              <div key={tech} className="bg-card border rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted transition-colors">
+              <div key={tech} className="bg-card border rounded-lg px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors">
                 {tech}
               </div>
             ))}
@@ -189,7 +187,7 @@ export default function Home() {
                     <div className="flex text-yellow-400 mb-2">
                         {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 fill-current" />)}
                     </div>
-                  <blockquote className="text-lg italic">"{testimonial.quote}"</blockquote>
+                  <blockquote className="text-lg italic text-muted-foreground">"{testimonial.quote}"</blockquote>
                 </div>
                 <div className="mt-6 flex items-center">
                   <Avatar>
@@ -210,7 +208,7 @@ export default function Home() {
       {/* Trusted By Section */}
       <section className="py-16">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-center text-xl font-semibold text-muted-foreground mb-8">
+          <h2 className="text-center text-xl font-semibold text-muted-foreground mb-8 tracking-widest">
             TRUSTED BY INDUSTRY LEADERS
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">

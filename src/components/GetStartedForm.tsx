@@ -25,7 +25,9 @@ import { ArrowRight, ArrowLeft, Send } from "lucide-react";
 
 const services = [
   { id: "webDev", label: "Web Development" },
-  { id: "ai", label: "AI Automation" },
+  { id: "appDev", label: "App Development" },
+  { id: "ai", label: "AI Solutions" },
+  { id: "cloud", label: "Cloud Support" },
   { id: "marketing", label: "Digital Marketing" },
   { id: "bpo", label: "BPO Services" },
 ] as const;
@@ -36,7 +38,7 @@ const step1Schema = z.object({
   company: z.string().optional(),
 });
 const step2Schema = z.object({
-  services: z.array(z.string()).refine((value) => value.some((item) => item), {
+  services: z.array(z.string()).refine((value) => value.length > 0, {
     message: "You have to select at least one service.",
   }),
 });
@@ -44,10 +46,6 @@ const step3Schema = z.object({
   details: z.string().min(20, "Please provide more details (min. 20 characters)."),
   budget: z.string().optional(),
 });
-
-type Step1Data = z.infer<typeof step1Schema>;
-type Step2Data = z.infer<typeof step2Schema>;
-type Step3Data = z.infer<typeof step3Schema>;
 
 const formSchema = step1Schema.merge(step2Schema).merge(step3Schema);
 
@@ -68,7 +66,7 @@ export function GetStartedForm() {
   });
 
   const processStep = async () => {
-    let result;
+    let result = false;
     if (currentStep === 0) {
       result = await form.trigger(["name", "email", "company"]);
     } else if (currentStep === 1) {
@@ -96,7 +94,7 @@ export function GetStartedForm() {
       title: "Quote Request Submitted!",
       description: "Thank you! We've received your project details and will be in touch shortly.",
     });
-    processStep(); // Move to final step
+    setCurrentStep(4); // Move to final step
   }
 
   const steps = [
@@ -138,7 +136,7 @@ export function GetStartedForm() {
                   <div className="mb-4"><FormLabel className="text-base">What services are you interested in?</FormLabel><FormDescription>Select all that apply.</FormDescription></div>
                   {services.map((item) => (
                     <FormField key={item.id} control={form.control} name="services" render={({ field }) => (
-                      <FormItem key={item.id} className="flex flex-row items-start space-x-3 space-y-0">
+                      <FormItem key={item.id} className="flex flex-row items-start space-x-3 space-y-0 my-4">
                         <FormControl><Checkbox checked={field.value?.includes(item.id)} onCheckedChange={(checked) => {
                           return checked ? field.onChange([...field.value, item.id]) : field.onChange(field.value?.filter((value) => value !== item.id));
                         }} /></FormControl>
@@ -165,12 +163,12 @@ export function GetStartedForm() {
             {currentStep === 3 && (
                 <div className="space-y-6">
                     <h3 className="font-semibold text-lg">Please review your information:</h3>
-                    <div className="space-y-4 rounded-md border p-4 bg-secondary">
+                    <div className="space-y-4 rounded-md border p-4 bg-secondary text-sm">
                         <p><strong>Name:</strong> {form.getValues("name")}</p>
                         <p><strong>Email:</strong> {form.getValues("email")}</p>
                         {form.getValues("company") && <p><strong>Company:</strong> {form.getValues("company")}</p>}
-                        <p><strong>Services:</strong> {form.getValues("services").join(', ')}</p>
-                        <p><strong>Details:</strong> {form.getValues("details")}</p>
+                        <p><strong>Services:</strong> {services.filter(s => form.getValues("services").includes(s.id)).map(s => s.label).join(', ')}</p>
+                        <p><strong>Details:</strong> <span className="whitespace-pre-wrap">{form.getValues("details")}</span></p>
                         {form.getValues("budget") && <p><strong>Budget:</strong> {form.getValues("budget")}</p>}
                     </div>
                 </div>
@@ -196,9 +194,15 @@ export function GetStartedForm() {
                 </Button>
             ) : <div></div>}
 
-            {currentStep < 3 && (
+            {currentStep < 2 && (
                 <Button onClick={processStep}>
                     Next <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+            )}
+            
+            {currentStep === 2 && (
+                 <Button onClick={processStep}>
+                    Review <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
             )}
 

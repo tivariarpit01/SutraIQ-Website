@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardTitle } from '@/components/ui/card';
 import { WebDevIcon } from '@/components/icons/WebDevIcon';
 import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon';
 import { AppDevIcon } from '@/components/icons/AppDevIcon';
@@ -57,7 +57,7 @@ export default function ServicesPage() {
           <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
             Our Expertise, Your Success
           </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed mt-6">
+          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-6">
             Discover how our specialized services can empower your business to thrive in a competitive landscape.
           </p>
         </div>
@@ -79,7 +79,7 @@ export default function ServicesPage() {
                     <ul className="space-y-3">
                       {service.details.map((detail) => (
                         <li key={detail} className="flex items-center gap-3">
-                           <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent"></div>
+                           <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent shrink-0"></div>
                           <span className="font-medium">{detail}</span>
                         </li>
                       ))}
@@ -88,9 +88,9 @@ export default function ServicesPage() {
                       <Link href="/get-started">Get a Quote <ArrowRight className="ml-2 h-5 w-5" /></Link>
                     </Button>
                   </div>
-                  <div className={`relative w-full h-64 md:h-80 rounded-lg overflow-hidden ${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
+                  <div className={`relative w-full h-64 md:h-80 rounded-lg overflow-hidden flex items-center justify-center ${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-50"></div>
-                     <div className="absolute inset-0 flex items-center justify-center">
+                     <div className="text-primary">
                         {service.icon}
                      </div>
                   </div>
@@ -108,7 +108,7 @@ export default function ServicesPage() {
           <p className="mt-4 max-w-xl mx-auto text-muted-foreground md:text-lg">
             Let's discuss how StackNova can help you achieve your goals. Contact us for a free consultation.
           </p>
-          <div className="mt-8 flex justify-center gap-4">
+          <div className="mt-8 flex justify-center gap-4 flex-wrap">
             <Button asChild size="lg" className="font-semibold bg-accent hover:bg-accent/90 text-accent-foreground">
               <Link href="/get-started">Get Started</Link>
             </Button>

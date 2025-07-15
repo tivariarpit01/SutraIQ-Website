@@ -19,7 +19,7 @@ const navLinks = [
 
 const NavLink = ({ href, label }: { href: string; label: string }) => {
   const pathname = usePathname();
-  const isActive = pathname === href || (href.startsWith('/blog') && pathname.startsWith('/blog'));
+  const isActive = href === '/' ? pathname === href : pathname.startsWith(href);
   return (
     <Link href={href} passHref>
       <span className={cn(
@@ -34,7 +34,7 @@ const NavLink = ({ href, label }: { href: string; label: string }) => {
 
 const MobileNavLink = ({ href, label }: { href: string; label: string }) => {
     const pathname = usePathname();
-    const isActive = pathname === href || (href.startsWith('/blog') && pathname.startsWith('/blog'));
+    const isActive = href === '/' ? pathname === href : pathname.startsWith(href);
     return (
         <SheetClose asChild>
             <Link href={href} passHref>
@@ -82,7 +82,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[80vw] sm:w-[50vw]">
               <div className="p-4">
-                 <Link href="/" className="flex items-center gap-2 mb-8">
+                 <Link href="/" className="flex items-center gap-2 mb-8" onClick={() => setIsOpen(false)}>
                     <Logo className="h-8 w-8" />
                     <span className="text-xl font-bold font-headline">StackNova</span>
                 </Link>
