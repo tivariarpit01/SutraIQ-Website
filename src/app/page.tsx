@@ -13,6 +13,14 @@ import { BpoServicesIcon } from '@/components/icons/BpoServicesIcon';
 
 const premiumServices = [
   {
+    icon: <WebDevIcon className="h-12 w-12" />,
+    title: 'Web Development',
+    description: 'We build beautiful, responsive, and high-performance websites and web applications tailored to your business needs, ensuring a great user experience.',
+    image: 'https://placehold.co/600x400',
+    dataAiHint: 'modern website design',
+    link: '/services'
+  },
+  {
     icon: <AppDevIcon className="h-12 w-12" />,
     title: 'Application Development',
     description: 'We build scalable and robust applications for web and mobile platforms, tailored to your specific business needs, ensuring a seamless user experience.',
@@ -115,11 +123,11 @@ export default function Home() {
               Driving innovation and excellence with our core technology offerings.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-1 lg:gap-12">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
             {premiumServices.map((service, index) => (
               <Card key={service.title} className="bg-card border-border/50 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20 overflow-hidden">
                 <div className={`grid grid-cols-1 md:grid-cols-2 items-center`}>
-                  <div className={`relative h-64 md:h-full w-full ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'}`}>
+                  <div className={`relative h-64 md:h-full w-full ${index % 2 !== 0 ? 'md:order-2' : 'md:order-1'}`}>
                      <Image
                         src={service.image}
                         alt={service.title}
@@ -129,7 +137,7 @@ export default function Home() {
                         className="transform hover:scale-105 transition-transform duration-500"
                       />
                   </div>
-                   <div className={`p-8 md:p-12 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}>
+                   <div className={`p-8 md:p-12 ${index % 2 !== 0 ? 'md:order-1' : 'md:order-2'}`}>
                     <div className="mb-4">
                       {service.icon}
                     </div>
