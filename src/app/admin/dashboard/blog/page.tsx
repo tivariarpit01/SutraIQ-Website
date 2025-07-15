@@ -26,19 +26,77 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { posts as staticPosts, type Post } from '@/lib/blog-data' // Using static data for now
+import { type Post } from '@/lib/blog-data'
 import { useEffect, useState } from 'react'
+import { getPosts, deletePost } from '@/lib/firestore'
+import { useRouter } from 'next/navigation'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import { useToast } from '@/hooks/use-toast'
+
 
 export default function AdminBlogPage() {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<Post | null>(null);
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const fetchPosts = async () => {
+    try {
+        setLoading(true);
+        setError(null);
+        const fetchedPosts = await getPosts();
+        setPosts(fetchedPosts);
+    } catch (err) {
+        setError("Failed to fetch posts. Please check your connection or Firebase setup.");
+        console.error(err);
+    } finally {
+        setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // In a real app, you would fetch this data from Firestore
-    // For now, we simulate a fetch with static data
-    setPosts(staticPosts)
-    setLoading(false)
+    fetchPosts();
   }, [])
+  
+  const handleDelete = async () => {
+    if (!postToDelete) return;
+
+    try {
+        await deletePost(postToDelete.slug);
+        toast({
+            title: "Post Deleted",
+            description: `"${postToDelete.title}" has been successfully deleted.`,
+        });
+        setPosts(posts.filter(p => p.id !== postToDelete.id));
+    } catch (err) {
+        toast({
+            title: "Error",
+            description: "Failed to delete the post. Please try again.",
+            variant: "destructive",
+        });
+        console.error(err);
+    } finally {
+        setShowDeleteDialog(false);
+        setPostToDelete(null);
+    }
+  };
+
+  const confirmDelete = (post: Post) => {
+    setPostToDelete(post);
+    setShowDeleteDialog(true);
+  };
 
   if (loading) {
     return (
@@ -48,8 +106,17 @@ export default function AdminBlogPage() {
     )
   }
 
+  if (error) {
+    return (
+         <div className="flex items-center justify-center h-full">
+            <p className="text-destructive">{error}</p>
+        </div>
+    )
+  }
+
 
   return (
+    <>
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
@@ -59,7 +126,7 @@ export default function AdminBlogPage() {
               Manage your articles and blog content.
             </CardDescription>
           </div>
-          <Button size="sm">
+          <Button size="sm" onClick={() => router.push('/admin/dashboard/blog/new')}>
             <PlusCircle className="mr-2 h-4 w-4" />
             Add New Post
           </Button>
@@ -86,7 +153,7 @@ export default function AdminBlogPage() {
                   {post.author}
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 flex-wrap">
                     {post.tags.map((tag) => (
                       <Badge key={tag} variant="outline">
                         {tag}
@@ -107,8 +174,8 @@ export default function AdminBlogPage() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => router.push(`/admin/dashboard/blog/edit/${post.slug}`)}>Edit</DropdownMenuItem>
+                      <DropdownMenuItem className="text-destructive" onClick={() => confirmDelete(post)}>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
@@ -116,7 +183,34 @@ export default function AdminBlogPage() {
             ))}
           </TableBody>
         </Table>
+         {posts.length === 0 && (
+            <div className="text-center p-8 text-muted-foreground">
+                <p>No blog posts found. Add your first post to get started!</p>
+            </div>
+        )}
       </CardContent>
     </Card>
+
+    <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete the post
+                    "{postToDelete?.title}".
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                    onClick={handleDelete}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                >
+                    Continue
+                </AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    </AlertDialog>
+    </>
   )
 }

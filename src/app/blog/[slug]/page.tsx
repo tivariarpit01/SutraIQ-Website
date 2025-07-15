@@ -1,4 +1,5 @@
-import { posts } from '@/lib/blog-data';
+
+import { getPost, getPosts } from '@/lib/firestore';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,9 +7,28 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import type { Post } from '@/lib/blog-data';
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = posts.find((p) => p.slug === params.slug);
+// This function can be uncommented to generate static pages at build time
+// export async function generateStaticParams() {
+//   const posts = await getPosts();
+//   return posts.map((post) => ({
+//     slug: post.slug,
+//   }));
+// }
+
+// Force dynamic rendering
+export const revalidate = 0;
+
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  let post: Post | null = null;
+  try {
+     post = await getPost(params.slug);
+  } catch (error) {
+     console.error("Error fetching post:", error);
+     // Let it fall through to the notFound() call
+  }
+
 
   if (!post) {
     notFound();
@@ -70,8 +90,3 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   );
 }
 
-export async function generateStaticParams() {
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}

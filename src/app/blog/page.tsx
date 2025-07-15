@@ -1,13 +1,35 @@
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { posts } from '@/lib/blog-data';
+import { getPosts } from '@/lib/firestore';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 
-export default function BlogPage() {
+// Force dynamic rendering
+export const revalidate = 0;
+
+export default async function BlogPage() {
+  const posts = await getPosts();
+  
+  if (!posts || posts.length === 0) {
+    return (
+      <div className="flex flex-col">
+        <section className="w-full py-20 md:py-28 lg:py-32 bg-secondary">
+          <div className="container mx-auto px-4 md:px-6 text-center">
+            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+              Insights & Ideas
+            </h1>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed mt-6">
+              Our blog is coming soon. Stay tuned for articles on technology, design, and business innovation.
+            </p>
+          </div>
+        </section>
+      </div>
+    )
+  }
+
   const featuredPost = posts[0];
   const otherPosts = posts.slice(1);
 
@@ -66,49 +88,51 @@ export default function BlogPage() {
       </section>
 
       {/* Blog Grid Section */}
-      <section className="py-16 md:py-24 bg-secondary">
-        <div className="container mx-auto px-4 md:px-6">
-          <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl mb-12">More Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {otherPosts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`} passHref>
-                <Card className="flex flex-col h-full bg-card p-0 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-2 shadow-xl hover:shadow-primary/25 overflow-hidden cursor-pointer">
-                    <div className="relative w-full h-48">
-                         <Image
-                            src={post.image}
-                            alt={post.title}
-                            layout="fill"
-                            objectFit="cover"
-                            data-ai-hint={post.imageAiHint}
-                        />
+      {otherPosts.length > 0 && (
+        <section className="py-16 md:py-24 bg-secondary">
+            <div className="container mx-auto px-4 md:px-6">
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl mb-12">More Articles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {otherPosts.map((post) => (
+                <Link key={post.id} href={`/blog/${post.slug}`} passHref>
+                    <Card className="flex flex-col h-full bg-card p-0 border-transparent hover:border-primary transition-all duration-300 transform hover:-translate-y-2 shadow-xl hover:shadow-primary/25 overflow-hidden cursor-pointer">
+                        <div className="relative w-full h-48">
+                            <Image
+                                src={post.image}
+                                alt={post.title}
+                                layout="fill"
+                                objectFit="cover"
+                                data-ai-hint={post.imageAiHint}
+                            />
+                        </div>
+                    <CardHeader>
+                        <div className="mb-2">
+                            {post.tags.map(tag => (
+                                <Badge key={tag} variant="secondary" className="mr-2 mb-2">{tag}</Badge>
+                            ))}
+                        </div>
+                        <h3 className="text-xl font-bold font-headline">{post.title}</h3>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <p className="text-muted-foreground text-sm">{post.excerpt}</p>
+                    </CardContent>
+                    <div className="p-6 pt-0 flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2">
+                            <Avatar className="h-8 w-8">
+                                <AvatarImage src={post.authorImage} data-ai-hint={post.authorAiHint}/>
+                                <AvatarFallback>{post.author.substring(0, 2)}</AvatarFallback>
+                            </Avatar>
+                            <span className="text-muted-foreground">{post.author}</span>
+                        </div>
+                        <span className="text-muted-foreground">{post.date}</span>
                     </div>
-                  <CardHeader>
-                      <div className="mb-2">
-                         {post.tags.map(tag => (
-                            <Badge key={tag} variant="secondary" className="mr-2 mb-2">{tag}</Badge>
-                        ))}
-                      </div>
-                      <h3 className="text-xl font-bold font-headline">{post.title}</h3>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <p className="text-muted-foreground text-sm">{post.excerpt}</p>
-                  </CardContent>
-                  <div className="p-6 pt-0 flex items-center justify-between text-sm">
-                     <div className="flex items-center gap-2">
-                        <Avatar className="h-8 w-8">
-                            <AvatarImage src={post.authorImage} data-ai-hint={post.authorAiHint}/>
-                            <AvatarFallback>{post.author.substring(0, 2)}</AvatarFallback>
-                        </Avatar>
-                        <span className="text-muted-foreground">{post.author}</span>
-                     </div>
-                     <span className="text-muted-foreground">{post.date}</span>
-                  </div>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+                    </Card>
+                </Link>
+                ))}
+            </div>
+            </div>
+        </section>
+      )}
     </div>
   );
 }
