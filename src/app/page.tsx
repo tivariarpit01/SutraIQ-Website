@@ -7,29 +7,39 @@ import { WebDevIcon } from '@/components/icons/WebDevIcon';
 import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon';
 import { AppDevIcon } from '@/components/icons/AppDevIcon';
 import { CloudSupportIcon } from '@/components/icons/CloudSupportIcon';
-import { Star } from 'lucide-react';
+import { Star, ArrowRight } from 'lucide-react';
+import { DigitalMarketingIcon } from '@/components/icons/DigitalMarketingIcon';
+import { BpoServicesIcon } from '@/components/icons/BpoServicesIcon';
 
-const services = [
-  {
-    icon: <WebDevIcon className="h-12 w-12" />,
-    title: 'Web Development',
-    description: 'Crafting stunning, high-performance websites that captivate and convert.',
-  },
+const premiumServices = [
   {
     icon: <AppDevIcon className="h-12 w-12" />,
-    title: 'App Development',
-    description: 'Building intuitive and scalable mobile applications for iOS and Android platforms.',
+    title: 'Application Development',
+    description: 'We build scalable and robust applications for web and mobile platforms, tailored to your specific business needs, ensuring a seamless user experience.',
+    image: 'https://placehold.co/600x400',
+    dataAiHint: 'mobile app interface',
+    link: '/services'
   },
   {
     icon: <AiAutomationIcon className="h-12 w-12" />,
-    title: 'AI Solutions',
-    description: 'Leveraging artificial intelligence to streamline operations and boost efficiency.',
+    title: 'AI & Automation',
+    description: 'Leverage the power of Artificial Intelligence to automate processes, gain insights from data, and create intelligent solutions that drive growth.',
+    image: 'https://placehold.co/600x400',
+    dataAiHint: 'abstract robot brain',
+    link: '/services'
   },
   {
     icon: <CloudSupportIcon className="h-12 w-12" />,
-    title: 'Cloud Support',
-    description: 'Providing reliable cloud infrastructure and support to ensure scalability and security.',
-  },
+    title: 'Cloud Solutions',
+    description: 'Our cloud services provide a secure, scalable, and reliable infrastructure, enabling your business to operate with agility and efficiency.',
+    image: 'https://placehold.co/600x400',
+    dataAiHint: 'server room network',
+    link: '/services'
+  }
+];
+
+const technologies = [
+  "Next.js", "React", "Node.js", "TypeScript", "Python", "Google Cloud", "Firebase", "Tailwind CSS", "Docker", "Kubernetes", "Genkit", "TensorFlow"
 ];
 
 const testimonials = [
@@ -82,33 +92,67 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Premium Services Section */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">Our Core Services</h2>
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">Our Premium Services</h2>
             <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-lg">
-              We provide a suite of services designed to elevate your business in the digital age.
+              Driving innovation and excellence with our core technology offerings.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {services.map((service) => (
-              <Card key={service.title} className="bg-card border-border/50 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-primary/20">
-                <CardHeader className="items-center">
-                  {service.icon}
-                </CardHeader>
-                <CardContent className="text-center">
-                  <h3 className="text-xl font-bold font-headline">{service.title}</h3>
-                  <p className="mt-2 text-muted-foreground">{service.description}</p>
-                </CardContent>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-1 lg:gap-12">
+            {premiumServices.map((service, index) => (
+              <Card key={service.title} className="bg-card border-border/50 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20 overflow-hidden">
+                <div className={`grid grid-cols-1 md:grid-cols-2 items-center`}>
+                  <div className={`relative h-64 md:h-full w-full ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'}`}>
+                     <Image
+                        src={service.image}
+                        alt={service.title}
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint={service.dataAiHint}
+                        className="transform hover:scale-105 transition-transform duration-500"
+                      />
+                  </div>
+                   <div className={`p-8 md:p-12 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}>
+                    <div className="mb-4">
+                      {service.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold font-headline mb-3">{service.title}</h3>
+                    <p className="text-muted-foreground mb-6">{service.description}</p>
+                    <Button asChild variant="link" className="p-0 font-semibold">
+                      <Link href={service.link}>Learn More <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                    </Button>
+                  </div>
+                </div>
               </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Technology Section */}
+      <section className="py-16 md:py-24 bg-secondary">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">Our Technology Stack</h2>
+            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-lg">
+              We use the best and latest technologies to build powerful, scalable, and secure solutions.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+            {technologies.map((tech) => (
+              <div key={tech} className="bg-card border rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted transition-colors">
+                {tech}
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 md:py-24 bg-secondary">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">What Our Clients Say</h2>

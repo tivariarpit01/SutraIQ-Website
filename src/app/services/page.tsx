@@ -6,6 +6,8 @@ import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon';
 import { AppDevIcon } from '@/components/icons/AppDevIcon';
 import { CloudSupportIcon } from '@/components/icons/CloudSupportIcon';
 import { ArrowRight } from 'lucide-react';
+import { DigitalMarketingIcon } from '@/components/icons/DigitalMarketingIcon';
+import { BpoServicesIcon } from '@/components/icons/BpoServicesIcon';
 
 const services = [
   {
@@ -31,6 +33,18 @@ const services = [
     title: 'Cloud Support',
     description: 'Leverage the power of the cloud with our expert support and management services. We ensure your cloud infrastructure is secure, scalable, and cost-effective, allowing you to focus on your core business.',
     details: ['Cloud Migration Services', 'Infrastructure as a Service (IaaS)', 'DevOps & CI/CD', 'Cloud Security & Compliance', '24/7 Monitoring & Support'],
+  },
+  {
+    icon: <DigitalMarketingIcon className="h-16 w-16" />,
+    title: 'Digital Marketing',
+    description: 'Amplify your brand\'s reach and engagement with our data-driven digital marketing strategies. We cover everything from SEO and content marketing to social media and PPC campaigns.',
+    details: ['Search Engine Optimization (SEO)', 'Pay-Per-Click (PPC) Advertising', 'Content Marketing', 'Social Media Management', 'Email Marketing Campaigns'],
+  },
+  {
+    icon: <BpoServicesIcon className="h-16 w-16" />,
+    title: 'BPO Services',
+    description: 'Optimize your operations and reduce costs with our reliable Business Process Outsourcing services. We handle back-office tasks, customer support, and more, so you can focus on your core competencies.',
+    details: ['Customer Support Services', 'Data Entry & Management', 'Back-Office Support', 'Technical Support', 'Virtual Assistant Services'],
   },
 ];
 
