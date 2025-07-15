@@ -1,4 +1,5 @@
 
+'use client'
 import {
   Sidebar,
   SidebarProvider,
@@ -18,6 +19,7 @@ import {
   Briefcase,
   MessageSquare,
   Users,
+  LogOut,
 } from 'lucide-react'
 import { Logo } from '@/components/icons/Logo'
 import Link from 'next/link'
@@ -30,8 +32,33 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card'
+import { useAuth } from '@/hooks/use-auth'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function AdminDashboard() {
+  const { user, loading, signOut } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/admin/login')
+    }
+  }, [user, loading, router])
+
+  const handleSignOut = async () => {
+    await signOut()
+    router.push('/admin/login')
+  }
+
+  if (loading || !user) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
   return (
     <SidebarProvider>
       <div className="flex min-h-screen bg-background">
@@ -80,6 +107,12 @@ export default function AdminDashboard() {
           </SidebarContent>
           <SidebarFooter>
             <SidebarMenu>
+               <SidebarMenuItem>
+                <SidebarMenuButton tooltip="Sign Out" onClick={handleSignOut}>
+                  <LogOut />
+                  <span>Sign Out</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton tooltip="Settings">
                   <Settings />
@@ -93,7 +126,7 @@ export default function AdminDashboard() {
           <header className="flex items-center justify-between p-4 border-b">
             <SidebarTrigger />
             <div className="flex items-center gap-4">
-              <span className="text-sm font-medium">Admin User</span>
+              <span className="text-sm font-medium">{user.email}</span>
               <Avatar className="h-9 w-9">
                 <AvatarImage src="https://placehold.co/100x100" />
                 <AvatarFallback>AU</AvatarFallback>
