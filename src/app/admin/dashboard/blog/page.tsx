@@ -26,9 +26,29 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { posts } from '@/lib/blog-data' // Using static data for now
+import { posts as staticPosts, type Post } from '@/lib/blog-data' // Using static data for now
+import { useEffect, useState } from 'react'
 
 export default function AdminBlogPage() {
+  const [posts, setPosts] = useState<Post[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // In a real app, you would fetch this data from Firestore
+    // For now, we simulate a fetch with static data
+    setPosts(staticPosts)
+    setLoading(false)
+  }, [])
+
+  if (loading) {
+    return (
+        <div className="flex items-center justify-center h-full">
+            <p>Loading posts...</p>
+        </div>
+    )
+  }
+
+
   return (
     <Card>
       <CardHeader>
