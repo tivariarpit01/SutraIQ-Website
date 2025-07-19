@@ -1,92 +1,60 @@
+'use client';
 
-import { getPost, getPosts } from '@/lib/firestore';
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Image from 'next/image';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import type { Post } from '@/lib/blog-data';
+import { ArrowRight } from 'lucide-react';
 
-// This function can be uncommented to generate static pages at build time
-// export async function generateStaticParams() {
-//   const posts = await getPosts();
-//   return posts.map((post) => ({
-//     slug: post.slug,
-//   }));
-// }
+// Dummy blog post data (replace with your own backend or CMS later)
+const posts = [
+  {
+    id: '1',
+    title: 'How AI is Changing Web Development',
+    description: 'Exploring the impact of artificial intelligence on frontend and backend workflows.',
+    tag: 'AI & Dev',
+    image: 'https://placehold.co/600x400',
+    href: '/blog/ai-web-dev',
+  },
+  {
+    id: '2',
+    title: '10 Tips for Responsive Design in 2025',
+    description: 'These modern UI/UX techniques will make your websites look slick on any device.',
+    tag: 'UI/UX',
+    image: 'https://placehold.co/600x400',
+    href: '/blog/responsive-design-2025',
+  },
+];
 
-// Force dynamic rendering
-export const revalidate = 0;
-
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  let post: Post | null = null;
-  try {
-     post = await getPost(params.slug);
-  } catch (error) {
-     console.error("Error fetching post:", error);
-     // Let it fall through to the notFound() call
-  }
-
-
-  if (!post) {
-    notFound();
-  }
-
+export default function BlogPage() {
   return (
-    <div className="container mx-auto px-4 md:px-6 py-16 md:py-24">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-            <Button asChild variant="ghost">
-                <Link href="/blog">
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to Blog
-                </Link>
-            </Button>
-        </div>
-
-        <article>
-          <header className="mb-12 text-center">
-            <div className="mb-4">
-              {post.tags.map(tag => (
-                <Badge key={tag} variant="secondary" className="mr-2 mb-2">{tag}</Badge>
-              ))}
-            </div>
-            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl mb-4">
-              {post.title}
-            </h1>
-            <div className="flex items-center justify-center gap-4 text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={post.authorImage} data-ai-hint={post.authorAiHint}/>
-                  <AvatarFallback>{post.author.substring(0, 2)}</AvatarFallback>
-                </Avatar>
-                <span>{post.author}</span>
-              </div>
-              <span>•</span>
-              <span>{post.date}</span>
-            </div>
-          </header>
-
-          <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-lg mb-12">
-            <Image
-              src={post.image}
-              alt={post.title}
-              layout="fill"
-              objectFit="cover"
-              data-ai-hint={post.imageAiHint}
-            />
-          </div>
-
-          <div 
-            className="prose prose-lg dark:prose-invert max-w-none mx-auto"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-
-        </article>
+    <div className="container mx-auto py-10">
+      <h1 className="text-4xl font-bold mb-8 text-center">Our Latest Insights</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {posts.map((post) => (
+          <Link key={post.id} href={post.href}>
+            <Card className="transition-all hover:shadow-xl hover:scale-[1.02] duration-200">
+              <CardHeader className="p-0">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  width={600}
+                  height={400}
+                  className="rounded-t-xl object-cover"
+                />
+              </CardHeader>
+              <CardContent className="p-4 space-y-2">
+                <Badge variant="outline">{post.tag}</Badge>
+                <h2 className="text-xl font-semibold">{post.title}</h2>
+                <p className="text-muted-foreground">{post.description}</p>
+                <span className="text-primary flex items-center gap-1">
+                  Read More <ArrowRight size={18} />
+                </span>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
       </div>
     </div>
   );
 }
-

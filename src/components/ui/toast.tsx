@@ -1,3 +1,4 @@
+// src/components/ui/toast.tsx
 "use client"
 
 import * as React from "react"
@@ -5,7 +6,7 @@ import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
 import { X } from "lucide-react"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils" // Ensure this path is correct
 
 const ToastProvider = ToastPrimitives.Provider
 
@@ -32,6 +33,9 @@ const toastVariants = cva(
         default: "border bg-background text-foreground",
         destructive:
           "destructive group border-destructive bg-destructive text-destructive-foreground",
+        // --- ADD THIS 'success' VARIANT HERE ---
+        success:
+          "success group border-green-500 bg-green-600 text-white", // You can adjust these Tailwind classes to your preference
       },
     },
     defaultVariants: {
@@ -112,13 +116,16 @@ const ToastDescription = React.forwardRef<
 ))
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 
-type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
+// Ensure this type alias uses the `Toast` component itself, which inherits VariantProps
+type ToastPropsFromRoot = React.ComponentPropsWithoutRef<typeof Toast>
+
+// It's good practice to rename this if you have two `ToastProps` definitions
+// Let's ensure this exports the correct type for `use-toast.ts`
+export type ToastProps = ToastPropsFromRoot; // This makes ToastProps available for use-toast.ts
 
 type ToastActionElement = React.ReactElement<typeof ToastAction>
 
 export {
-  type ToastProps,
-  type ToastActionElement,
   ToastProvider,
   ToastViewport,
   Toast,
@@ -126,4 +133,5 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  type ToastActionElement, // Exporting ToastActionElement is also common
 }

@@ -1,123 +1,105 @@
+'use client';
+
+import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Card, CardTitle } from '@/components/ui/card';
-import { WebDevIcon } from '@/components/icons/WebDevIcon';
-import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon';
-import { AppDevIcon } from '@/components/icons/AppDevIcon';
-import { CloudSupportIcon } from '@/components/icons/CloudSupportIcon';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import type { Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { DigitalMarketingIcon } from '@/components/icons/DigitalMarketingIcon';
-import { BpoServicesIcon } from '@/components/icons/BpoServicesIcon';
 
 const services = [
   {
-    icon: <WebDevIcon className="h-16 w-16" />,
     title: 'Web Development',
-    description: 'We build beautiful, responsive, and high-performance websites and web applications tailored to your business needs. From e-commerce platforms to corporate sites, our solutions are scalable, secure, and optimized for search engines.',
-    details: ['Custom UI/UX Design', 'Frontend & Backend Development', 'E-commerce Solutions', 'CMS Integration', 'Ongoing Maintenance & Support'],
+    description: 'From static websites to dynamic full-stack applications, we build fast, scalable, and responsive websites using modern tech stacks.',
+    image: '/images/services/web.png',
+    link: '/contact',
   },
   {
-    icon: <AppDevIcon className="h-16 w-16" />,
     title: 'App Development',
-    description: 'We design and develop intuitive, high-performance mobile applications for both iOS and Android platforms, ensuring a seamless user experience that aligns with your brand and business objectives.',
-    details: ['iOS & Android App Development', 'Cross-Platform Solutions', 'UI/UX for Mobile', 'App Maintenance & Support', 'App Store Optimization'],
+    description: 'We create mobile apps with beautiful UIs and seamless UX for both Android and iOS, using React Native and Flutter.',
+    image: '/images/services/app.png',
+    link: '/contact',
   },
   {
-    icon: <AiAutomationIcon className="h-16 w-16" />,
-    title: 'AI Solutions',
-    description: 'Unlock efficiency and innovation with our AI services. We help businesses automate repetitive tasks, gain insights from data, and create intelligent systems that drive growth and reduce operational costs.',
-    details: ['Process Automation (RPA)', 'AI-Powered Chatbots', 'Machine Learning Models', 'Data Analytics & Insights', 'Natural Language Processing (NLP)'],
+    title: 'AI & Automation',
+    description: 'Automate your business with AI-powered tools and workflows. We build LLM-integrated agents and custom AI systems.',
+    image: '/images/services/new.jpg',
+    link: '/contact',
   },
   {
-    icon: <CloudSupportIcon className="h-16 w-16" />,
-    title: 'Cloud Support',
-    description: 'Leverage the power of the cloud with our expert support and management services. We ensure your cloud infrastructure is secure, scalable, and cost-effective, allowing you to focus on your core business.',
-    details: ['Cloud Migration Services', 'Infrastructure as a Service (IaaS)', 'DevOps & CI/CD', 'Cloud Security & Compliance', '24/7 Monitoring & Support'],
+    title: 'UI/UX Design',
+    description: 'Crafting delightful user experiences through intuitive interfaces, wireframes, and prototypes that convert.',
+    image: '/images/services/ui_ux.png',
+    link: '/contact',
   },
   {
-    icon: <DigitalMarketingIcon className="h-16 w-16" />,
-    title: 'Digital Marketing',
-    description: 'Amplify your brand\'s reach and engagement with our data-driven digital marketing strategies. We cover everything from SEO and content marketing to social media and PPC campaigns.',
-    details: ['Search Engine Optimization (SEO)', 'Pay-Per-Click (PPC) Advertising', 'Content Marketing', 'Social Media Management', 'Email Marketing Campaigns'],
-  },
-  {
-    icon: <BpoServicesIcon className="h-16 w-16" />,
-    title: 'BPO Services',
-    description: 'Optimize your operations and reduce costs with our reliable Business Process Outsourcing services. We handle back-office tasks, customer support, and more, so you can focus on your core competencies.',
-    details: ['Customer Support Services', 'Data Entry & Management', 'Back-Office Support', 'Technical Support', 'Virtual Assistant Services'],
+    title: 'Cloud Services',
+    description: 'Reliable and scalable cloud infrastructure, customized for you.',
+    image: '/images/services/cloud.png',
+    link: '/contact',
   },
 ];
 
+
+
+const createCardVariants = (i: number): Variants => ({
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  },
+});
+
+
 export default function ServicesPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="w-full py-20 md:py-28 lg:py-32 bg-secondary">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-            Our Expertise, Your Success
-          </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-6">
-            Discover how our specialized services can empower your business to thrive in a competitive landscape.
-          </p>
-        </div>
-      </section>
+    <div className="max-w-6xl mx-auto py-16 px-4">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h1>
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          Empowering your business with cutting-edge technology solutions and strategic digital products.
+        </p>
+      </div>
 
-      {/* Services Details Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="space-y-16">
-            {services.map((service, index) => (
-              <Card key={service.title} className="p-6 md:p-8 lg:p-10 border-border/50 shadow-lg bg-card overflow-hidden">
-                <div className={`grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16 items-center`}>
-                  <div className={index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}>
-                    <div className="flex items-center gap-4 mb-4">
-                      {service.icon}
-                      <CardTitle className="font-headline text-3xl font-bold tracking-tight">{service.title}</CardTitle>
-                    </div>
-                    <p className="text-lg text-muted-foreground mb-6">{service.description}</p>
-                    <ul className="space-y-3">
-                      {service.details.map((detail) => (
-                        <li key={detail} className="flex items-center gap-3">
-                           <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent shrink-0"></div>
-                          <span className="font-medium">{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Button asChild size="lg" className="mt-8 font-semibold">
-                      <Link href="/get-started">Get a Quote <ArrowRight className="ml-2 h-5 w-5" /></Link>
-                    </Button>
-                  </div>
-                  <div className={`relative w-full h-64 md:h-80 rounded-lg overflow-hidden flex items-center justify-center ${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
-                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-50"></div>
-                     <div className="text-primary">
-                        {service.icon}
-                     </div>
-                  </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+        {services.map((service, i) => (
+          <motion.div
+            key={service.title}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={createCardVariants(i)}
+          >
+            <Card className="rounded-2xl overflow-hidden border hover:shadow-lg transition">
+              <CardContent className="p-0">
+                <div className="relative w-full h-64 bg-gray-100 dark:bg-gray-900">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-contain p-6"
+                  />
                 </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-secondary">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">Ready to Start Your Project?</h2>
-          <p className="mt-4 max-w-xl mx-auto text-muted-foreground md:text-lg">
-            Let's discuss how StackNova can help you achieve your goals. Contact us for a free consultation.
-          </p>
-          <div className="mt-8 flex justify-center gap-4 flex-wrap">
-            <Button asChild size="lg" className="font-semibold bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link href="/get-started">Get Started</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/contact">Contact Us</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+              </CardContent>
+              <div className="p-6">
+                <CardTitle className="text-2xl font-semibold mb-2">{service.title}</CardTitle>
+                <p className="text-muted-foreground mb-4">{service.description}</p>
+                <Button asChild variant="outline">
+                  <Link href={service.link}>
+                    Let’s Talk <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+                </Button>
+              </div>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }

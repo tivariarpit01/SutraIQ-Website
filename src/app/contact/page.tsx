@@ -46,8 +46,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">Phone</h3>
-                    <p className="text-muted-foreground">(123) 456-7890</p>
-                    <a href="tel:+11234567890" className="text-primary hover:underline">Call us</a>
+                    <p className="text-muted-foreground">(+91) 7678181385</p>
+                    <a href="tel:+7678181385" className="text-primary hover:underline">Call us</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -56,7 +56,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">Office</h3>
-                    <p className="text-muted-foreground">123 Innovation Drive, Tech City, 12345</p>
+                    <p className="text-muted-foreground">South West Delhi</p>
                     <a href="#" className="text-primary hover:underline">Get directions</a>
                   </div>
                 </div>
@@ -70,6 +70,17 @@ export default function ContactPage() {
       <section className="w-full h-[400px] bg-secondary">
           <div className="w-full h-full bg-muted flex items-center justify-center">
             <p className="text-muted-foreground">Map Placeholder</p>
+          <iframe
+  width="400"
+  height="400"
+  scrolling="no"
+  style={{ margin: 0 }}
+  id="gmap_canvas"
+  src="https://maps.google.com/maps?width=400&height=400&hl=en&q=nangloi%20jat%20laxmi%20park&z=13&ie=UTF8&i"
+  loading="lazy"
+  referrerPolicy="no-referrer-when-downgrade"
+/>
+
           </div>
       </section>
     </div>
