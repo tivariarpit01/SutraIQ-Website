@@ -144,7 +144,7 @@ export default function AboutPage() {
           </p>
           <div className="mt-8">
             <Button asChild size="lg">
-              <Link href="/careers">View Careers</Link>
+              <Link href="/carrier">View Careers</Link>
             </Button>
           </div>
         </div>
