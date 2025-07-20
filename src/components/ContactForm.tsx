@@ -102,11 +102,11 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="phoneNumber">Phone Number (Optional)</Label>
+        <Label htmlFor="phoneNumber">Phone Number</Label>
         <Input
           id="phoneNumber"
           type="tel"
-          placeholder="e.g., +1234567890"
+          placeholder="+91 9999999999"
           value={formData.phoneNumber}
           onChange={handleChange}
           disabled={isSubmitting}

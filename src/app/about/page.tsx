@@ -133,22 +133,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">Join Our Team</h2>
-          <p className="mt-4 max-w-xl mx-auto text-muted-foreground md:text-lg">
-            We're always on the lookout for passionate builders. Explore open roles.
-          </p>
-          <div className="mt-8">
-            <Button asChild size="lg">
-              <Link href="/carrier">View Careers</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      </section>     
     </div>
   );
 }

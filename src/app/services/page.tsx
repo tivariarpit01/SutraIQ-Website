@@ -13,31 +13,31 @@ const services = [
     title: 'Web Development',
     description: 'From static websites to dynamic full-stack applications, we build fast, scalable, and responsive websites using modern tech stacks.',
     image: '/images/services/web.png',
-    link: '/contact',
+    link: '/get-started',
   },
   {
     title: 'App Development',
     description: 'We create mobile apps with beautiful UIs and seamless UX for both Android and iOS, using React Native and Flutter.',
     image: '/images/services/app.png',
-    link: '/contact',
+    link: '/get-started',
   },
   {
     title: 'AI & Automation',
     description: 'Automate your business with AI-powered tools and workflows. We build LLM-integrated agents and custom AI systems.',
     image: '/images/services/new.jpg',
-    link: '/contact',
+    link: '/get-started',
   },
   {
     title: 'UI/UX Design',
     description: 'Crafting delightful user experiences through intuitive interfaces, wireframes, and prototypes that convert.',
     image: '/images/services/ui_ux.png',
-    link: '/contact',
+    link: '/get-started',
   },
   {
     title: 'Cloud Services',
     description: 'Reliable and scalable cloud infrastructure, customized for you.',
     image: '/images/services/cloud.png',
-    link: '/contact',
+    link: '/get-started',
   },
 ];
 
