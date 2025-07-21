@@ -1,5 +1,5 @@
 // src/lib/mongoose.ts
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 // Cache the connection to reuse it across hot reloads in development
 // This prevents "already connected" errors
@@ -26,13 +26,17 @@ async function connectToDatabase() {
 
     // Check if MONGODB_URI is defined
     if (!process.env.MONGODB_URI) {
-      throw new Error('MONGODB_URI is not defined in the environment variables.');
+      throw new Error(
+        "MONGODB_URI is not defined in the environment variables.",
+      );
     }
 
     // Create a new connection promise
-    cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
+    cached.promise = mongoose
+      .connect(process.env.MONGODB_URI, opts)
+      .then((mongoose) => {
+        return mongoose;
+      });
   }
 
   // Await the connection promise and store the connection object

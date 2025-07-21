@@ -1,11 +1,10 @@
 // src/components/JobApplicationForm.tsx
-'use client';
+"use client";
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { CheckCircle } from 'lucide-react'; // Import a success icon
+import { CheckCircle } from "lucide-react"; // Import a success icon
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +18,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import {
   Select,
@@ -30,7 +35,10 @@ import {
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { jobApplicationSchema, JobApplicationFormValues } from "@/schemas/jobApplicationSchema";
+import {
+  jobApplicationSchema,
+  JobApplicationFormValues,
+} from "@/schemas/jobApplicationSchema";
 
 // Define options for Select/Radio fields
 const positions = [
@@ -84,7 +92,10 @@ export function JobApplicationForm() {
     try {
       const dataToSend = {
         ...values,
-        skills: values.skills.split(',').map(skill => skill.trim()).filter(skill => skill.length > 0)
+        skills: values.skills
+          .split(",")
+          .map((skill) => skill.trim())
+          .filter((skill) => skill.length > 0),
       };
 
       const res = await fetch("/api/job/apply", {
@@ -96,7 +107,11 @@ export function JobApplicationForm() {
       });
 
       if (!res.ok) {
-        const errorData = await res.json().catch(() => ({ message: "Failed to submit application. Please check the server." }));
+        const errorData = await res
+          .json()
+          .catch(() => ({
+            message: "Failed to submit application. Please check the server.",
+          }));
         throw new Error(errorData.message);
       }
 
@@ -112,7 +127,6 @@ export function JobApplicationForm() {
       // setTimeout(() => {
       //   setIsSubmittedSuccessfully(false);
       // }, 5000); // Hide message and show form again after 5 seconds
-
     } catch (error: any) {
       console.error("Application submission failed:", error);
       toast({
@@ -129,10 +143,14 @@ export function JobApplicationForm() {
   return (
     <Card className="w-full max-w-2xl mx-auto border-border/50 shadow-lg mt-8 mb-16">
       <CardHeader>
-        <CardTitle className="font-headline text-3xl text-center">Job Application</CardTitle>
+        <CardTitle className="font-headline text-3xl text-center">
+          Job Application
+        </CardTitle>
         {/* Only show description if not successfully submitted */}
         {!isSubmittedSuccessfully && (
-          <CardDescription className="text-center">Fill out the form below to apply for a position with us.</CardDescription>
+          <CardDescription className="text-center">
+            Fill out the form below to apply for a position with us.
+          </CardDescription>
         )}
       </CardHeader>
       <CardContent>
@@ -140,9 +158,12 @@ export function JobApplicationForm() {
           // Display success message when isSubmittedSuccessfully is true
           <div className="flex flex-col items-center justify-center p-8 text-center min-h-[300px]">
             <CheckCircle className="h-20 w-20 text-green-500 mb-6 animate-bounce" />
-            <h2 className="text-2xl font-semibold mb-3 text-primary">Thank You for Applying!</h2>
+            <h2 className="text-2xl font-semibold mb-3 text-primary">
+              Thank You for Applying!
+            </h2>
             <p className="text-muted-foreground text-lg">
-              Your application has been successfully submitted. We will review it and get back to you soon.
+              Your application has been successfully submitted. We will review
+              it and get back to you soon.
             </p>
             {/* You can add a button to navigate somewhere or close, if needed */}
             {/* <Button className="mt-6" onClick={() => setIsSubmittedSuccessfully(false)}>Apply Again</Button> */}
@@ -152,7 +173,9 @@ export function JobApplicationForm() {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {/* Personal Information */}
-              <h3 className="text-lg font-semibold border-b pb-2 mb-4">Personal Information</h3>
+              <h3 className="text-lg font-semibold border-b pb-2 mb-4">
+                Personal Information
+              </h3>
               <FormField
                 control={form.control}
                 name="name"
@@ -186,9 +209,15 @@ export function JobApplicationForm() {
                   <FormItem>
                     <FormLabel>Phone Number</FormLabel>
                     <FormControl>
-                      <Input type="tel" placeholder="+91-1234567890" {...field} />
+                      <Input
+                        type="tel"
+                        placeholder="+91-1234567890"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormDescription>Please include country code if applicable.</FormDescription>
+                    <FormDescription>
+                      Please include country code if applicable.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -231,14 +260,19 @@ export function JobApplicationForm() {
               />
 
               {/* Application Details */}
-              <h3 className="text-lg font-semibold border-b pb-2 mb-4 mt-8">Application Details</h3>
+              <h3 className="text-lg font-semibold border-b pb-2 mb-4 mt-8">
+                Application Details
+              </h3>
               <FormField
                 control={form.control}
                 name="position"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Applying For</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a position" />
@@ -246,7 +280,9 @@ export function JobApplicationForm() {
                       </FormControl>
                       <SelectContent>
                         {positions.map((pos) => (
-                          <SelectItem key={pos} value={pos}>{pos}</SelectItem>
+                          <SelectItem key={pos} value={pos}>
+                            {pos}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -266,7 +302,10 @@ export function JobApplicationForm() {
                     <FormControl>
                       <Input placeholder="e.g., 5.5 or 12" {...field} />
                     </FormControl>
-                    <FormDescription>Please enter your expected Cost To Company (e.g., "5.5" for 5.5 Lakhs).</FormDescription>
+                    <FormDescription>
+                      Please enter your expected Cost To Company (e.g., "5.5"
+                      for 5.5 Lakhs).
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -277,7 +316,10 @@ export function JobApplicationForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Notice Period</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select your notice period" />
@@ -285,12 +327,15 @@ export function JobApplicationForm() {
                       </FormControl>
                       <SelectContent>
                         {noticePeriods.map((period) => (
-                          <SelectItem key={period} value={period}>{period}</SelectItem>
+                          <SelectItem key={period} value={period}>
+                            {period}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                     <FormDescription>
-                      How much notice do you need to give to your current employer?
+                      How much notice do you need to give to your current
+                      employer?
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -318,7 +363,9 @@ export function JobApplicationForm() {
               />
 
               {/* Links */}
-              <h3 className="text-lg font-semibold border-b pb-2 mb-4 mt-8">Links (Optional)</h3>
+              <h3 className="text-lg font-semibold border-b pb-2 mb-4 mt-8">
+                Links (Optional)
+              </h3>
               <FormField
                 control={form.control}
                 name="resume"
@@ -326,10 +373,14 @@ export function JobApplicationForm() {
                   <FormItem>
                     <FormLabel>Resume Link</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://your-resume.com/file.pdf" {...field} />
+                      <Input
+                        placeholder="https://your-resume.com/file.pdf"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
-                      Link to your online resume (e.g., Google Drive, personal website).
+                      Link to your online resume (e.g., Google Drive, personal
+                      website).
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -342,7 +393,10 @@ export function JobApplicationForm() {
                   <FormItem>
                     <FormLabel>LinkedIn Profile</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://linkedin.com/in/yourprofile" {...field} />
+                      <Input
+                        placeholder="https://linkedin.com/in/yourprofile"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
                       Link to your LinkedIn profile.
@@ -358,7 +412,10 @@ export function JobApplicationForm() {
                   <FormItem>
                     <FormLabel>GitHub Profile</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://github.com/yourusername" {...field} />
+                      <Input
+                        placeholder="https://github.com/yourusername"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
                       Link to your GitHub profile.
@@ -374,7 +431,10 @@ export function JobApplicationForm() {
                   <FormItem>
                     <FormLabel>Portfolio Link</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://your-portfolio.com" {...field} />
+                      <Input
+                        placeholder="https://your-portfolio.com"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
                       Link to your online portfolio (if applicable).
@@ -385,7 +445,9 @@ export function JobApplicationForm() {
               />
 
               <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting Application..." : "Submit Application"}
+                {isSubmitting
+                  ? "Submitting Application..."
+                  : "Submit Application"}
               </Button>
             </form>
           </Form>

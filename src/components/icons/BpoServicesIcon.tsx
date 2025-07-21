@@ -17,8 +17,14 @@ export const BpoServicesIcon = ({ className }: { className?: string }) => (
         <stop offset="100%" stopColor="hsl(var(--accent))" />
       </linearGradient>
     </defs>
-    <path d="M18 2h-4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z" stroke="url(#bpoGradient)" />
-    <path d="M12 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8" stroke="url(#bpoGradient)" />
+    <path
+      d="M18 2h-4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"
+      stroke="url(#bpoGradient)"
+    />
+    <path
+      d="M12 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8"
+      stroke="url(#bpoGradient)"
+    />
     <path d="M6 12h.01" stroke="url(#bpoGradient)" />
   </svg>
 );

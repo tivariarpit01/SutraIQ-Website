@@ -1,13 +1,13 @@
-import connectToDatabase from '@/lib/mongoose';
-import GetStarted from '@/lib/models/GetStarted';
-import { NextResponse } from 'next/server';
+import connectToDatabase from "@/lib/mongoose";
+import GetStarted from "@/lib/models/GetStarted";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
     await connectToDatabase();
 
     const body = await request.json();
-    const { name, email, company = '', services, details, budget = '' } = body;
+    const { name, email, company = "", services, details, budget = "" } = body;
 
     // Validation: Check required fields
     if (
@@ -18,8 +18,8 @@ export async function POST(request: Request) {
       !details?.trim()
     ) {
       return NextResponse.json(
-        { success: false, message: 'Required fields are missing or invalid.' },
-        { status: 400 }
+        { success: false, message: "Required fields are missing or invalid." },
+        { status: 400 },
       );
     }
 
@@ -33,18 +33,21 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(
-      { success: true, message: 'Quote created successfully.', data: newQuote },
-      { status: 201 }
+      { success: true, message: "Quote created successfully.", data: newQuote },
+      { status: 201 },
     );
   } catch (error: any) {
-    console.error('❌ Quote submission failed:', error.message);
+    console.error("❌ Quote submission failed:", error.message);
     return NextResponse.json(
-      { success: false, message: 'Internal Server Error' },
-      { status: 500 }
+      { success: false, message: "Internal Server Error" },
+      { status: 500 },
     );
   }
 }
 
 export function GET() {
-  return NextResponse.json({ message: 'GET method not allowed' }, { status: 405 });
+  return NextResponse.json(
+    { message: "GET method not allowed" },
+    { status: 405 },
+  );
 }

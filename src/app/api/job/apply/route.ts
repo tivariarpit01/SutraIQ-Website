@@ -27,7 +27,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
   } catch (err: unknown) {
     console.error(err);
-    
+
     // TS-safe error extraction
     const errorMessage = err instanceof Error ? err.message : "Unknown error";
 
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         message: "Something went wrong.",
         error: errorMessage,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

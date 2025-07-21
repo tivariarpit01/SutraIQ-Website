@@ -1,5 +1,5 @@
 // global.d.ts
-import { Mongoose } from 'mongoose';
+import { Mongoose } from "mongoose";
 
 declare global {
   var mongoose: {

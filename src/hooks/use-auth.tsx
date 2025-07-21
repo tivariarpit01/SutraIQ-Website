@@ -1,15 +1,20 @@
+"use client";
 
-'use client'
-
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
   User,
-} from 'firebase/auth';
-import { firebaseApp } from '@/lib/firebase'; // This will be created next
+} from "firebase/auth";
+import { firebaseApp } from "@/lib/firebase"; // This will be created next
 
 // NOTE: This is a simplified auth hook for demonstration.
 // In a real application, you would handle errors and edge cases more robustly.
@@ -25,19 +30,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Stand-in for the real User object for testing purposes
 const mockUser = {
-  uid: 'test-user',
-  email: 'admin@example.com',
-  displayName: 'Admin User',
+  uid: "test-user",
+  email: "admin@example.com",
+  displayName: "Admin User",
   // Add other user properties as needed, matching the User type
 } as User;
-
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
   const auth = getAuth(firebaseApp);
-  const isFirebaseConfigured = process.env.NEXT_PUBLIC_FIREBASE_API_KEY && process.env.NEXT_PUBLIC_FIREBASE_API_KEY !== "YOUR_API_KEY";
+  const isFirebaseConfigured =
+    process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
+    process.env.NEXT_PUBLIC_FIREBASE_API_KEY !== "YOUR_API_KEY";
 
   useEffect(() => {
     // If firebase is not configured, we just use the mock user for testing
@@ -60,12 +66,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // If firebase isn't set up, use a mock login for testing
     if (!isFirebaseConfigured) {
       return new Promise((resolve, reject) => {
-        if (email === 'admin@example.com' && password === 'password') {
+        if (email === "admin@example.com" && password === "password") {
           setUser(mockUser);
           setLoading(false);
           resolve(true);
         } else {
-           reject(new Error('auth/invalid-credential'));
+          reject(new Error("auth/invalid-credential"));
         }
       });
     }
@@ -74,28 +80,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = () => {
-     if (!isFirebaseConfigured) {
-        return new Promise((resolve) => {
-            setUser(null);
-            resolve();
-        });
-     }
+    if (!isFirebaseConfigured) {
+      return new Promise((resolve) => {
+        setUser(null);
+        resolve();
+      });
+    }
     return firebaseSignOut(auth);
   };
 
   const value = { user, loading, signIn, signOut };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }

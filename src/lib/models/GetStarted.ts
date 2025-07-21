@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const QuoteSchema = new mongoose.Schema({
   name: {
@@ -13,16 +13,16 @@ const QuoteSchema = new mongoose.Schema({
   },
   company: {
     type: String,
-    default: '',
+    default: "",
   },
   services: {
     type: [String],
     required: true,
     validate: {
-      validator: function(val:string[]) {
+      validator: function (val: string[]) {
         return Array.isArray(val) && val.length > 0;
       },
-      message: 'At least one service is required.',
+      message: "At least one service is required.",
     },
   },
   details: {
@@ -32,13 +32,14 @@ const QuoteSchema = new mongoose.Schema({
   },
   budget: {
     type: String,
-    default: '',
+    default: "",
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
-const GetStartedModel = mongoose.models.GetStarted || mongoose.model('GetStarted', QuoteSchema);
+const GetStartedModel =
+  mongoose.models.GetStarted || mongoose.model("GetStarted", QuoteSchema);
 
 export default GetStartedModel;

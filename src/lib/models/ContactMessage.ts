@@ -1,11 +1,11 @@
 // src/models/ContactMessage.ts
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document, Model } from "mongoose";
 
 // Define the interface for a ContactMessage document
 export interface IContactMessage extends Document {
   name: string;
   email: string;
-  phoneNumber?: string; 
+  phoneNumber?: string;
   message: string;
   createdAt: Date;
 }
@@ -22,6 +22,6 @@ const ContactMessageSchema: Schema = new Schema({
 // Check if the model already exists to prevent re-compilation in development
 const ContactMessage: Model<IContactMessage> =
   (mongoose.models.ContactMessage as Model<IContactMessage>) ||
-  mongoose.model<IContactMessage>('ContactMessage', ContactMessageSchema);
+  mongoose.model<IContactMessage>("ContactMessage", ContactMessageSchema);
 
 export default ContactMessage;

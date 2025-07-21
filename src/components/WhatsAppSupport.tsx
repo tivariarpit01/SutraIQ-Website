@@ -1,11 +1,10 @@
-// components/WhatsAppSupport.tsx or WhatsAppSupport.jsx
-'use client';
+"use client";
 
-import { FaWhatsapp } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { FaWhatsapp } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const WhatsAppSupport = () => {
-  const phoneNumber = '7678181385';
+  const phoneNumber = "7678181385";
 
   return (
     <motion.a

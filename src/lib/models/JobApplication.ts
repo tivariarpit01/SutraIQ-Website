@@ -15,7 +15,7 @@ const JobApplicationSchema = new mongoose.Schema(
     noticePeriod: { type: String },
     skills: [String],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.models.JobApplication ||

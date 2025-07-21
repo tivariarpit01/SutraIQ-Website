@@ -10,7 +10,8 @@ export default function GetStartedPage() {
             Let's Build Something Amazing
           </h1>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed mt-6">
-            Tell us about your project. This information will help us understand your needs and prepare for our initial conversation.
+            Tell us about your project. This information will help us understand
+            your needs and prepare for our initial conversation.
           </p>
         </div>
       </section>
