@@ -8,44 +8,41 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import type { Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
+// Data for the services section
 const services = [
   {
     title: "Web Development",
-    description:
-      "From static websites to dynamic full-stack applications, we build fast, scalable, and responsive websites using modern tech stacks.",
+    description: "From static websites to dynamic full-stack applications, we build fast, scalable, and responsive websites using modern tech stacks.",
     image: "/images/services/web.png",
     link: "/get-started",
   },
   {
     title: "App Development",
-    description:
-      "We create mobile apps with beautiful UIs and seamless UX for both Android and iOS, using React Native and Flutter.",
+    description: "We create mobile apps with beautiful UIs and seamless UX for both Android and iOS, using React Native and Flutter.",
     image: "/images/services/app.png",
     link: "/get-started",
   },
   {
     title: "AI & Automation",
-    description:
-      "Automate your business with AI-powered tools and workflows. We build LLM-integrated agents and custom AI systems.",
+    description: "Automate your business with AI-powered tools and workflows. We build LLM-integrated agents and custom AI systems.",
     image: "/images/services/Ai.png",
     link: "/get-started",
   },
   {
     title: "UI/UX Design",
-    description:
-      "Crafting delightful user experiences through intuitive interfaces, wireframes, and prototypes that convert.",
-    image: "/images/services/uiux.png", // Make sure this image exists
+    description: "Crafting delightful user experiences through intuitive interfaces, wireframes, and prototypes that convert.",
+    image: "/images/services/uiux.png", 
     link: "/get-started",
   },
   {
     title: "Cloud Services",
-    description:
-      "Reliable and scalable cloud infrastructure, customized for you.",
+    description: "Reliable and scalable cloud infrastructure, customized for you.",
     image: "/images/services/cloud.png",
     link: "/get-started",
   },
 ];
 
+// Function to create staggered animation variants
 const createCardVariants = (i: number): Variants => ({
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -58,6 +55,9 @@ const createCardVariants = (i: number): Variants => ({
     },
   },
 });
+
+// FIX: Create a motion-wrapped version of the Card component
+const MotionCard = motion(Card);
 
 export default function ServicesPage() {
   return (
@@ -72,43 +72,40 @@ export default function ServicesPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
         {services.map((service, i) => (
-          <motion.div
+          // FIX: Use the MotionCard directly instead of wrapping a Card in a motion.div
+          <MotionCard
             key={service.title}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={createCardVariants(i)}
+            className="rounded-2xl overflow-hidden border hover:shadow-lg transition"
           >
-            <Card className="rounded-2xl overflow-hidden border hover:shadow-lg transition">
-              <CardContent className="p-0">
-                <div className="relative w-full h-64">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    // FIX: Added sizes prop to comply with Next.js Image component requirements for 'fill'
-                    // Adjust these values based on your actual responsive grid and container widths
-                    // Example: 100vw for small screens, 50vw for sm:grid-cols-2
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover transition-transform hover:scale-105"
-                  />
-                </div>
-              </CardContent>
-              <div className="p-6">
-                <CardTitle className="text-2xl font-semibold mb-2">
-                  {service.title}
-                </CardTitle>
-                <p className="text-muted-foreground mb-4">
-                  {service.description}
-                </p>
-                <Button asChild variant="outline">
-                  <Link href={service.link}>
-                    Let’s Talk <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
+            <CardContent className="p-0">
+              <div className="relative w-full h-64">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  className="object-cover transition-transform hover:scale-105"
+                />
               </div>
-            </Card>
-          </motion.div>
+            </CardContent>
+            <div className="p-6">
+              <CardTitle className="text-2xl font-semibold mb-2">
+                {service.title}
+              </CardTitle>
+              <p className="text-muted-foreground mb-4">
+                {service.description}
+              </p>
+              <Button asChild variant="outline">
+                <Link href={service.link}>
+                  Let’s Talk <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
+            </div>
+          </MotionCard>
         ))}
       </div>
     </div>

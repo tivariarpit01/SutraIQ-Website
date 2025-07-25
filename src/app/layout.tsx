@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import WhatsAppSupport from "@/components/WhatsAppSupport";
+import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper"; 
 import "./globals.css";
 
-// SEO Metadata
+// SEO Metadata remains the same.
 export const metadata: Metadata = {
   title: "StackNova Design System",
   description: "Innovative solutions for the modern web.",
@@ -21,12 +20,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="dark">
       <body className="font-body antialiased">
         <div className="relative flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <ClientLayoutWrapper>
+            {children}
+          </ClientLayoutWrapper>
         </div>
-
-        {/* These are client-only components */}
         <Toaster />
         <WhatsAppSupport />
       </body>

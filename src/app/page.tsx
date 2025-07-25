@@ -123,10 +123,6 @@ export default function HomePage() {
                     src={service.image}
                     alt={service.title}
                     fill
-                    // FIX: Added sizes prop for performance with 'fill'
-                    // The parent grid is md:grid-cols-2, so on small screens it's 100vw,
-                    // and on medium screens and up, it's 50vw (half of the container).
-                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-contain transition-transform hover:scale-105"
                   />
                 </div>

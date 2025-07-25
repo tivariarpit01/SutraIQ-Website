@@ -6,25 +6,51 @@ import { Logo } from "@/components/icons/Logo";
 import { Twitter, Linkedin, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// --- Data defined outside the component for better organization ---
+
+const socialLinks = [
+  { Icon: Twitter, label: "Twitter", href: "https://twitter.com/your-profile" },
+  { Icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/your-profile" },
+  { Icon: Github, label: "GitHub", href: "https://github.com/your-profile" },
+];
+
+const footerSections = [
+  {
+    title: "Services",
+    links: [
+      { name: "Web Development", href: "/services#web" },
+      { name: "App Development", href: "/services#app" },
+      { name: "AI Solutions", href: "/services#ai" },
+      { name: "Cloud Support", href: "/services#cloud" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { name: "About Us", href: "/about" },
+      { name: "Blog", href: "/blog" },
+      { name: "Contact", href: "/contact" },
+      { name: "Get Started", href: "/get-started" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms of Service", href: "/terms" },
+      { name: "Careers", href: "/careers" },
+    ],
+  },
+];
+
+
 export default function Footer() {
-  // State to store the current year. Initialize as an empty string for SSR.
-  const [year, setYear] = useState<string>("");
-  // State to track if the component has mounted on the client.
-  const [isClient, setIsClient] = useState(false);
+  const [year, setYear] = useState("");
 
   useEffect(() => {
-    // This effect runs only on the client after the component mounts.
-    // It sets the current year and marks the component as client-mounted.
+    // This effect runs only on the client, preventing a hydration mismatch.
     setYear(new Date().getFullYear().toString());
-    setIsClient(true);
   }, []);
-
-  // Define social media links with explicit aria-labels for consistent SSR and CSR.
-  const socialLinks = [
-    { Icon: Twitter, label: "Twitter", href: "#" },
-    { Icon: Linkedin, label: "LinkedIn", href: "#" },
-    { Icon: Github, label: "GitHub", href: "#" },
-  ];
 
   return (
     <footer className="border-t border-border/40 bg-background">
@@ -39,58 +65,27 @@ export default function Footer() {
             <p className="text-muted-foreground text-sm">
               Designing Tomorrow's Innovations.
             </p>
-            <div className="mt-4 flex space-x-2">
-              {/* Map over socialLinks to render each social media button */}
-              {socialLinks.map((social, i) => {
-                const Icon = social.Icon; // Get the Lucide React icon component
-                return (
-                  <Button variant="ghost" size="icon" asChild key={i}>
-                    {/* Link component with explicit aria-label for accessibility */}
-                    <Link href={social.href} aria-label={social.label}>
-                      <Icon className="h-5 w-5" />
-                    </Link>
-                  </Button>
-                );
-              })}
+            <div className="mt-4 flex space-x-1">
+              {socialLinks.map((social) => (
+                <Button variant="ghost" size="icon" asChild key={social.label}>
+                  <Link href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer">
+                    <social.Icon className="h-5 w-5" />
+                  </Link>
+                </Button>
+              ))}
             </div>
           </div>
 
-          {/* Navigation Sections: Services, Company, Legal */}
-          {[
-            {
-              title: "Services",
-              links: ["Web Development", "App Development", "AI Solutions", "Cloud Support"],
-              href: "/services", // Base href for services, individual links might be relative to this
-            },
-            {
-              title: "Company",
-              links: [
-                { name: "About Us", href: "/about" },
-                { name: "Blog", href: "/blog" },
-                { name: "Contact", href: "/contact" },
-                { name: "Get Started", href: "/get-started" },
-              ],
-            },
-            {
-              title: "Legal",
-              links: [
-                { name: "Privacy Policy", href: "/privacy" },
-                { name: "Terms of Service", href: "/terms" },
-                { name: "Carrier", href: "/carrier" },
-              ],
-            },
-          ].map((section, idx) => (
-            <div key={idx}>
+          {/* Navigation Sections */}
+          {footerSections.map((section) => (
+            <div key={section.title}>
               <h3 className="font-semibold mb-4">{section.title}</h3>
               <ul className="space-y-2">
-                {/* Map over links within each section */}
-                {(section.links as any[]).map((link: any) => (
-                  <li key={typeof link === "string" ? link : link.name}>
-                    <Link
-                      href={typeof link === "string" ? section.href : link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {typeof link === "string" ? link : link.name}
+                {/* REFACTOR: Simplified mapping logic with a consistent data structure */}
+                {section.links.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors text-sm">
+                      {link.name}
                     </Link>
                   </li>
                 ))}
@@ -101,15 +96,9 @@ export default function Footer() {
 
         {/* Copyright Section */}
         <div className="mt-8 border-t border-border/40 pt-6 text-center text-sm text-muted-foreground">
-          {/*
-            FIX: Conditionally render the copyright text only on the client-side.
-            During SSR, this <p> tag will be empty, ensuring no mismatch.
-            On the client, once mounted, the 'year' will be populated and displayed.
-            This is the most robust way to handle dynamic content that changes
-            between server and client rendering.
-          */}
+          {/* REFACTOR: Simplified the client-side check */}
           <p>
-            {isClient ? `© ${year} StackNova. All Rights Reserved.` : ''}
+            {year && `© ${year} StackNova. All Rights Reserved.`}
           </p>
         </div>
       </div>
