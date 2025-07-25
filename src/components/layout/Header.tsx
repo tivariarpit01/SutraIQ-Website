@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react"; // useState and useEffect are still needed for Sheet/Mobile navigation
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -22,9 +22,12 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+// FIX: Removed the 'hydrated' state and useEffect from NavLink
 const NavLink = ({ href, label }: { href: string; label: string }) => {
   const pathname = usePathname();
+  // isActive is now calculated directly and consistently on both server and client
   const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
+
   return (
     <Link href={href} passHref>
       <span
@@ -39,9 +42,12 @@ const NavLink = ({ href, label }: { href: string; label: string }) => {
   );
 };
 
+// FIX: Removed the 'hydrated' state and useEffect from MobileNavLink
 const MobileNavLink = ({ href, label }: { href: string; label: string }) => {
   const pathname = usePathname();
+  // isActive is now calculated directly and consistently on both server and client
   const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
+
   return (
     <SheetClose asChild>
       <Link href={href} passHref>

@@ -1,60 +1,50 @@
-import type { NextConfig } from "next";
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
+import { type NextConfig } from 'next';
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
+/** Enable bundle analyzer only when ANALYZE=true */
+const withAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
 });
 
 /** @type {NextConfig} */
-const nextConfig: NextConfig = withBundleAnalyzer({
-  reactStrictMode: true, // Catches bugs early
-  // swcMinify: true, // <-- REMOVE THIS LINE - It's true by default and no longer a direct config option
-  compress: true, // Enable gzip compression
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  compress: true,
   typescript: {
-    ignoreBuildErrors: true, // TEMPORARY - Turn off later in prod
+    ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
   images: {
-    formats: ["image/webp"], // smaller file size
+    formats: ['image/webp'],
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "placehold.co",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'placehold.co',
+        port: '',
+        pathname: '/**',
       },
-      // You also had images like /images/services/web.png etc.
-      // If those are external, you might need to add their hostnames too.
-      // For local images (in public folder), remotePatterns are not needed.
     ],
   },
-  // --- REPLACE 'experimental.turbo' with 'turbopack' ---
-  turbopack: {
-    // If you need specific Turbopack options, they go here as an object.
-    // Otherwise, an empty object is fine to acknowledge it.
-    // e.g., if you had specific resolvers:
-    // resolve: {
-    //   alias: {
-    //     '@/components': './src/components',
-    //   },
-    // },
-  },
-  // --- END turbopack config ---
+
+  turbopack: {},
   headers: async () => [
     {
-      source: "/(.*)",
+      source: '/(.*)',
       headers: [
         {
-          key: "Cache-Control",
-          value: "public, max-age=31536000, immutable",
+          key: 'Cache-Control',
+          value: 'public, max-age=31536000, immutable',
         },
         {
-          key: "X-Content-Type-Options",
-          value: "nosniff",
+          key: 'X-Content-Type-Options',
+          value: 'nosniff',
         },
       ],
     },
   ],
-});
+};
 
-export default nextConfig;
+// Wrap with bundle analyzer if ANALYZE is true
+export default withAnalyzer(nextConfig);

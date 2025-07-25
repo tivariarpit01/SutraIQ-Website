@@ -1,97 +1,94 @@
-"use client"; // <--- Keep this if you need client-side interactivity like hover effects
+'use client'
 
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { WebDevIcon } from "@/components/icons/WebDevIcon";
-import { AiAutomationIcon } from "@/components/icons/AiAutomationIcon";
-import { AppDevIcon } from "@/components/icons/AppDevIcon";
-import { CloudSupportIcon } from "@/components/icons/CloudSupportIcon";
-import { Star, ArrowRight } from "lucide-react";
+import Link from 'next/link'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { WebDevIcon } from '@/components/icons/WebDevIcon'
+import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon'
+import { AppDevIcon } from '@/components/icons/AppDevIcon'
+import { CloudSupportIcon } from '@/components/icons/CloudSupportIcon'
+import { Star, ArrowRight } from 'lucide-react'
 
-// ✅ Service data with real image paths - ENSURE THESE ARE THE ONLY IMAGES USED
 const premiumServices = [
   {
     icon: <WebDevIcon className="h-12 w-12" />,
-    title: "Web Development",
+    title: 'Web Development',
     description:
-      "Beautiful, responsive, and high-performance websites tailored to your brand.",
-    image: "/images/services/web.png", // Keep this path
-    link: "/services",
+      'Beautiful, responsive, and high-performance websites tailored to your brand.',
+    image: '/images/services/web.png',
+    link: '/services',
   },
   {
     icon: <AppDevIcon className="h-12 w-12" />,
-    title: "Application Development",
+    title: 'Application Development',
     description:
-      "Robust applications for mobile and web, optimized for scalability.",
-    image: "/images/services/app.png", // Keep this path
-    link: "/services",
+      'Robust applications for mobile and web, optimized for scalability.',
+    image: '/images/services/app.png',
+    link: '/services',
   },
   {
     icon: <AiAutomationIcon className="h-12 w-12" />,
-    title: "AI & Automation",
-    description: "Harness AI to streamline operations and unlock growth.",
-    image: "/images/services/Ai.png", // Keep this path
-    link: "/services",
+    title: 'AI & Automation',
+    description: 'Harness AI to streamline operations and unlock growth.',
+    image: '/images/services/Ai.png',
+    link: '/services',
   },
   {
     icon: <CloudSupportIcon className="h-12 w-12" />,
-    title: "Cloud Solutions",
-    description:
-      "Reliable and scalable cloud infrastructure, customized for you.",
-    image: "/images/services/cloud.png", // Keep this path
-    link: "/services",
+    title: 'Cloud Solutions',
+    description: 'Reliable and scalable cloud infrastructure, customized for you.',
+    image: '/images/services/cloud.png',
+    link: '/services',
   },
-];
+]
 
-// ✅ Testimonials with image avatars
 const testimonials = [
   {
-    name: "Sarah Johnson",
-    title: "CEO, Tech Innovators",
-    quote: "StackNova transformed our web presence. We saw 200% growth!",
-    avatar: "/images/team/arpit.jpeg",
+    name: 'Sarah Johnson',
+    title: 'CEO, Tech Innovators',
+    quote: 'StackNova transformed our web presence. We saw 200% growth!',
+    avatar: '/images/team/arpit.jpeg',
   },
   {
-    name: "Michael Chen",
-    title: "Marketing Director, FutureGadget",
-    quote: "Their campaign strategies boosted our ROI like crazy.",
-    avatar: "/images/team/arpit.jpeg",
+    name: 'Michael Chen',
+    title: 'Marketing Director, FutureGadget',
+    quote: 'Their campaign strategies boosted our ROI like crazy.',
+    avatar: '/images/team/arpit.jpeg',
   },
   {
-    name: "Emily Rodriguez",
-    title: "COO, Creative Solutions",
-    quote: "Freed up internal time with smooth operations. Stellar team!",
-    avatar: "/images/team/arpit.jpeg",
+    name: 'Emily Rodriguez',
+    title: 'COO, Creative Solutions',
+    quote: 'Freed up internal time with smooth operations. Stellar team!',
+    avatar: '/images/team/arpit.jpeg',
   },
-];
+]
 
 const technologies = [
-  "Next.js",
-  "React",
-  "Node.js",
-  "TypeScript",
-  "Python",
-  "Google Cloud",
-  "Firebase",
-  "Tailwind CSS",
-  "Docker",
-  "Kubernetes",
-  "Genkit",
-  "TensorFlow",
-];
+  'Next.js',
+  'React',
+  'Node.js',
+  'TypeScript',
+  'Python',
+  'Google Cloud',
+  'Firebase',
+  'Tailwind CSS',
+  'Docker',
+  'Kubernetes',
+  'Genkit',
+  'TensorFlow',
+]
 
 const trustedByLogos = [
-  "Innovate Inc.",
-  "QuantumLeap",
-  "Stellar Solutions",
-  "Apex Enterprises",
-  "Visionary Ventures",
-];
+  'Innovate Inc.',
+  'QuantumLeap',
+  'Stellar Solutions',
+  'Apex Enterprises',
+  'Visionary Ventures',
+]
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* HERO */}
@@ -100,8 +97,7 @@ export default function Home() {
           Designing Tomorrow’s Innovations
         </h1>
         <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-          StackNova is your partner in building the future — one innovation at a
-          time.
+          StackNova is your partner in building the future — one innovation at a time.
         </p>
         <div className="mt-6 flex justify-center gap-4">
           <Button asChild>
@@ -122,13 +118,15 @@ export default function Home() {
               className="overflow-hidden hover:shadow-xl transition-all duration-300"
             >
               <div className="grid md:grid-cols-2">
-                {/* Image container: Ensure className is IDENTICAL on server and client */}
                 <div className="relative w-full h-64 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
                   <Image
-                    src={service.image} // This MUST match the server-rendered src
+                    src={service.image}
                     alt={service.title}
-                    fill // Keep fill if you want the image to stretch within the container
-                    // Ensure object-fit is consistent. You previously wanted object-contain.
+                    fill
+                    // FIX: Added sizes prop for performance with 'fill'
+                    // The parent grid is md:grid-cols-2, so on small screens it's 100vw,
+                    // and on medium screens and up, it's 50vw (half of the container).
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-contain transition-transform hover:scale-105"
                   />
                 </div>
@@ -152,7 +150,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TECHNOLOGY STACK */}
+      {/* TECH STACK */}
       <section className="py-20 bg-secondary">
         <div className="text-center">
           <h2 className="text-3xl font-bold">Our Technology Stack</h2>
@@ -235,5 +233,5 @@ export default function Home() {
         </div>
       </section>
     </div>
-  );
+  )
 }

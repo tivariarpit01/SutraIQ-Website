@@ -27,14 +27,14 @@ const services = [
     title: "AI & Automation",
     description:
       "Automate your business with AI-powered tools and workflows. We build LLM-integrated agents and custom AI systems.",
-    image: "/images/services/new.jpg",
+    image: "/images/services/Ai.png",
     link: "/get-started",
   },
   {
     title: "UI/UX Design",
     description:
       "Crafting delightful user experiences through intuitive interfaces, wireframes, and prototypes that convert.",
-    image: "/images/services/ui_ux.png",
+    image: "/images/services/uiux.png", // Make sure this image exists
     link: "/get-started",
   },
   {
@@ -81,12 +81,16 @@ export default function ServicesPage() {
           >
             <Card className="rounded-2xl overflow-hidden border hover:shadow-lg transition">
               <CardContent className="p-0">
-                <div className="relative w-full h-64 bg-gray-100 dark:bg-gray-900">
+                <div className="relative w-full h-64">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-contain p-6"
+                    // FIX: Added sizes prop to comply with Next.js Image component requirements for 'fill'
+                    // Adjust these values based on your actual responsive grid and container widths
+                    // Example: 100vw for small screens, 50vw for sm:grid-cols-2
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover transition-transform hover:scale-105"
                   />
                 </div>
               </CardContent>
