@@ -47,13 +47,19 @@ const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
     VariantProps<typeof toastVariants>
->(({ className, variant, ...props }, ref) => {
+>(({ className, variant, title, description, ...props }, ref) => {
   return (
     <ToastPrimitives.Root
       ref={ref}
       className={cn(toastVariants({ variant }), className)}
       {...props}
-    />
+      // Add accessibility attributes
+      aria-labelledby={title ? props['aria-labelledby'] || `toast-title-${props.id}` : undefined}
+      aria-describedby={description ? props['aria-describedby'] || `toast-description-${props.id}` : undefined}
+    >
+      {/* Render children here if needed, or rely on Toaster component */}
+      {props.children}
+    </ToastPrimitives.Root>
   );
 });
 Toast.displayName = ToastPrimitives.Root.displayName;
