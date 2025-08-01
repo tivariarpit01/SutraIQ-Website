@@ -3,11 +3,12 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-// FIX: Dynamically import components with SSR turned off inside a Client Component.
+// Dynamically import ALL client-side components with SSR turned off
 const Header = dynamic(() => import('@/components/layout/Header'), { ssr: false });
 const Footer = dynamic(() => import('@/components/layout/Footer'), { ssr: false });
+const Toaster = dynamic(() => import('@/components/ui/toaster').then((mod) => mod.Toaster), { ssr: false });
+const WhatsAppSupport = dynamic(() => import('@/components/WhatsAppSupport'), { ssr: false });
 
-// This wrapper component will render the Header, children, and Footer on the client side.
 export default function ClientLayoutWrapper({
   children,
 }: {
@@ -18,6 +19,8 @@ export default function ClientLayoutWrapper({
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
+      <Toaster />
+      <WhatsAppSupport />
     </>
   );
 }

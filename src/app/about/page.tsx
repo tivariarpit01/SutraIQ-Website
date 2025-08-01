@@ -1,54 +1,45 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Twitter, Linkedin } from "lucide-react";
+import api from "@/lib/axios"; // Make sure this is properly set up
 
-const teamMembers = [
-  {
-    name: "Arpit Tiwari",
-    role: "Founder & CEO",
-    avatar: "/images/team/arpit.jpeg",
-    dataAiHint: "man portrait professional",
-    bio: "With over 2+ years in tech, Arpit drives the vision of StackNova, ensuring innovation and excellence in every project.",
-    linkedin: "https://linkedin.com/in/tivariarpit01",
-  },
-  {
-    name: "Kalpana Chamoli",
-    role: "Frontend Developer",
-    avatar: "/images/box5_image.jpg",
-    dataAiHint: "man portrait professional",
-    bio: "Designs and implements user interfaces with a focus on usability and performance, using modern frameworks and tools.",
-    linkedin: "https://www.linkedin.com/in/kalpana-chamoli01/",
-  },
-  {
-    name: "Mukund Kumar Pandey",
-    role: "Java Full Stack Developer",
-    avatar: "/images/team/mukund.jpg",
-    dataAiHint: "woman face professional",
-    bio: "Builds scalable web applications from frontend to backend using Java ecosystem, ensuring high performance and reliability.",
-    linkedin: "https://www.linkedin.com/in/mukund-kumar-pandey-333140253",
-  },
-  {
-    name: "Shashank Kumar",
-    role: "QA Tester",
-    avatar: "/images/team/shashank.png",
-    dataAiHint: "man face professional",
-    bio: "Guarantees product reliability through rigorous test automation, identifying edge cases and ensuring flawless user journeys.",
-    linkedin: "https://www.linkedin.com/in/shashank-0955332ba",
-  },
-  {
-    name: "Manish Kumar",
-    role: "Sales & Marketing Executive",
-    avatar: "/images/team/manish.jpg",
-    dataAiHint: "man face professional",
-    bio: "Sales and marketing roles drive business growth by connecting products with customers and building brand value.",
-    linkedin: "https://www.linkedin.com/in/er-manish-kumar-347688245",
-  },
-];
+interface TeamMember {
+  _id: string;
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  socials?: {
+    linkedin?: string;
+    twitter?: string;
+  };
+}
 
 export default function AboutPage() {
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const res = await api.get("/api/team");
+        setTeamMembers(res.data?.data || []);
+      } catch (err) {
+        console.error("Team fetch failed:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeam();
+  }, []);
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
@@ -90,17 +81,16 @@ export default function AboutPage() {
               <Image
                 src="/images/box8_image.jpg"
                 alt="Team collaborating"
-                layout="fill"
-                objectFit="cover"
-                className="transform hover:scale-105 transition-transform duration-500"
+                fill
+                className="object-cover transition-transform duration-500 transform hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team */}
+      {/* Team Section */}
       <section className="py-16 md:py-24 bg-secondary">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
@@ -111,53 +101,66 @@ export default function AboutPage() {
               The driving force behind StackNova’s innovation.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member) => (
-              <Card
-                key={member.name}
-                className="text-center bg-card p-6 hover:shadow-xl transition-all duration-300 rounded-2xl"
-              >
-                <CardContent className="flex flex-col items-center">
-                  <Avatar className="w-28 h-28 mb-4 border-4 border-primary/50">
-                    <AvatarImage
-                      src={member.avatar}
-                      data-ai-hint={member.dataAiHint}
-                    />
-                    <AvatarFallback>
-                      {member.name.substring(0, 2)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <h3 className="text-xl font-bold">{member.name}</h3>
-                  <p className="text-primary font-semibold mb-2">
-                    {member.role}
-                  </p>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {member.bio}
-                  </p>
-                  <div className="flex gap-2">
-                    {/* {member.twitter && (
-                      <Button variant="ghost" size="icon" asChild>
-                        <Link href={member.twitter} target="_blank" aria-label="Twitter">
-                          <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />
-                        </Link>
-                      </Button>
-                    )} */}
-                    {member.linkedin && (
-                      <Button variant="ghost" size="icon" asChild>
-                        <Link
-                          href={member.linkedin}
-                          target="_blank"
-                          aria-label="LinkedIn"
-                        >
-                          <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary" />
-                        </Link>
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+
+          {loading ? (
+            <p className="text-center text-muted-foreground">Loading team...</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {teamMembers.map((member) => (
+                <Card
+                  key={member._id}
+                  className="text-center bg-card p-6 hover:shadow-xl transition-all duration-300 rounded-2xl"
+                >
+                  <CardContent className="flex flex-col items-center">
+                    <Avatar className="w-28 h-28 mb-4 border-4 border-primary/50">
+                      <AvatarImage
+                        src={
+                          member.image?.startsWith("http")
+                            ? member.image
+                            : `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/team/${member.image}`
+                        }
+                        alt={member.name}
+                      />
+                      <AvatarFallback>
+                        {member.name?.substring(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <h3 className="text-xl font-bold">{member.name}</h3>
+                    <p className="text-primary font-semibold mb-2">
+                      {member.role}
+                    </p>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {member.bio}
+                    </p>
+                    <div className="flex gap-2">
+                      {member.socials?.linkedin && (
+                        <Button variant="ghost" size="icon" asChild>
+                          <Link
+                            href={member.socials.linkedin}
+                            target="_blank"
+                            aria-label="LinkedIn"
+                          >
+                            <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary" />
+                          </Link>
+                        </Button>
+                      )}
+                      {member.socials?.twitter && (
+                        <Button variant="ghost" size="icon" asChild>
+                          <Link
+                            href={member.socials.twitter}
+                            target="_blank"
+                            aria-label="Twitter"
+                          >
+                            <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />
+                          </Link>
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>

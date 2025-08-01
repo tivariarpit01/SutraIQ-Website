@@ -18,13 +18,13 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ['image/webp'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-      },
+     remotePatterns: [
+    {
+      protocol: "http",
+      hostname: "localhost",
+      port: "5000",
+      pathname: "/uploads/**",
+    },
     ],
   },
 
