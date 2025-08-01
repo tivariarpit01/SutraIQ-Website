@@ -43,6 +43,7 @@
     "dotenv": "^16.5.0",
     "framer-motion": "^12.23.6",
     "genkit": "^1.13.0",
+    "html-react-parser": "^5.2.6",
     "lucide-react": "^0.475.0",
     "mongoose": "^8.16.4",
     "next": "^15.4.3",

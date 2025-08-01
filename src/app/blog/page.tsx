@@ -1,94 +1,90 @@
-// src/app/blog/page.tsx
+// app/blog/page.tsx
+import { notFound } from "next/navigation";
 import Link from "next/link";
+import { format } from "date-fns";
+import { Metadata } from "next";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
-import api from "@/lib/axios"; 
+import api from "@/lib/axios";
 
-async function fetchBlogs() {
+type BlogPost = {
+  _id: string;
+  title: string;
+  slug?: string;
+  content: string;
+  image?: string;
+  createdAt: string;
+};
+
+export const metadata: Metadata = {
+  title: "Our Blogs | StackNova",
+  description: "Explore insights, tips, and updates from StackNova's team.",
+};
+
+async function getBlogs(): Promise<BlogPost[]> {
   try {
-    const res = await api.get("api/blogs");
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs`, {
+      next: { revalidate: 60 },
+      cache: "force-cache",
+    });
+    if (!res.ok) throw new Error("Failed to fetch blogs");
+    return await res.json();
   } catch (error) {
-    console.error("❌ Error fetching blogs:", error);
+    console.error("❌ Failed to fetch blogs:", error);
     return [];
   }
 }
 
-export default async function BlogPage() {
-  const posts = await fetchBlogs();
 
-  const formatDate = (dateString: string) =>
-    new Date(dateString).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+export default async function BlogPage() {
+  const blogs = await getBlogs();
+  if (!blogs.length) return notFound();
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-10 md:py-16">
-      <div className="text-center mb-10 md:mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-          Our Blogs
-        </h1>
-        <p className="text-muted-foreground mt-2 md:text-lg max-w-2xl mx-auto">
-          Insights, tutorials, and updates from StackNova. Stay informed with
-          our latest articles on technology and innovation.
-        </p>
-      </div>
+    <div className="container mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold mb-8 text-center font-headline">
+        Latest Blogs
+      </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post: any) => (
-          <Card
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {blogs.map((post) => (
+          <div
             key={post._id}
-            className="overflow-hidden hover:shadow-xl transition duration-300 border border-muted-foreground/10 rounded-xl"
+            className="bg-card border rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
           >
-            <div className="relative w-full h-48 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-              <Image
-                src={
-                  post.image
-                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${post.image}`
-                    : "/images/fallback.jpg"
-                }
-                alt={post.title}
-                fill
-                className="object-contain transition-transform hover:scale-105"
-              />
-            </div>
-            <CardContent className="p-6">
-              <div className="flex flex-wrap gap-2 mb-3">
-                {post.tags.map((tag: string, i: number) => (
-                  <Badge
-                    key={`${post._id}-${tag}`}
-                    variant="secondary"
-                    className="text-xs px-2 py-1 rounded-full"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
+            {post.image && (
+              <div className="relative w-full h-48">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${post.image}`}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                {post.title}
-              </h3>
-              <p className="text-muted-foreground text-sm mb-4">
-                {post.content.slice(0, 120)}...
+            )}
+
+            <div className="p-5 flex flex-col flex-grow">
+              <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+              <p className="text-sm text-muted-foreground mb-3 line-clamp-3">
+                {post.content.replace(/<[^>]*>?/gm, "").slice(0, 150)}...
               </p>
-              {post.createdAt && (
-                <p className="text-xs text-muted-foreground mb-3">
-                  Published: {formatDate(post.createdAt)}
-                </p>
-              )}
-              <Link
-                href={`/blog/${post._id}`}
-                className="inline-flex items-center gap-1 text-primary mt-2 font-medium hover:underline hover:gap-2 transition-all duration-200"
-              >
-                Read More <ArrowRight size={16} />
-              </Link>
-            </CardContent>
-          </Card>
+
+              <div className="flex justify-between items-center mt-auto">
+                <span className="text-xs text-gray-400">
+                  {format(new Date(post.createdAt), "dd MMM yyyy")}
+                </span>
+
+                <Link
+                  href={`/blog/${post._id}`}
+                  className="text-sm text-primary hover:underline font-medium"
+                >
+                  Read More →
+                </Link>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

@@ -10,29 +10,8 @@ const WhatsAppSupport = () => {
     <motion.a
       // Initial state remains the same (hidden)
       initial={{ opacity: 0, scale: 0.5 }}
-      
-      // Animate to a pulsing state
-      animate={{
-        opacity: 1,
-        scale: [1, 1.05, 1], // Keyframes for the pulse
-      }}
-
-      // Add a hover effect
-      whileHover={{
-        scale: 1.15,
-        rotate: 10,
-      }}
-
-      // Add a tap effect
-      whileTap={{ scale: 0.9 }}
-
-      // Transition settings for the pulse animation
-      transition={{
-        duration: 2, // Slower, more gentle pulse
-        repeat: Infinity,
-        repeatType: "loop",
-        ease: "easeInOut",
-      }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
       href={`https://wa.me/${phoneNumber}`}
       target="_blank"
       rel="noopener noreferrer"

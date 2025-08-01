@@ -6,8 +6,7 @@ const FormLoading = () => (
   <div className="text-center text-muted-foreground">Loading form...</div>
 );
 
-// Dynamically import the form component.
-// The component itself should have "use client" at the top of its file.
+
 const GetStartedForm = dynamic(() =>
   import('@/components/GetStartedForm').then((mod) => mod.GetStartedForm)
 );
