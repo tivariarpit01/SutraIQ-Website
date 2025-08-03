@@ -1,77 +1,106 @@
 // app/blog/[id]/page.tsx
-import Image from "next/image";
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
 
-interface Blog {
+import { Metadata } from "next";
+import { format } from "date-fns";
+import { notFound } from "next/navigation";
+
+type BlogPost = {
   _id: string;
   title: string;
   content: string;
   author: string;
-  image: string;
+  image?: string;
   tags: string[];
   createdAt: string;
+};
+
+function getImageUrl(image: string | undefined): string {
+  if (!image) return "/fallback.jpg";
+  if (image.includes("cloudinary.com") || image.includes("res.cloudinary.com")) return image;
+  if (image.startsWith("http")) return image;
+  if (image.includes("/")) {
+    return `https://res.cloudinary.com/dubvvkgjd/image/upload/${image}`;
+  }
+  return `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${image}`;
 }
 
-async function fetchBlogById(id: string): Promise<Blog> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs/${id}`, {
-    next: { revalidate: 60 },
-    cache: "force-cache",
-  });
-
-  if (!res.ok) return notFound();
-  return res.json();
+async function getBlog(id: string): Promise<BlogPost | null> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs/${id}`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
 }
 
-// Optional: Dynamic metadata (SEO-ready)
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const blog = await fetchBlogById(params.id);
+// ✅ Fixed generateMetadata
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const blog = await getBlog(params.id);
+
+  if (!blog) {
+    return {
+      title: "Blog Not Found | StackNova",
+      description: "This blog doesn't exist.",
+    };
+  }
+
   return {
-    title: blog.title.replace(/\"/g, ''),
-    description: blog.content.slice(0, 150),
+    title: `${blog.title} | StackNova`,
+    description: blog.content.slice(0, 120) + "...",
     openGraph: {
-      images: [`${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${blog.image}`],
+      images: [getImageUrl(blog.image)],
     },
   };
 }
 
-export default async function BlogDetailPage({ params }: { params: { id: string } }) {
-  const blog = await fetchBlogById(params.id);
+export default async function BlogDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const blog = await getBlog(params.id);
+  if (!blog) return notFound();
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-3xl mx-auto">
-        <div className="relative w-full h-64 md:h-96 rounded-xl overflow-hidden shadow-lg mb-8 group">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${blog.image}`}
+    <div className="container mx-auto px-4 py-16 max-w-4xl">
+      {blog.image && (
+        <div className="mb-8 w-full h-[300px] rounded-lg overflow-hidden bg-muted">
+          <img
+            src={getImageUrl(blog.image)}
             alt={blog.title}
-            fill
-            priority
-            className="object-cover transition-transform duration-700 ease-in-out scale-100 group-hover:scale-105 group-hover:brightness-90 animate-fade-in"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         </div>
+      )}
 
-        <h1 className="text-4xl font-bold mb-4">{blog.title.replace(/\"/g, '')}</h1>
-        <p className="text-muted-foreground text-sm mb-6">
-          By {blog.author} • {new Date(blog.createdAt).toLocaleDateString()}
-        </p>
+      <h1 className="text-4xl font-bold mb-2">{blog.title}</h1>
+      <div className="text-sm text-gray-500 mb-4">
+        By {blog.author} • {format(new Date(blog.createdAt), "dd MMM yyyy")}
+      </div>
 
-        <div className="prose prose-lg text-foreground max-w-none">
-          <p>{blog.content}</p>
-        </div>
+      <div className="prose prose-lg prose-slate dark:prose-invert max-w-none">
+        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+      </div>
 
+      {blog.tags.length > 0 && (
         <div className="mt-6 flex flex-wrap gap-2">
-          {blog.tags.map((tag) => (
+          {blog.tags.map((tag, idx) => (
             <span
-              key={tag}
-              className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded"
+              key={idx}
+              className="bg-gray-200 dark:bg-gray-700 px-3 py-1 text-sm rounded-full"
             >
               #{tag}
             </span>
           ))}
         </div>
-      </div>
+      )}
     </div>
   );
 }

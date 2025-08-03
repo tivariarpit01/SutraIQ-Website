@@ -1,17 +1,15 @@
-// app/blog/page.tsx
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Metadata } from "next";
-import Image from "next/image";
-import api from "@/lib/axios";
 
 type BlogPost = {
   _id: string;
   title: string;
-  slug?: string;
   content: string;
-  image?: string;
+  author: string;
+  image?: string; 
+  tags: string[];
   createdAt: string;
 };
 
@@ -24,7 +22,6 @@ async function getBlogs(): Promise<BlogPost[]> {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs`, {
       next: { revalidate: 60 },
-      cache: "force-cache",
     });
     if (!res.ok) throw new Error("Failed to fetch blogs");
     return await res.json();
@@ -34,6 +31,15 @@ async function getBlogs(): Promise<BlogPost[]> {
   }
 }
 
+function getImageUrl(image: string | undefined): string {
+  if (!image) return "/fallback.jpg";
+  if (image.includes("cloudinary.com") || image.includes("res.cloudinary.com")) return image;
+  if (image.startsWith("http")) return image;
+  if (image.includes("/")) {
+    return `https://res.cloudinary.com/dubvvkgjd/image/upload/${image}`;
+  }
+  return `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${image}`;
+}
 
 export default async function BlogPage() {
   const blogs = await getBlogs();
@@ -52,13 +58,12 @@ export default async function BlogPage() {
             className="bg-card border rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
           >
             {post.image && (
-              <div className="relative w-full h-48">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${post.image}`}
+              <div className="w-full h-48 bg-card-foreground/5">
+                {/* ✅ next/image ki jagah <img> tag use kiya hai */}
+                <img
+                  src={getImageUrl(post.image)}
                   alt={post.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="w-full h-full object-cover"
                 />
               </div>
             )}
