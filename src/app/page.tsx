@@ -122,7 +122,7 @@ export default function HomePage() {
     <div className="flex flex-col">
       {/* HERO */}
       <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-white min-h-screen flex items-center">
-        <AnimatedBackground/>
+      <AnimatedBackground/>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 z-10">
         <div className="container mx-auto px-4">
         <motion.h1

@@ -36,17 +36,15 @@ async function getBlog(id: string): Promise<BlogPost | null> {
   }
 }
 
-// ✅ Fixed generateMetadata
 export async function generateMetadata({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> {
   const blog = await getBlog(params.id);
-
   if (!blog) {
     return {
-      title: "Blog Not Found | StackNova",
+      title: "Blog Not Found",
       description: "This blog doesn't exist.",
     };
   }
@@ -69,7 +67,7 @@ export default async function BlogDetailPage({
   if (!blog) return notFound();
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-4xl">
+    <div className="container mx-auto px-4 py-16 max-w-4xl relative">
       {blog.image && (
         <div className="mb-8 w-full h-[300px] rounded-lg overflow-hidden bg-muted">
           <img

@@ -23,6 +23,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="dark">
       <body className=" font-body antialiased">
         <div className="relative flex min-h-screen flex-col">
+        <AnimatedBackground/>
       
           {/* Use the client wrapper here */}
           <ClientLayoutWrapper>

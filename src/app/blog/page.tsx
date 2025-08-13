@@ -1,21 +1,18 @@
+// app/blog/page.tsx
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
-import { Metadata } from "next";
+import BlogListClient from "./BlogListClient";
+
 
 type BlogPost = {
   _id: string;
   title: string;
   content: string;
   author: string;
-  image?: string; 
+  image?: string;
   tags: string[];
   createdAt: string;
-};
-
-export const metadata: Metadata = {
-  title: "Our Blogs | StackNova",
-  description: "Explore insights, tips, and updates from StackNova's team.",
 };
 
 async function getBlogs(): Promise<BlogPost[]> {
@@ -46,48 +43,42 @@ export default async function BlogPage() {
   if (!blogs.length) return notFound();
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8 text-center font-headline">
+    <div className="container mx-auto px-4 py-16 relative">
+      <h1 className="text-4xl font-bold mb-8 text-center font-headline text-white bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 py-10 rounded-xl shadow-xl">
         Latest Blogs
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogs.map((post) => (
-          <div
+          <Link
             key={post._id}
-            className="bg-card border rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
+            href={`/blog/${post._id}`}
+            className="bg-card border rounded-xl overflow-hidden shadow-md hover:shadow-2xl hover:scale-105 transition-all duration-300 flex flex-col group"
           >
             {post.image && (
-              <div className="w-full h-48 bg-card-foreground/5">
-                
+              <div className="w-full h-60 bg-card-foreground/5">
                 <img
                   src={getImageUrl(post.image)}
                   alt={post.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-300"
                 />
               </div>
             )}
-
             <div className="p-5 flex flex-col flex-grow">
               <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
               <p className="text-sm text-muted-foreground mb-3 line-clamp-3">
                 {post.content.replace(/<[^>]*>?/gm, "").slice(0, 150)}...
               </p>
-
               <div className="flex justify-between items-center mt-auto">
                 <span className="text-xs text-gray-400">
                   {format(new Date(post.createdAt), "dd MMM yyyy")}
                 </span>
-
-                <Link
-                  href={`/blog/${post._id}`}
-                  className="text-sm text-primary hover:underline font-medium"
-                >
-                  Read More →
-                </Link>
+                <span className="text-sm text-primary font-medium">Read More →
+                  
+                </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
