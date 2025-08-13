@@ -28,7 +28,6 @@ export default function GetStartedPage() {
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-2xl mx-auto">
-            {/* Use Suspense to show a fallback while the form loads */}
             <Suspense fallback={<FormLoading />}>
               <GetStartedForm />
             </Suspense>

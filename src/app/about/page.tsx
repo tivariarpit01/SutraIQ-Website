@@ -36,7 +36,7 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const res = await api.get("/api/team");
+        const res = await api.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/team`);
         setTeamMembers(res.data?.data || []);
       } catch (err) {
         console.error("Team fetch failed:", err);

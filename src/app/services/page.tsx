@@ -36,7 +36,7 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const res = await api.get("/api/team");
+        const res = await api.get("/api/services");
         const data = res.data?.data || res.data; // <-- handles both shapes
         setTeamMembers(data);
         console.log("✅ Team data:", data);

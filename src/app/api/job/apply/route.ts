@@ -14,7 +14,7 @@ interface JobApplicationBody extends Document {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    await connectToDatabase(); // 🛠 call the function not reference
+    await connectToDatabase(); 
 
     const body: JobApplicationBody = await req.json();
 

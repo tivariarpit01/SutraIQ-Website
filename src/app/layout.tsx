@@ -6,7 +6,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "StackNova Design System",
-  description: "Innovative solutions for the modern web.",
+  description: "Innovative solutions for the modern web.",icons: {
+    icon: "/favicon.png", // or /favicon.png or /favicon.svg
+  }
+
+
 };
 
 export default function RootLayout({

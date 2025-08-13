@@ -59,7 +59,7 @@ export default async function BlogPage() {
           >
             {post.image && (
               <div className="w-full h-48 bg-card-foreground/5">
-                {/* ✅ next/image ki jagah <img> tag use kiya hai */}
+                
                 <img
                   src={getImageUrl(post.image)}
                   alt={post.title}
