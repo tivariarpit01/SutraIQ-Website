@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Twitter, Linkedin } from "lucide-react";
 import api from "@/lib/axios";
+import Image from "next/image"; // ✅ Use Next.js Image for optimization
 
 interface TeamMember {
   _id: string;
@@ -39,7 +40,7 @@ export default function AboutPage() {
         const res = await api.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/team`);
         setTeamMembers(res.data?.data || []);
       } catch (err) {
-        console.error("Team fetch failed:", err);
+        console.error("❌ Team fetch failed:", err);
       } finally {
         setLoading(false);
       }
@@ -50,6 +51,7 @@ export default function AboutPage() {
 
   return (
     <div className="flex flex-col">
+      {/* Hero Section */}
       <section className="w-full py-20 md:py-28 lg:py-32 bg-secondary">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
@@ -61,6 +63,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Mission Section */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -75,10 +78,11 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="relative w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <Image
                 src="/images/box8_image.jpg"
                 alt="Team collaborating"
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
@@ -86,6 +90,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Team Section */}
       <section className="py-16 md:py-24 bg-secondary">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
@@ -107,25 +112,32 @@ export default function AboutPage() {
                   className="text-center bg-card p-6 hover:shadow-xl transition-all duration-300 rounded-2xl"
                 >
                   <CardContent className="flex flex-col items-center">
-                    <div className="w-28 h-28 rounded-full overflow-hidden mb-4 border-4 border-primary/50">
-                      <img
+                    <div className="w-28 h-28 rounded-full overflow-hidden mb-4 border-4 border-primary/50 relative">
+                      <Image
                         src={getImageUrl(member.image)}
-                        alt={member.name}
-                        className="w-full h-full object-contain bg-white p-1"
+                        alt={member.name || "Team member"}
+                        fill
+                        className="object-contain bg-white p-1"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = "/fallback.jpg";
+                        }}
                       />
                     </div>
                     <h3 className="text-xl font-bold">{member.name}</h3>
                     <p className="text-primary font-semibold mb-2">{member.role}</p>
-                    <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {member.bio || "No bio available."}
+                    </p>
                     <div className="flex gap-2">
-                      {member.socials?.linkedin && (
+                      {member.socials?.linkedin?.trim() && (
                         <Button variant="ghost" size="icon" asChild>
                           <Link href={member.socials.linkedin} target="_blank" aria-label="LinkedIn">
                             <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary" />
                           </Link>
                         </Button>
                       )}
-                      {member.socials?.twitter && (
+                      {member.socials?.twitter?.trim() && (
                         <Button variant="ghost" size="icon" asChild>
                           <Link href={member.socials.twitter} target="_blank" aria-label="Twitter">
                             <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />

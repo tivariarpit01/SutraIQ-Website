@@ -12,6 +12,8 @@ import { AiAutomationIcon } from '@/components/icons/AiAutomationIcon'
 import { AppDevIcon } from '@/components/icons/AppDevIcon'
 import { CloudSupportIcon } from '@/components/icons/CloudSupportIcon'
 import { Star, ArrowRight } from 'lucide-react'
+import AnimatedBackground from '@/components/ui/Animatedbaground'
+import { SiNextdotjs, SiReact, SiNodedotjs, SiTypescript, SiPython, SiGooglecloud, SiFirebase, SiTailwindcss, SiDocker, SiKubernetes,  SiTensorflow } from "react-icons/si";
 
 // --- Animation Variants ---
 const sectionVariants: Variants = {
@@ -45,7 +47,7 @@ const premiumServices = [
     title: 'Web Development',
     description:
       'Beautiful, responsive, and high-performance websites tailored to your brand.',
-    image: '/images/services/web.png',
+    image: '/images/sutraiq web dev.jpg',
     link: '/services',
   },
   {
@@ -53,21 +55,21 @@ const premiumServices = [
     title: 'Application Development',
     description:
       'Robust applications for mobile and web, optimized for scalability.',
-    image: '/images/services/app.png',
+    image: '/images/sutraiq app dev.jpg',
     link: '/services',
   },
   {
     icon: AiAutomationIcon,
     title: 'AI & Automation',
     description: 'Harness AI to streamline operations and unlock growth.',
-    image: '/images/services/AI.png',
+    image: '/images/sutraiq AI.jpg',
     link: '/services',
   },
   {
     icon: CloudSupportIcon,
     title: 'Cloud Solutions',
     description: 'Reliable and scalable cloud infrastructure, customized for you.',
-    image: '/images/services/cloud.png',
+    image: '/images/sutraiq cloud.jpg',
     link: '/services',
   },
 ];
@@ -77,59 +79,73 @@ const testimonials = [
     name: 'Sarah Johnson',
     title: 'CEO, Tech Innovators',
     quote: 'StackNova transformed our web presence. We saw 200% growth!',
-    avatar: '/images/team/arpit.jpeg',
+    avatar: '/images/sarah johnson.jpg',
   },
   {
     name: 'Michael Chen',
     title: 'Marketing Director, FutureGadget',
     quote: 'Their campaign strategies boosted our ROI like crazy.',
-    avatar: '/images/team/mukund.jpg',
+    avatar: '/images/michael chen.avif',
   },
   {
     name: 'Emily Rodriguez',
     title: 'COO, Creative Solutions',
     quote: 'Freed up internal time with smooth operations. Stellar team!',
-    avatar: '/images/team/shashank.png',
+    avatar: '/images/emily.jpg',
   },
 ];
 
 const technologies = [
-  'Next.js', 'React', 'Node.js', 'TypeScript', 'Python', 'Google Cloud',
-  'Firebase', 'Tailwind CSS', 'Docker', 'Kubernetes', 'Genkit', 'TensorFlow',
+  { name: 'Next.js', icon: SiNextdotjs },
+  { name: 'React', icon: SiReact },
+  { name: 'Node.js', icon: SiNodedotjs },
+  { name: 'TypeScript', icon: SiTypescript },
+  { name: 'Python', icon: SiPython },
+  { name: 'Google Cloud', icon: SiGooglecloud },
+  { name: 'Firebase', icon: SiFirebase },
+  { name: 'Tailwind CSS', icon: SiTailwindcss },
+  { name: 'Docker', icon: SiDocker },
+  { name: 'Kubernetes', icon: SiKubernetes },// closest match to Genkit
+  { name: 'TensorFlow', icon: SiTensorflow },
 ];
 
 const trustedByLogos = [
-  'Innovate Inc.', 'QuantumLeap', 'Stellar Solutions',
-  'Apex Enterprises', 'Visionary Ventures',
+  { name: 'Google', image: '/images/google.webp' },
+  { name: 'Amazon', image: '/images/amazon-white.png' },
+  { name: 'Meta', image: '/images/meta.webp' },
+  { name: 'Microsoft', image: '/images/Microsoft.png' },
+ 
 ];
 
 export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* HERO */}
-      <section className="py-24 text-center">
+      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-white min-h-screen flex items-center">
+        <AnimatedBackground/>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 z-10">
         <div className="container mx-auto px-4">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+        <motion.h1
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-5xl font-bold bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent"
+              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
             >
               Designing Tomorrow’s Innovations
             </motion.h1>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-4 text-muted-foreground max-w-xl mx-auto"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl md:text-2xl text-slate-300 mb-12 max-w-4xl ml-8 mx-auto"
             >
-              StackNova is your partner in building the future — one innovation at a time.
+              SutraIQ is your partner in building the future — one innovation at a time.
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 flex justify-center gap-4"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center"
             >
               <Button asChild>
                 <Link href="/get-started">Get Started</Link>
@@ -138,6 +154,7 @@ export default function HomePage() {
                 <Link href="/services">Our Services</Link>
               </Button>
             </motion.div>
+        </div>
         </div>
       </section>
 
@@ -149,12 +166,12 @@ export default function HomePage() {
         viewport={{ once: true, amount: 0.2 }}
         variants={sectionVariants}
       >
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10">
+        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 relative">
           {premiumServices.map((service) => (
             <motion.div key={service.title} variants={itemVariants}>
               <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full">
                 <div className="grid md:grid-cols-2">
-                  <div className="relative w-full h-64 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                  <div className="relative w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
                     <Image
                       src={service.image}
                       alt={service.title}
@@ -187,33 +204,45 @@ export default function HomePage() {
 
       {/* TECH STACK */}
       <motion.section
-        className="py-20 bg-secondary"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        variants={sectionVariants}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold">Our Technology Stack</motion.h2>
-          <motion.p variants={itemVariants} className="text-muted-foreground mt-2 max-w-xl mx-auto">
-            Tools we love. Code we trust.
-          </motion.p>
+  className="py-20 bg-secondary"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.5 }}
+  variants={sectionVariants}
+>
+  <div className="container mx-auto px-4 text-center relative">
+    <motion.h2 variants={itemVariants} className="text-3xl font-bold">
+      Our Technology Stack
+    </motion.h2>
+    <motion.p variants={itemVariants} className="text-muted-foreground mt-2 max-w-xl mx-auto">
+      Tools we love. Code we trust.
+    </motion.p>
+
+    <motion.div
+      className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8"
+      variants={sectionVariants}
+    >
+      {technologies.map((tech, index) => {
+        const Icon = tech.icon;
+        return (
           <motion.div
-            className="mt-6 flex flex-wrap justify-center gap-4"
-            variants={sectionVariants}
+            key={tech.name}
+            variants={itemVariants}
+            whileHover={{ scale: 1.15 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="group relative bg-white dark:bg-slate-800 shadow-md rounded-full w-24 h-24 flex flex-col items-center justify-center mx-auto hover:shadow-lg transition-all duration-300"
           >
-            {technologies.map((tech) => (
-              <motion.span
-                key={tech}
-                variants={itemVariants}
-                className="bg-card px-4 py-2 rounded border text-sm"
-              >
-                {tech}
-              </motion.span>
-            ))}
+            <Icon className="text-blue-600 dark:text-blue-400 h-8 w-8 mb-1 group-hover:animate-ping-once" />
+            <span className="text-xs text-center text-slate-700 dark:text-slate-300">
+              {tech.name}
+            </span>
           </motion.div>
-        </div>
-      </motion.section>
+        );
+      })}
+    </motion.div>
+  </div>
+</motion.section>
+
 
       {/* TESTIMONIALS */}
       <motion.section
@@ -223,7 +252,7 @@ export default function HomePage() {
         viewport={{ once: true, amount: 0.2 }}
         variants={sectionVariants}
       >
-         <div className="container mx-auto px-4">
+         <div className="container mx-auto px-4 relative">
             <div className="text-center mb-12">
               <motion.h2 variants={itemVariants} className="text-3xl font-bold">What Our Clients Say</motion.h2>
               <motion.p variants={itemVariants} className="text-muted-foreground mt-2 max-w-xl mx-auto">
@@ -269,23 +298,28 @@ export default function HomePage() {
       </motion.section>
 
       {/* TRUSTED BY */}
-      <section className="py-16 bg-secondary/20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-lg font-semibold text-muted-foreground mb-8">
-            TRUSTED BY INDUSTRY LEADERS
-          </h2>
-          <div className="flex flex-wrap justify-center items-center gap-8">
-            {trustedByLogos.map((logo) => (
-              <span
-                key={logo}
-                className="text-xl font-medium text-muted-foreground hover:text-foreground transition"
-              >
-                {logo}
-              </span>
-            ))}
-          </div>
+      <section className="py-16 bg-secondary/20 relative">
+  <div className="container mx-auto px-4 text-center">
+    <h2 className="text-lg font-semibold text-muted-foreground mb-8">
+      TRUSTED BY INDUSTRY LEADERS
+    </h2>
+
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 items-center justify-center">
+      {trustedByLogos.map((logo) => (
+        <div key={logo.name} className="flex items-center justify-center">
+          <Image
+            src={logo.image}
+            alt={logo.name}
+            width={120}
+            height={60}
+            className="transition duration-300"
+          />
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
     </div>
   )
 }

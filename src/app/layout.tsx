@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import WhatsAppSupport from "@/components/WhatsAppSupport";
 import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper"; // <-- IMPORT THE NEW WRAPPER
 import "./globals.css";
+import AnimatedBackground from "@/components/ui/Animatedbaground";
 
 export const metadata: Metadata = {
   title: "StackNova Design System",
@@ -20,8 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body className="font-body antialiased">
+      <body className=" font-body antialiased">
         <div className="relative flex min-h-screen flex-col">
+      
           {/* Use the client wrapper here */}
           <ClientLayoutWrapper>
             {children}

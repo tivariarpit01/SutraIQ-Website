@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Twitter, Linkedin } from "lucide-react";
 import api from "@/lib/axios";
+import Image from "next/image";
 
 interface TeamMember {
   _id: string;
@@ -19,8 +20,12 @@ interface TeamMember {
   };
 }
 
+// Fallback image URL
+const FALLBACK_IMAGE = "/fallback.jpg";
+
+// Build image URL depending on source
 function getImageUrl(image: string | undefined): string {
-  if (!image) return "/fallback.jpg";
+  if (!image) return FALLBACK_IMAGE;
   if (image.includes("cloudinary.com") || image.includes("res.cloudinary.com")) return image;
   if (image.startsWith("http")) return image;
   if (image.includes("/")) {
@@ -36,12 +41,11 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const res = await api.get("/api/services");
-        const data = res.data?.data || res.data; // <-- handles both shapes
+        const res = await api.get("/api/services"); // ✅ Use correct endpoint name
+        const data = res.data?.data || res.data;
         setTeamMembers(data);
-        console.log("✅ Team data:", data);
       } catch (err) {
-        console.error("❌ Team fetch failed:", err);
+        console.error("❌ Failed to fetch team:", err);
       } finally {
         setLoading(false);
       }
@@ -110,32 +114,39 @@ export default function AboutPage() {
             <p className="text-center text-muted-foreground">No team members found.</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member) => (
+              {teamMembers.map((member, index) => (
                 <Card
-                  key={member._id}
+                  key={`${member._id}-${index}`}
                   className="text-center bg-card p-6 hover:shadow-xl transition-all duration-300 rounded-2xl"
                 >
                   <CardContent className="flex flex-col items-center">
-                    <div className="w-28 h-28 rounded-full overflow-hidden mb-4 border-4 border-primary/50">
-                      <img
+                    <div className="w-28 h-28 rounded-full overflow-hidden mb-4 border-4 border-primary/50 relative">
+                      <Image
                         src={getImageUrl(member.image)}
-                        alt={member.name}
-                        className="w-full h-full object-contain bg-white p-1"
+                        alt={member.name || "Team member"}
+                        width={112}
+                        height={112}
+                        className="object-contain bg-white p-1"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = FALLBACK_IMAGE;
+                        }}
                       />
                     </div>
                     <h3 className="text-xl font-bold">{member.name}</h3>
                     <p className="text-primary font-semibold mb-2">{member.role}</p>
-                    <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {member.bio || "No bio available."}
+                    </p>
 
                     <div className="flex gap-2">
-                      {member.socials?.linkedin && member.socials.linkedin.trim() && (
+                      {member.socials?.linkedin?.trim() && (
                         <Button variant="ghost" size="icon" asChild>
                           <Link href={member.socials.linkedin} target="_blank" aria-label="LinkedIn">
                             <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary" />
                           </Link>
                         </Button>
                       )}
-                      {member.socials?.twitter && member.socials.twitter.trim() && (
+                      {member.socials?.twitter?.trim() && (
                         <Button variant="ghost" size="icon" asChild>
                           <Link href={member.socials.twitter} target="_blank" aria-label="Twitter">
                             <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />

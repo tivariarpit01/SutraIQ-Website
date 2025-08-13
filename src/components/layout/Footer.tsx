@@ -53,7 +53,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="border-t border-border/40 bg-background">
+    <footer className="border-t border-border/40 bg-background relative">
       <div className="container mx-auto px-4 py-12 md:px-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo & Social Links Section */}
