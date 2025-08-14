@@ -243,6 +243,159 @@ export default function HomePage() {
   </div>
 </motion.section>
 
+// Inside your HomePage component
+<section className="py-20 relative">
+  <div className="container mx-auto px-4 md:px-6 text-center">
+    <h2 className="font-headline text-3xl sm:text-4xl font-bold mb-4">
+      We Understand Our Clients
+    </h2>
+    <div className="h-1 w-20 bg-primary mx-auto mb-12 rounded-full" />
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+      {[
+        {
+          title: "We Listen and Understand",
+          image: "/images/icon1.png",
+        },
+        {
+          title: "We Offer Real Solutions",
+          image: "/images/icon2.png",
+        },
+        {
+          title: "We Prioritize Strategic Thinking",
+          image: "/images/icon3.png",
+        },
+        {
+          title: "We Deliver Without Compromise",
+          image: "/images/icon4.png",
+        },
+        {
+          title: "We Believe in Unified Efforts",
+          image: "/images/icon5.png",
+        },
+        {
+          title: "We Are Supportive and Accessible",
+          image: "/images/icon6.png",
+        },
+        {
+          title: "We Think Strategically and Logically",
+          image: "/images/icon7.png",
+        },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="text-center p-6 border rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.03] bg-card"
+        >
+          <div className="w-16 h-16 mx-auto mb-4">
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <p className="text-sm text-muted-foreground font-medium">
+            {item.title}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/*It services for business growth*/}
+
+<section className="py-20 relative">
+  <div className="container mx-auto px-4 md:px-6 text-center">
+    <h2 className="font-headline text-3xl sm:text-4xl font-bold mb-2">
+      IT Services for Business Growth
+    </h2>
+    <div className="h-1 w-24 bg-orange-400 mx-auto mb-6 rounded-full" />
+    <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
+      Technology should help your business grow, not just keep the lights on. <br />
+      Our IT services for business look beyond just fixing problems.
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {[
+        {
+          title: "Digital Transformation",
+          description:
+            "Rethink how your business works with technology that opens new possibilities.",
+          icon: "/images/one.png",
+        },
+        {
+          title: "Business Process Automation",
+          description:
+            "Let computers handle the boring, repetitive stuff so your team can focus on the work that matters.",
+          icon: "/images/two.png",
+        },
+        {
+          title: "Data Services",
+          description:
+            "Turn the information you already have into insights that help you make better decisions.",
+          icon: "/images/three.png",
+        },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="bg-muted/30 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+        >
+          <div className="w-14 h-14 mx-auto mb-4">
+            <img
+              src={item.icon}
+              alt={item.title}
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+          <p className="text-muted-foreground text-sm">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/*industries we serve*/}
+
+<section className="py-20 relative">
+  <div className="container mx-auto px-4 md:px-6 text-center">
+    <h2 className="font-headline text-3xl sm:text-4xl font-bold mb-2">
+      Industries We Serve
+    </h2>
+    <div className="h-1 w-24 bg-orange-400 mx-auto mb-10 rounded-full" />
+
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-border rounded-xl overflow-hidden">
+      {[
+        { title: "HealthCare", icon: "/industries/healthcare.png" },
+        { title: "E-Finance", icon: "/industries/finance.png" },
+        { title: "Insurance", icon: "/industries/insurance.png" },
+        { title: "Education", icon: "/industries/education.png" },
+        { title: "Energy & Utilities", icon: "/industries/energy.png" },
+        { title: "Media & Entertainment", icon: "/industries/media.png" },
+        { title: "Oil, Gas & Mining", icon: "/industries/oil.png" },
+        { title: "Retail", icon: "/industries/retail.png" },
+        { title: "Logistics & Distribution", icon: "/industries/logistics.png" },
+        { title: "Telecoms", icon: "/industries/telecom.png" },
+        { title: "Travel & Hospitality", icon: "/industries/travel.png" },
+        { title: "Public Sector", icon: "/industries/public.png" },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="bg-background p-6 flex flex-col items-center justify-center gap-2 hover:shadow-md transition-all"
+        >
+          <img
+            src={item.icon}
+            alt={item.title}
+            className="w-14 h-14 object-contain mb-2"
+          />
+          <h3 className="text-sm font-medium">{item.title}</h3>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
 
       {/* TESTIMONIALS */}
       <motion.section

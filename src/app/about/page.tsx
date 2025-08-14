@@ -76,7 +76,8 @@ export default function AboutPage() {
     const fetchTeam = async () => {
       try {
         const res = await api.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/team`);
-        setTeamMembers(res.data?.data || []);
+        // FIX: Use res.data directly since the API returns an array
+        setTeamMembers(res.data || []);
       } catch (err) {
         console.error("❌ Team fetch failed:", err);
       } finally {
@@ -107,11 +108,23 @@ export default function AboutPage() {
             <div>
               <h2 className="font-headline text-3xl font-bold mb-4">Our Mission</h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Empowering businesses with transformative digital solutions. We believe in long-term partnerships built on trust, innovation, and excellence.
+                Empowering businesses with transformative digital solutions is at the heart of everything we do. In today’s rapidly evolving technological landscape, we recognize that growth isn’t just about keeping up — it’s about staying ahead. Our mission is to enable businesses of all sizes to thrive through tailored, innovative, and future-ready solutions.
+
+                We don’t just provide services — we build long-term partnerships based on mutual trust, transparency, and a shared commitment to success. Our approach blends strategic thinking, cutting-edge technology, and creative problem-solving to drive real, measurable impact for our clients.
+
+                At StackNova, we believe in excellence through collaboration. By aligning ourselves with our clients’ goals, we create scalable digital ecosystems that not only solve immediate challenges but also pave the way for sustained growth and innovation. Your success is our mission.
+
+
               </p>
               <h2 className="font-headline text-3xl font-bold mb-4">Our Story</h2>
               <p className="text-lg text-muted-foreground">
-                Founded in 2020, StackNova started with a small group of tech enthusiasts. Now a full-service digital agency, our journey is driven by curiosity and craftsmanship.
+                Founded in 2020, StackNova began as a vision shared by a small group of passionate tech enthusiasts determined to build something meaningful. What started as a humble team experimenting with code and design quickly evolved into a dynamic digital agency committed to solving real-world business challenges through technology.
+
+                From the early days of late-night brainstorming sessions and building MVPs for startups, we’ve grown into a full-service digital powerhouse trusted by clients across industries. Our journey has been defined by a deep curiosity for emerging technologies and an unwavering commitment to quality craftsmanship.
+
+                As we scaled, we remained rooted in our belief that technology should empower, not overwhelm. This belief fuels our approach to every project — combining strategic insight, human-centric design, and cutting-edge engineering to deliver solutions that don’t just function but truly inspire.
+
+                Every line of code, every pixel, and every conversation reflects our core values of collaboration, innovation, and excellence. We’re proud of how far we've come, but we’re even more excited about where we're headed — alongside our clients, shaping the future one bold idea at a time.
               </p>
             </div>
             <div className=" w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl relative" >
@@ -129,44 +142,44 @@ export default function AboutPage() {
         </div>
       </section>
 
-{/* Our Values */}
-<section className="py-16 md:py-24 ">
-  <div className="container mx-auto px-4 md:px-6">
-    <div className="text-center mb-12">
-      <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-        Our Values
-      </h2>
-      <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-lg">
-        These core values guide everything we do and shape the way we work with our clients and each other.
-      </p>
-    </div>
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      {values.map((value, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: i * 0.4 }}
-          className="rounded-2xl border bg-card p-6 text-center shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.03]"
-        >
-          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-            {value.icon}
+      {/* Our Values */}
+      <section className="py-16 md:py-24 ">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+              Our Values
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-lg">
+              These core values guide everything we do and shape the way we work with our clients and each other.
+            </p>
           </div>
-          <h3 className="text-xl font-semibold">{value.title}</h3>
-          <p className="text-muted-foreground text-sm mt-2">
-            {value.description}
-          </p>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.4 }}
+                className="rounded-2xl border bg-card p-6 text-center shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.03]"
+              >
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                  {value.icon}
+                </div>
+                <h3 className="text-xl font-semibold">{value.title}</h3>
+                <p className="text-muted-foreground text-sm mt-2">
+                  {value.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
 
       {/* Team Section */}
-      <section className="py-16 md:py-24 bg-secondary relative">
+      <section className="py-16 md:py-24  relative">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
