@@ -47,7 +47,7 @@ const premiumServices = [
     title: 'Web Development',
     description:
       'Beautiful, responsive, and high-performance websites tailored to your brand.',
-    image: '/images/sutraiq web dev.jpg',
+    image: '/images/services/sutraiq web dev.jpg',
     link: '/services',
   },
   {
@@ -55,43 +55,61 @@ const premiumServices = [
     title: 'Application Development',
     description:
       'Robust applications for mobile and web, optimized for scalability.',
-    image: '/images/sutraiq app dev.jpg',
+    image: '/images/services/sutraiq app dev.jpg',
     link: '/services',
   },
   {
     icon: AiAutomationIcon,
     title: 'AI & Automation',
     description: 'Harness AI to streamline operations and unlock growth.',
-    image: '/images/sutraiq AI.jpg',
+    image: '/images/services/sutraiq AI.jpg',
     link: '/services',
   },
   {
     icon: CloudSupportIcon,
     title: 'Cloud Solutions',
     description: 'Reliable and scalable cloud infrastructure, customized for you.',
-    image: '/images/sutraiq cloud.jpg',
+    image: '/images/services/sutraiq cloud.jpg',
     link: '/services',
   },
 ];
 
 const testimonials = [
   {
-    name: 'Sarah Johnson',
+    name: 'Rajesh Kumar',
     title: 'CEO, Tech Innovators',
     quote: 'StackNova transformed our web presence. We saw 200% growth!',
-    avatar: '/images/sarah johnson.jpg',
+    avatar: '/images/test/client1.jpg',
+  },
+  {
+    name: 'Sachin Malhotra',
+    title: 'Marketing Director, FutureGadget',
+    quote: 'Their campaign strategies boosted our ROI like crazy.',
+    avatar: '/images/test/client2.png',
+  },
+  {
+    name: 'Pankaj Sharma',
+    title: 'CEO, Creative Solutions',
+    quote: 'Freed up internal time with smooth operations. Stellar team!',
+    avatar: '/images/test/client3.jpg',
+  },
+  {
+    name: 'Emily Johnson',
+    title: 'CEO, Global Enterprises',
+    quote: 'Incredible support and quality work. Our business has grown tremendously after working with them!',
+    avatar: '/images/test/emily.jpg',
   },
   {
     name: 'Michael Chen',
-    title: 'Marketing Director, FutureGadget',
-    quote: 'Their campaign strategies boosted our ROI like crazy.',
-    avatar: '/images/michael chen.avif',
+    title: 'CEO, Innovatech',
+    quote: 'StackNova transformed our web presence. We saw 200% growth!',
+    avatar: '/images/test/michael chen.avif',
   },
   {
-    name: 'Emily Rodriguez',
-    title: 'COO, Creative Solutions',
-    quote: 'Freed up internal time with smooth operations. Stellar team!',
-    avatar: '/images/emily.jpg',
+    name: 'Sarah Johnson',
+    title: 'CEO, Tech Solutions',
+    quote: 'Incredible support and quality work. Our business has grown tremendously after working with them!',
+    avatar: '/images/test/sarah johnson.jpg',
   },
 ];
 
@@ -110,10 +128,15 @@ const technologies = [
 ];
 
 const trustedByLogos = [
-  { name: 'Google', image: '/images/google.webp' },
-  { name: 'Amazon', image: '/images/amazon-white.png' },
-  { name: 'Meta', image: '/images/meta.webp' },
-  { name: 'Microsoft', image: '/images/Microsoft.png' },
+  { name: 'Google', image: '/images/trusted/google.webp' },
+  { name: 'Amazon', image: '/images/trusted/amazon-white.png' },
+  { name: 'Meta', image: '/images/trusted/meta.webp' },
+  {name:'Freelancer', image:'/images/trusted/freelencer.png'},
+  { name: 'Glassdoor', image: '/images/trusted/glassdoor.png' },
+  {name:'India Mart', image:'/images/trusted/indiamart.png'},
+  {name:'Upwork', image:'/images/trusted/upwork.png'},
+
+
  
 ];
 
@@ -366,18 +389,18 @@ export default function HomePage() {
 
     <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-border rounded-xl overflow-hidden">
       {[
-        { title: "HealthCare", icon: "/industries/healthcare.png" },
-        { title: "E-Finance", icon: "/industries/finance.png" },
-        { title: "Insurance", icon: "/industries/insurance.png" },
-        { title: "Education", icon: "/industries/education.png" },
-        { title: "Energy & Utilities", icon: "/industries/energy.png" },
-        { title: "Media & Entertainment", icon: "/industries/media.png" },
-        { title: "Oil, Gas & Mining", icon: "/industries/oil.png" },
-        { title: "Retail", icon: "/industries/retail.png" },
-        { title: "Logistics & Distribution", icon: "/industries/logistics.png" },
-        { title: "Telecoms", icon: "/industries/telecom.png" },
-        { title: "Travel & Hospitality", icon: "/industries/travel.png" },
-        { title: "Public Sector", icon: "/industries/public.png" },
+        { title: "HealthCare", icon: "images/industries/Health.png" },
+        { title: "E-Finance", icon: "images/industries/E-finance.png" },
+        { title: "Insurance", icon: "images/industries/insurance.png" },
+        { title: "Education", icon: "images/industries/Education.png" },
+        { title: "Energy & Utilities", icon: "images/industries/Energy.png" },
+        { title: "Media & Entertainment", icon: "images/industries/Media.png" },
+        { title: "Oil, Gas & Mining", icon: "images/industries/Oil_gas.png" },
+        { title: "Retail", icon: "images/industries/Retail.png" },
+        { title: "Logistics & Distribution", icon: "images/industries/Logistic.png" },
+        { title: "Telecoms", icon: "images/industries/Telecome.png" },
+        { title: "Travel & Hospitality", icon: "images/industries/Travel.png" },
+        { title: "Public Sector", icon: "images/industries/public.png" },
       ].map((item, i) => (
         <div
           key={i}
@@ -451,25 +474,29 @@ export default function HomePage() {
       </motion.section>
 
       {/* TRUSTED BY */}
-      <section className="py-16 bg-secondary/20 relative">
+      <section className="py-12 bg-secondary/20 relative">
   <div className="container mx-auto px-4 text-center">
-    <h2 className="text-lg font-semibold text-muted-foreground mb-8">
-      TRUSTED BY INDUSTRY LEADERS
+    <h2 className="text-lg font-semibold uppercase tracking-wider text-muted-foreground mb-12">
+      Trusted by Industry Leaders
     </h2>
 
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 items-center justify-center">
-      {trustedByLogos.map((logo) => (
-        <div key={logo.name} className="flex items-center justify-center">
-          <Image
-            src={logo.image}
-            alt={logo.name}
-            width={120}
-            height={60}
-            className="transition duration-300"
-          />
-        </div>
-      ))}
+    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-x-8 gap-y-12 items-center">
+  {trustedByLogos.map((logo) => (
+    <div key={logo.name} className="flex items-center justify-center h-10">
+      <Image
+        src={logo.image}
+        alt={logo.name}
+        width={140}
+        height={100}
+        className="
+          object-contain h-full w-auto max-w-full
+          transition-all duration-300
+          hover:scale-110
+        "
+      />
     </div>
+  ))}
+</div>
   </div>
 </section>
 
