@@ -38,7 +38,7 @@ export default async function ServiceDetailPage({ params }: { params: { id: stri
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-16 relative">
       <h1 className="text-3xl font-bold mb-6">{service.title}</h1>
       <Image
         src={getImageUrl(service.image)}
