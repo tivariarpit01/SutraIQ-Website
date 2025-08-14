@@ -13,7 +13,7 @@ const GetStartedForm = dynamic(() =>
 
 export default function GetStartedPage() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col relative">
       <section className="w-full py-20 md:py-28 lg:py-32 bg-secondary">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">

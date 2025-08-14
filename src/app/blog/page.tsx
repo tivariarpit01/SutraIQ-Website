@@ -2,7 +2,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
-import BlogListClient from "./BlogListClient";
+
 
 
 type BlogPost = {
@@ -43,12 +43,12 @@ export default async function BlogPage() {
   if (!blogs.length) return notFound();
 
   return (
-    <div className="container mx-auto px-4 py-16 relative">
+    <div className="container mx-auto relative">
       <h1 className="text-4xl font-bold mb-8 text-center font-headline text-white bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 py-10 rounded-xl shadow-xl">
         Latest Blogs
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-20 py-20">
         {blogs.map((post) => (
           <Link
             key={post._id}
@@ -64,20 +64,35 @@ export default async function BlogPage() {
                 />
               </div>
             )}
-            <div className="p-5 flex flex-col flex-grow">
-              <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-              <p className="text-sm text-muted-foreground mb-3 line-clamp-3">
-                {post.content.replace(/<[^>]*>?/gm, "").slice(0, 150)}...
-              </p>
-              <div className="flex justify-between items-center mt-auto">
-                <span className="text-xs text-gray-400">
-                  {format(new Date(post.createdAt), "dd MMM yyyy")}
-                </span>
-                <span className="text-sm text-primary font-medium">Read More →
-                  
-                </span>
-              </div>
-            </div>
+           <div className="p-5 flex flex-col flex-grow">
+  <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+  <p className="text-sm text-muted-foreground mb-3 line-clamp-3">
+    {post.content.replace(/<[^>]*>?/gm, "").slice(0, 150)}...
+  </p>
+
+  {/* 🔖 Tags */}
+  {post.tags && post.tags.length > 0 && (
+    <div className="flex flex-wrap gap-2 mb-4">
+      {post.tags.map((tag, i) => (
+        <span
+          key={i}
+          className="text-xs px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white"
+        >
+          #{tag}
+        </span>
+      ))}
+    </div>
+  )}
+
+  {/* 📅 Date & Read More */}
+  <div className="flex justify-between items-center mt-auto">
+    <span className="text-xs text-gray-400">
+      {format(new Date(post.createdAt), "dd MMM yyyy")}
+    </span>
+    <span className="text-sm text-primary font-medium">Read More →</span>
+  </div>
+</div>
+
           </Link>
         ))}
       </div>

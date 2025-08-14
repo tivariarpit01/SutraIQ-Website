@@ -1,165 +1,138 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Twitter, Linkedin } from "lucide-react";
-import api from "@/lib/axios";
 import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
-interface TeamMember {
+interface Service {
   _id: string;
-  name: string;
-  role: string;
-  bio: string;
-  image: string;
-  socials?: {
-    linkedin?: string;
-    twitter?: string;
+  title: string;
+  description: string;
+  image?: string;
+  features?: string[];
+  technologies?: string[];
+  cta?: {
+    text: string;
+    link: string;
   };
 }
 
-// Fallback image URL
-const FALLBACK_IMAGE = "/fallback.jpg";
-
-// Build image URL depending on source
-function getImageUrl(image: string | undefined): string {
-  if (!image) return FALLBACK_IMAGE;
-  if (image.includes("cloudinary.com") || image.includes("res.cloudinary.com")) return image;
-  if (image.startsWith("http")) return image;
-  if (image.includes("/")) {
-    return `https://res.cloudinary.com/dubvvkgjd/image/upload/${image}`;
-  }
-  return `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/team/${image}`;
-}
-
-export default function AboutPage() {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+export default function ServicesPage() {
+  const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchTeam = async () => {
+    async function fetchServices() {
       try {
-        const res = await api.get("/api/services"); // ✅ Use correct endpoint name
-        const data = res.data?.data || res.data;
-        setTeamMembers(data);
-      } catch (err) {
-        console.error("❌ Failed to fetch team:", err);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/services`, {
+          cache: "no-store",
+        });
+        if (!res.ok) throw new Error("Failed to fetch services");
+        const data = await res.json();
+        setServices(data);
+      } catch (error) {
+        console.error("Error loading services:", error);
       } finally {
         setLoading(false);
       }
-    };
-
-    fetchTeam();
+    }
+    fetchServices();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="text-center py-16">
+        <p>Loading services...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="w-full py-20 md:py-28 lg:py-32 bg-secondary">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-            The Minds Behind the Magic
-          </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed mt-6">
-            A passionate team crafting bold technology and creative design experiences.
-          </p>
-        </div>
+    <div className="w-full relative">
+      {/* Header Section */}
+      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-white py-20 px-4 text-center">
+        <h1 className="text-5xl font-bold mb-4 font-headline">Our Services</h1>
+        <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+          Empowering your business with tailored technology solutions.
+        </p>
       </section>
 
-      {/* Mission & Story Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div>
-              <h2 className="font-headline text-3xl font-bold mb-4">Our Mission</h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Empowering businesses with transformative digital solutions. We believe in long-term
-                partnerships built on trust, innovation, and excellence.
-              </p>
-              <h2 className="font-headline text-3xl font-bold mb-4">Our Story</h2>
-              <p className="text-lg text-muted-foreground">
-                Founded in 2020, StackNova started with a small group of tech enthusiasts. Now a
-                full-service digital agency, our journey is driven by curiosity and craftsmanship.
-              </p>
-            </div>
-            <div className="relative w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src="/images/box8_image.jpg"
-                alt="Team collaborating"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Services Section */}
+      <section className="max-w-7xl mx-auto px-4 py-20 space-y-24">
+        {services.map((service, index) => {
+          const isEven = index % 2 === 0;
 
-      {/* Team Section */}
-      <section className="py-16 md:py-24 bg-secondary">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              Meet Our Leadership
-            </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-lg">
-              The driving force behind StackNova’s innovation.
-            </p>
-          </div>
+          return (
+            <motion.div
+              key={service._id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className={`flex flex-col md:flex-row items-center gap-12 ${
+                isEven ? "" : "md:flex-row-reverse"
+              }`}
+            >
+              {/* Image */}
+              <div className="md:w-1/2 w-full group overflow-hidden rounded-xl shadow-md">
+                <Image
+                  src={service.image || "/fallback.jpg"}
+                  alt={service.title}
+                  width={700}
+                  height={500}
+                  className="rounded-xl object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
 
-          {loading ? (
-            <p className="text-center text-muted-foreground">Loading team...</p>
-          ) : teamMembers.length === 0 ? (
-            <p className="text-center text-muted-foreground">No team members found.</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member, index) => (
-                <Card
-                  key={`${member._id}-${index}`}
-                  className="text-center bg-card p-6 hover:shadow-xl transition-all duration-300 rounded-2xl"
-                >
-                  <CardContent className="flex flex-col items-center">
-                    <div className="w-28 h-28 rounded-full overflow-hidden mb-4 border-4 border-primary/50 relative">
-                      <Image
-                        src={getImageUrl(member.image)}
-                        alt={member.name || "Team member"}
-                        width={112}
-                        height={112}
-                        className="object-contain bg-white p-1"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = FALLBACK_IMAGE;
-                        }}
-                      />
+              {/* Content */}
+              <div className="md:w-1/2 w-full">
+                <h2 className="text-3xl font-bold mb-4">{service.title}</h2>
+                <p className="text-muted-foreground mb-6">{service.description}</p>
+
+                {/* Features */}
+                {service.features && service.features.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-foreground mb-2">Key Features:</h4>
+                    <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                      {service.features.map((feature, i) => (
+                        <li key={i}>{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Technologies */}
+                {service.technologies && service.technologies.length > 0 && (
+                  <div className="mb-6">
+                    <h4 className="font-semibold text-foreground mb-2">Tech Used:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {service.technologies.map((tech, i) => (
+                        <span
+                          key={i}
+                          className="text-sm px-3 py-1 rounded-full bg-secondary text-foreground"
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
-                    <h3 className="text-xl font-bold">{member.name}</h3>
-                    <p className="text-primary font-semibold mb-2">{member.role}</p>
-                    <p className="text-muted-foreground text-sm mb-4">
-                      {member.bio || "No bio available."}
-                    </p>
+                  </div>
+                )}
 
-                    <div className="flex gap-2">
-                      {member.socials?.linkedin?.trim() && (
-                        <Button variant="ghost" size="icon" asChild>
-                          <Link href={member.socials.linkedin} target="_blank" aria-label="LinkedIn">
-                            <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary" />
-                          </Link>
-                        </Button>
-                      )}
-                      {member.socials?.twitter?.trim() && (
-                        <Button variant="ghost" size="icon" asChild>
-                          <Link href={member.socials.twitter} target="_blank" aria-label="Twitter">
-                            <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />
-                          </Link>
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
+                {/* CTA Button */}
+                {service.cta && (
+                  <Button asChild variant="outline">
+                    <Link href={service.cta.link}>
+                      {service.cta.text} <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                )}
+              </div>
+            </motion.div>
+          );
+        })}
       </section>
     </div>
   );

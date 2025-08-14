@@ -16,7 +16,7 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '5000', // ✅ Use correct port for dev API (if needed)
+        port: '8000', // ✅ Use correct port for dev API (if needed)
         pathname: '/uploads/**',
       },
     ],
