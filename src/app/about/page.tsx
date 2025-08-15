@@ -129,7 +129,7 @@ export default function AboutPage() {
             </div>
             <div className=" w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl relative" >
               <Image
-                src="/images/sutraiq Ai.jpg"
+                src="/images/sutraiq-Ai.jpg"
                 alt="AI Service"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
