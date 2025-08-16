@@ -55,7 +55,7 @@ const itemVariants: Variants = {
   },
 };
 
-const MotionCard = motion(Card);
+const MotionCard = motion.create(Card);
 
 // --- Data for Page Sections ---
 const premiumServices = [

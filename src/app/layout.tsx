@@ -8,7 +8,7 @@ import AnimatedBackground from "@/components/ui/Animatedbaground";
 export const metadata: Metadata = {
   title: "SutaIQ Design System",
   description: "Innovative solutions for the modern web.",icons: {
-    icon: "/favicon.png", // or /favicon.png or /favicon.svg
+    icon: "/images/Logo.png", // or /favicon.png or /favicon.svg
   }
 
 
