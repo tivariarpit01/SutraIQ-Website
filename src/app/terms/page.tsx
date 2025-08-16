@@ -2,8 +2,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service - StackNova",
-  description: "Please review the terms governing your use of StackNova.",
+  title: "Terms of Service - SutraIQ",
+  description: "Please review the terms governing your use of SutraIQ.",
 };
 
 export default function TermsOfServicePage() {
@@ -15,14 +15,14 @@ export default function TermsOfServicePage() {
           <p className="text-sm text-muted-foreground">Effective Date: [Insert Date]</p>
 
           <p className="text-base text-muted-foreground">
-            Welcome to <strong>StackNova Technologies Pvt. Ltd.</strong> (“StackNova,” “we,” “our,” or “us”). These Terms of Service (“Terms”) govern your use of our web-based products, software solutions, and learning platform (collectively, the “Services”). By accessing or using our Services, you agree to comply with and be bound by these Terms.
+            Welcome to <strong>SutraIQ Technologies Pvt. Ltd.</strong> (“SutraIQ,” “we,” “our,” or “us”). These Terms of Service (“Terms”) govern your use of our web-based products, software solutions, and learning platform (collectively, the “Services”). By accessing or using our Services, you agree to comply with and be bound by these Terms.
           </p>
 
           {/* 1. Definitions */}
           <section>
             <h2 className="text-2xl font-semibold mt-6">1. Definitions & Interpretation</h2>
             <p className="text-base text-muted-foreground">
-              1.1 “StackNova”, “we”, “our”, or “us” refers to StackNova Technologies Pvt. Ltd., the owner and operator of the Services.
+              1.1 “SutraIQ”, “we”, “our”, or “us” refers to SutraIQ Technologies Pvt. Ltd., the owner and operator of the Services.
               <br />
               1.2 “You”, “User”, or “Customer” refers to any individual or entity accessing our platform.
             </p>
@@ -32,7 +32,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-2xl font-semibold mt-6">2. Our Services</h2>
             <p className="text-base text-muted-foreground">
-              StackNova offers digital learning services, developer tools, and project-based solutions for tech enthusiasts, learners, and institutions. Full service details are available on our website or through specific agreements.
+              SutraIQ offers digital learning services, developer tools, and project-based solutions for tech enthusiasts, learners, and institutions. Full service details are available on our website or through specific agreements.
             </p>
           </section>
 
@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-2xl font-semibold mt-6">3. Use of Services</h2>
             <ul className="list-disc list-inside text-muted-foreground space-y-1">
-              <li><strong>Eligibility:</strong> You must be at least 18 years old or have consent from a legal guardian to use StackNova.</li>
+              <li><strong>Eligibility:</strong> You must be at least 18 years old or have consent from a legal guardian to use SutraIQ.</li>
               <li><strong>Account Responsibility:</strong> You are responsible for all activity under your account. Keep your login credentials secure.</li>
               <li><strong>Prohibited Use:</strong> You agree not to engage in abuse, reverse engineering, scraping, or illegal behavior using our platform.</li>
             </ul>
@@ -59,7 +59,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-2xl font-semibold mt-6">5. Intellectual Property</h2>
             <p className="text-base text-muted-foreground">
-              5.1 <strong>Ownership:</strong> All content, code, and learning material is owned by StackNova or its partners and protected by law.<br />
+              5.1 <strong>Ownership:</strong> All content, code, and learning material is owned by SutraIQ or its partners and protected by law.<br />
               5.2 <strong>License:</strong> You receive a limited, non-transferable license to use our content for personal or internal learning only.
             </p>
           </section>
@@ -84,7 +84,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-2xl font-semibold mt-6">8. Termination</h2>
             <p className="text-base text-muted-foreground">
-              StackNova may suspend or terminate your access if you breach these Terms. You may also end use of our Services at any time by written notice.
+              SutraIQ may suspend or terminate your access if you breach these Terms. You may also end use of our Services at any time by written notice.
             </p>
           </section>
 
@@ -100,7 +100,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-2xl font-semibold mt-6">10. Indemnification</h2>
             <p className="text-base text-muted-foreground">
-              You agree to indemnify and hold harmless StackNova, its team, and affiliates from any losses, damages, or liabilities arising from your use of our platform or violation of these Terms.
+              You agree to indemnify and hold harmless SutraIQ, its team, and affiliates from any losses, damages, or liabilities arising from your use of our platform or violation of these Terms.
             </p>
           </section>
 
@@ -133,8 +133,8 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold mt-6">📞 Contact Us</h2>
             <p className="text-base text-muted-foreground">
               Got questions or concerns?<br />
-              📧 <a href="mailto:legal@stacknova.in" className="text-primary underline">legal@stacknova.in</a><br />
-              🌐 <a href="https://stacknova.in" className="text-primary underline">https://stacknova.in</a>
+              📧 <a href="mailto:legal@sutraIQ.in" className="text-primary underline">legal@sutraIQ.in</a><br />
+              🌐 <a href="https://sutraIQ.in" className="text-primary underline">https://sutraIQ.in</a>
             </p>
           </section>
 

@@ -50,7 +50,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${blog.title} | StackNova`,
+    title: `${blog.title} | SutraIQ`,
     description: blog.content.slice(0, 120) + "...",
     openGraph: {
       images: [getImageUrl(blog.image)],

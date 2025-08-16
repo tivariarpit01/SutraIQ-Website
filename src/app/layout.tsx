@@ -6,7 +6,7 @@ import "./globals.css";
 import AnimatedBackground from "@/components/ui/Animatedbaground";
 
 export const metadata: Metadata = {
-  title: "StackNova Design System",
+  title: "SutaIQ Design System",
   description: "Innovative solutions for the modern web.",icons: {
     icon: "/favicon.png", // or /favicon.png or /favicon.svg
   }

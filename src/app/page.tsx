@@ -96,7 +96,7 @@ const testimonials = [
   {
     name: "Rajesh Kumar",
     title: "CEO, Tech Innovators",
-    quote: "StackNova transformed our web presence. We saw 200% growth!",
+    quote: "SutraIQ transformed our web presence. We saw 200% growth!",
     avatar: "/images/test/client1.png",
   },
   {
@@ -121,7 +121,7 @@ const testimonials = [
   {
     name: "Michael Chen",
     title: "CEO, Innovatech",
-    quote: "StackNova transformed our web presence. We saw 200% growth!",
+    quote: "SutraIQ transformed our web presence. We saw 200% growth!",
     avatar: "/images/test/michael chen.avif",
   },
   {

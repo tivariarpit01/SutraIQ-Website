@@ -13,6 +13,7 @@ import {
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/icons/Logo";
 import { cn } from "@/lib/utils";
+import Image from "next/image"; // Assuming you have an Image component for the logo
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -33,7 +34,7 @@ const NavLink = ({ href, label }: { href: string; label: string }) => {
       <span
         className={cn(
           "text-lg font-medium transition-colors hover:text-primary",
-          isActive ? "text-primary" : "text-muted-foreground",
+          isActive ? "text-primary" : "text-muted-foreground"
         )}
       >
         {label}
@@ -56,7 +57,7 @@ const MobileNavLink = ({ href, label }: { href: string; label: string }) => {
             "block px-4 py-2 rounded-md text-xl",
             isActive
               ? "bg-primary text-primary-foreground"
-              : "text-foreground hover:bg-muted",
+              : "text-foreground hover:bg-muted"
           )}
         >
           {label}
@@ -73,7 +74,13 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <Link href="/" className=" ">
-          <Logo className="h-16 w-16" />
+          <Image
+            src="/images/Logo.png" // Adjust the path to your logo image
+            alt="SutraIQ Logo"
+            width={40} // Adjust width as needed
+            height={40} // Adjust height as needed
+            className="h-38 w-38 md:h-40 md:w-40"
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
@@ -108,7 +115,7 @@ export default function Header() {
                 >
                   <Logo className="h-8 w-8" />
                   <span className="text-xl font-bold font-headline">
-                    StackNova
+                    SutraIQ
                   </span>
                 </Link>
                 <div className="flex flex-col gap-4">

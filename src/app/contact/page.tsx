@@ -44,9 +44,9 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">Email</h3>
-                    <p className="text-muted-foreground">hello@stacknova.com</p>
+                    <p className="text-muted-foreground">hello@sutraIQ.com</p>
                     <a
-                      href="mailto:hello@stacknova.com"
+                      href="mailto:hello@sutraIQ.com"
                       className="text-primary hover:underline"
                     >
                       Send an email

@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users, Award, Globe, Heart } from "lucide-react";
+import { Users, Award, Globe, Heart, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Twitter, Linkedin } from "lucide-react";
 import api from "@/lib/axios";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -49,24 +48,38 @@ const values = [
 function getImageUrl(image?: string): string {
   if (!image) return "/fallback.jpg";
 
-  // Full URL (Cloudinary, external API)
   if (image.startsWith("http://") || image.startsWith("https://")) {
     return image;
   }
 
-  // Static image from /public
   if (image.startsWith("/") && !image.startsWith("/uploads/")) {
     return image;
   }
 
-  // Cloudinary relative path
   if (image.includes("/") && !image.startsWith("/uploads/")) {
     return `https://res.cloudinary.com/dubvvkgjd/image/upload/${image}`;
   }
 
-  // Backend uploads
   return `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/team/${image}`;
 }
+
+// ✅ ReadMore component
+const ReadMore = ({ text, maxLength = 300 }: { text: string; maxLength?: number }) => {
+  const [expanded, setExpanded] = useState(false);
+  if (text.length <= maxLength) return <p className="text-lg text-muted-foreground">{text}</p>;
+
+  return (
+    <p className="text-lg text-muted-foreground">
+      {expanded ? text : text.slice(0, maxLength) + "... "}
+      <button
+        className="text-primary font-semibold hover:underline ml-1"
+        onClick={() => setExpanded(!expanded)}
+      >
+        {expanded ? "Read Less" : "Read More"}
+      </button>
+    </p>
+  );
+};
 
 export default function AboutPage() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
@@ -75,8 +88,9 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const res = await api.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/team`);
-        // FIX: Use res.data directly since the API returns an array
+        const res = await api.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/team`
+        );
         setTeamMembers(res.data || []);
       } catch (err) {
         console.error("❌ Team fetch failed:", err);
@@ -107,35 +121,34 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <h2 className="font-headline text-3xl font-bold mb-4">Our Mission</h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Empowering businesses with transformative digital solutions is at the heart of everything we do. In today’s rapidly evolving technological landscape, we recognize that growth isn’t just about keeping up — it’s about staying ahead. Our mission is to enable businesses of all sizes to thrive through tailored, innovative, and future-ready solutions.
+              <ReadMore
+                text={`Empowering businesses with transformative digital solutions is at the heart of everything we do. In today’s rapidly evolving technological landscape, we recognize that growth isn’t just about keeping up — it’s about staying ahead. Our mission is to enable businesses of all sizes to thrive through tailored, innovative, and future-ready solutions.
 
-                We don’t just provide services — we build long-term partnerships based on mutual trust, transparency, and a shared commitment to success. Our approach blends strategic thinking, cutting-edge technology, and creative problem-solving to drive real, measurable impact for our clients.
+We don’t just provide services — we build long-term partnerships based on mutual trust, transparency, and a shared commitment to success. Our approach blends strategic thinking, cutting-edge technology, and creative problem-solving to drive real, measurable impact for our clients.
 
-                At StackNova, we believe in excellence through collaboration. By aligning ourselves with our clients’ goals, we create scalable digital ecosystems that not only solve immediate challenges but also pave the way for sustained growth and innovation. Your success is our mission.
+At SutraIQ, we believe in excellence through collaboration. By aligning ourselves with our clients’ goals, we create scalable digital ecosystems that not only solve immediate challenges but also pave the way for sustained growth and innovation. Your success is our mission.`}
+              />
 
+              <h2 className="font-headline text-3xl font-bold mt-8 mb-4">Our Story</h2>
+              <ReadMore
+                text={`Founded in 2025, SutraIQ began as a vision shared by a small group of passionate tech enthusiasts determined to build something meaningful. What started as a humble team experimenting with code and design quickly evolved into a dynamic digital agency committed to solving real-world business challenges through technology.
 
-              </p>
-              <h2 className="font-headline text-3xl font-bold mb-4">Our Story</h2>
-              <p className="text-lg text-muted-foreground">
-                Founded in 2020, StackNova began as a vision shared by a small group of passionate tech enthusiasts determined to build something meaningful. What started as a humble team experimenting with code and design quickly evolved into a dynamic digital agency committed to solving real-world business challenges through technology.
+From the early days of late-night brainstorming sessions and building MVPs for startups, we’ve grown into a full-service digital powerhouse trusted by clients across industries. Our journey has been defined by a deep curiosity for emerging technologies and an unwavering commitment to quality craftsmanship.
 
-                From the early days of late-night brainstorming sessions and building MVPs for startups, we’ve grown into a full-service digital powerhouse trusted by clients across industries. Our journey has been defined by a deep curiosity for emerging technologies and an unwavering commitment to quality craftsmanship.
+As we scaled, we remained rooted in our belief that technology should empower, not overwhelm. This belief fuels our approach to every project — combining strategic insight, human-centric design, and cutting-edge engineering to deliver solutions that don’t just function but truly inspire.
 
-                As we scaled, we remained rooted in our belief that technology should empower, not overwhelm. This belief fuels our approach to every project — combining strategic insight, human-centric design, and cutting-edge engineering to deliver solutions that don’t just function but truly inspire.
-
-                Every line of code, every pixel, and every conversation reflects our core values of collaboration, innovation, and excellence. We’re proud of how far we've come, but we’re even more excited about where we're headed — alongside our clients, shaping the future one bold idea at a time.
-              </p>
+Every line of code, every pixel, and every conversation reflects our core values of collaboration, innovation, and excellence. We’re proud of how far we've come, but we’re even more excited about where we're headed — alongside our clients, shaping the future one bold idea at a time.`}
+              />
             </div>
-            <div className=" w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl relative" >
+
+            <div className="w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl relative">
               <Image
-                src="/images/sutraiq-Ai.jpg"
+                src="/images/about.jpg"
                 alt="AI Service"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform hover:scale-105 "
+                className="object-cover transition-transform hover:scale-105"
               />
-
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
           </div>
@@ -168,25 +181,22 @@ export default function AboutPage() {
                   {value.icon}
                 </div>
                 <h3 className="text-xl font-semibold">{value.title}</h3>
-                <p className="text-muted-foreground text-sm mt-2">
-                  {value.description}
-                </p>
+                <p className="text-muted-foreground text-sm mt-2">{value.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-
       {/* Team Section */}
-      <section className="py-16 md:py-24  relative">
+      <section className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Meet Our Leadership
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-lg">
-              The driving force behind StackNova’s innovation.
+              The driving force behind SutraIQ innovation.
             </p>
           </div>
 
