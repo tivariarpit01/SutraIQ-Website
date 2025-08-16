@@ -15,7 +15,7 @@ type BlogPost = {
 };
 
 // 👇 Custom type banaya for params
-interface Params {
+interface PageProps {
   params: { id: string };
 }
 
@@ -42,7 +42,7 @@ async function getBlog(id: string): Promise<BlogPost | null> {
 }
 
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const blog = await getBlog(params.id);
   if (!blog) {
     return {
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 // ✅ Also using Params here
-export default async function BlogDetailPage({ params }: Params) {
+export default async function BlogDetailPage({ params }: PageProps) {
   const blog = await getBlog(params.id);
   if (!blog) return notFound();
 
