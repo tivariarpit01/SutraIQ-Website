@@ -1,4 +1,4 @@
-"use client";
+"use client"; 
 
 import React from "react";
 import Link from "next/link";
@@ -143,7 +143,7 @@ const technologies = [
   { name: "Firebase", icon: SiFirebase },
   { name: "Tailwind CSS", icon: SiTailwindcss },
   { name: "Docker", icon: SiDocker },
-  { name: "Kubernetes", icon: SiKubernetes }, // closest match to Genkit
+  { name: "Kubernetes", icon: SiKubernetes },
   { name: "TensorFlow", icon: SiTensorflow },
 ];
 
@@ -198,6 +198,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       {/* SERVICES */}
       <motion.section
         className="py-20 bg-background"
@@ -212,11 +213,13 @@ export default function HomePage() {
               <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full">
                 <div className="grid md:grid-cols-2">
                   <div className="relative w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                    {/* Fixed Image with sizes */}
                     <Image
                       src={service.image}
                       alt={service.title}
                       fill
                       className="object-cover transition-transform hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   </div>
                   <div className="p-6 flex flex-col">
@@ -245,6 +248,7 @@ export default function HomePage() {
           ))}
         </div>
       </motion.section>
+
       {/* TECH STACK */}
       <motion.section
         className="py-20 bg-secondary"

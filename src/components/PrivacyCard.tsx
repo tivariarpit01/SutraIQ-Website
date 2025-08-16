@@ -2,199 +2,173 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service - SutraIQ",
-  description: "Please review the terms governing your use of SutraIQ.",
+  title: "Privacy Policy - SutraIQ",
+  description:
+    "Learn how SutraIQ Technologies Pvt. Ltd. collects, uses, and protects your personal information.",
 };
 
-export default function TermsOfServicePage() {
+export default function PrivacyPolicyPage() {
   return (
     <div className="container py-16 px-4 md:px-8 max-w-4xl mx-auto">
       <Card className="bg-background shadow-lg border border-gray-200 rounded-2xl">
         <CardContent className="space-y-6 p-8">
           <h1 className="text-4xl font-bold text-primary">
-            📜 Terms of Service
+            🛡️ Privacy Policy
           </h1>
           <p className="text-sm text-muted-foreground">
-            Effective Date: [Insert Date]
+            Effective Date: August 1, 2025
           </p>
 
           <p className="text-base text-muted-foreground">
-            Welcome to <strong>SutraIQ Technologies Pvt. Ltd.</strong>{" "}
-            (“SutraIQ,” “we,” “our,” or “us”). These Terms of Service (“Terms”)
-            govern your use of our web-based products, software solutions, and
-            learning platform (collectively, the “Services”). By accessing or
-            using our Services, you agree to comply with and be bound by these
-            Terms.
+            <strong>SutraIQ Technologies Pvt. Ltd.</strong> (“SutraIQ,” “we,”
+            “our,” or “us”) is committed to protecting your privacy. This
+            Privacy Policy explains how we collect, use, disclose, and safeguard
+            your information when you use our web-based products, software
+            solutions, and learning platform (collectively, the “Services”).
           </p>
 
-          {/* 1. Definitions */}
+          {/* 1. Information We Collect */}
           <section>
             <h2 className="text-2xl font-semibold mt-6">
-              1. Definitions & Interpretation
+              1. Information We Collect
             </h2>
-            <p className="text-base text-muted-foreground">
-              1.1 “SutraIQ”, “we”, “our”, or “us” refers to SutraIQ Technologies
-              Pvt. Ltd., the owner and operator of the Services.
-              <br />
-              1.2 “You”, “User”, or “Customer” refers to any individual or
-              entity accessing our platform.
+            <p className="text-base text-muted-foreground mt-2">
+              We collect information that you provide directly to us and
+              information that we collect automatically when you use our
+              Services.
             </p>
-          </section>
-
-          {/* 2. Services */}
-          <section>
-            <h2 className="text-2xl font-semibold mt-6">2. Our Services</h2>
-            <p className="text-base text-muted-foreground">
-              SutraIQ offers digital learning services, developer tools, and
-              project-based solutions for tech enthusiasts, learners, and
-              institutions. Full service details are available on our website or
-              through specific agreements.
-            </p>
-          </section>
-
-          {/* 3. Use of Services */}
-          <section>
-            <h2 className="text-2xl font-semibold mt-6">3. Use of Services</h2>
-            <ul className="list-disc list-inside text-muted-foreground space-y-1">
+            <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-3">
               <li>
-                <strong>Eligibility:</strong> You must be at least 18 years old
-                or have consent from a legal guardian to use SutraIQ.
+                <strong>Personal Information:</strong> This includes your name,
+                email address, phone number, payment information, and any other
+                information you provide when you create an account, purchase a
+                service, or communicate with us.
               </li>
               <li>
-                <strong>Account Responsibility:</strong> You are responsible for
-                all activity under your account. Keep your login credentials
-                secure.
+                <strong>Usage Data:</strong> We automatically collect
+                information about your interactions with our Services, such as
+                your IP address, browser type, operating system, pages viewed,
+                and the dates/times of your visits.
               </li>
               <li>
-                <strong>Prohibited Use:</strong> You agree not to engage in
-                abuse, reverse engineering, scraping, or illegal behavior using
-                our platform.
+                <strong>Cookies and Tracking Technologies:</strong> We use
+                cookies to help us understand user activity, personalize your
+                experience, and improve our Services.
               </li>
             </ul>
           </section>
 
-          {/* 4. Payment & Fees */}
-          <section>
-            <h2 className="text-2xl font-semibold mt-6">4. Payment & Fees</h2>
-            <p className="text-base text-muted-foreground">
-              4.1 <strong>Fees:</strong> Fees for courses, services, and
-              subscriptions are clearly mentioned on our platform or invoices.
-              <br />
-              4.2 <strong>Payment Terms:</strong> Payment deadlines and modes
-              will be defined in your invoice or agreement. Delays may result in
-              service suspension.
-            </p>
-          </section>
-
-          {/* 5. Intellectual Property */}
+          {/* 2. How We Use Your Information */}
           <section>
             <h2 className="text-2xl font-semibold mt-6">
-              5. Intellectual Property
+              2. How We Use Your Information
             </h2>
             <p className="text-base text-muted-foreground">
-              5.1 <strong>Ownership:</strong> All content, code, and learning
-              material is owned by SutraIQ or its partners and protected by law.
-              <br />
-              5.2 <strong>License:</strong> You receive a limited,
-              non-transferable license to use our content for personal or
-              internal learning only.
+              We use the information we collect for various purposes, including:
             </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-1 mt-3">
+              <li>To provide, operate, and maintain our Services.</li>
+              <li>To process your transactions and manage your payments.</li>
+              <li>
+                To communicate with you, including responding to your inquiries
+                and sending you service-related updates.
+              </li>
+              <li>To improve and personalize our Services and user experience.</li>
+              <li>
+                To monitor and analyze usage and trends to enhance security and
+                functionality.
+              </li>
+              <li>
+                To comply with legal obligations and enforce our Terms of
+                Service.
+              </li>
+            </ul>
           </section>
 
-          {/* 6. Confidentiality */}
-          <section>
-            <h2 className="text-2xl font-semibold mt-6">6. Confidentiality</h2>
-            <p className="text-base text-muted-foreground">
-              Both parties agree not to disclose confidential information shared
-              during project execution or user onboarding, except as required by
-              law.
-            </p>
-          </section>
-
-          {/* 7. Data Protection */}
-          <section>
-            <h2 className="text-2xl font-semibold mt-6">7. Data Protection</h2>
-            <p className="text-base text-muted-foreground">
-              Our handling of your data is guided by our{" "}
-              <a href="/privacy" className="text-primary underline">
-                Privacy Policy
-              </a>
-              . We are fully committed to protecting your privacy and security
-              online.
-            </p>
-          </section>
-
-          {/* 8. Termination */}
-          <section>
-            <h2 className="text-2xl font-semibold mt-6">8. Termination</h2>
-            <p className="text-base text-muted-foreground">
-              SutraIQ may suspend or terminate your access if you breach these
-              Terms. You may also end use of our Services at any time by written
-              notice.
-            </p>
-          </section>
-
-          {/* 9. Disclaimers & Liability */}
+          {/* 3. Data Sharing and Disclosure */}
           <section>
             <h2 className="text-2xl font-semibold mt-6">
-              9. Disclaimers & Limitation of Liability
+              3. Data Sharing and Disclosure
             </h2>
             <p className="text-base text-muted-foreground">
-              Our Services are provided “as is” and “as available”. We do not
-              guarantee uninterrupted or error-free service. Our liability is
-              limited to the maximum extent permitted by law.
+              We do not sell your personal information. We may share your
+              information in the following situations:
             </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-1 mt-3">
+              <li>
+                <strong>With Service Providers:</strong> We may share data with
+                third-party vendors who perform services for us, such as payment
+                processing and data analytics.
+              </li>
+              <li>
+                <strong>For Legal Reasons:</strong> We may disclose your
+                information if required to do so by law or in response to valid
+                requests by public authorities.
+              </li>
+              <li>
+                <strong>Business Transfers:</strong> Your information may be
+                transferred in connection with a merger, acquisition, or sale
+                of company assets.
+              </li>
+            </ul>
           </section>
 
-          {/* 10. Indemnity */}
+          {/* 4. Data Security */}
           <section>
-            <h2 className="text-2xl font-semibold mt-6">10. Indemnification</h2>
+            <h2 className="text-2xl font-semibold mt-6">4. Data Security</h2>
             <p className="text-base text-muted-foreground">
-              You agree to indemnify and hold harmless SutraIQ, its team, and
-              affiliates from any losses, damages, or liabilities arising from
-              your use of our platform or violation of these Terms.
+              We implement a variety of security measures to maintain the safety
+              of your personal information. However, please be aware that no
+              method of transmission over the Internet or method of electronic
+              storage is 100% secure.
             </p>
           </section>
 
-          {/* 11. Updates to Terms */}
+          {/* 5. Your Data Rights */}
           <section>
             <h2 className="text-2xl font-semibold mt-6">
-              11. Changes to These Terms
+              5. Your Data Protection Rights
             </h2>
             <p className="text-base text-muted-foreground">
-              We may update these Terms as our services evolve. All updates will
-              be posted on our website. Continued use means you accept the
-              revised Terms.
+              Depending on your location, you may have certain rights regarding
+              your personal data, including the right to access, correct, or
+              request deletion of your data. To exercise these rights, please
+              contact us.
             </p>
           </section>
 
-          {/* 12. Governing Law */}
-          <section>
-            <h2 className="text-2xl font-semibold mt-6">12. Governing Law</h2>
-            <p className="text-base text-muted-foreground">
-              These Terms are governed by the laws of India. Any legal matters
-              will be resolved in the jurisdiction of Bengaluru, Karnataka,
-              India.
-            </p>
-          </section>
-
-          {/* 13. Dispute Resolution */}
+          {/* 6. Children's Privacy */}
           <section>
             <h2 className="text-2xl font-semibold mt-6">
-              13. Dispute Resolution
+              6. Children&apos;s Privacy
             </h2>
             <p className="text-base text-muted-foreground">
-              Any dispute arising from these Terms will be resolved through
-              binding arbitration under the Arbitration and Conciliation Act,
-              1996. The place of arbitration shall be Bengaluru.
+              Our Services are not intended for use by individuals under the age
+              of 18. We do not knowingly collect personal data from children. If
+              we become aware that we have, we will take steps to delete such
+              information.
             </p>
           </section>
 
-          {/* 📞 Contact Us */}
+          {/* 7. Changes to This Policy */}
           <section>
-            <h2 className="text-2xl font-semibold mt-6">📞 Contact Us</h2>
+            <h2 className="text-2xl font-semibold mt-6">
+              7. Changes to This Privacy Policy
+            </h2>
             <p className="text-base text-muted-foreground">
-              Got questions or concerns?
+              We may update this Privacy Policy from time to time. We will
+              notify you of any changes by posting the new policy on this page.
+              Your continued use of our Services after any modification
+              constitutes your acceptance of the new terms.
+            </p>
+          </section>
+
+          {/* 8. Contact Us */}
+          <section>
+            <h2 className="text-2xl font-semibold mt-6">📧 Contact Us</h2>
+            <p className="text-base text-muted-foreground">
+              If you have any questions or concerns about this Privacy Policy,
+              please contact us:
               <br />
               📧{" "}
               <a
@@ -205,16 +179,21 @@ export default function TermsOfServicePage() {
               </a>
               <br />
               🌐{" "}
-              <a href="https://sutraiq.in" className="text-primary underline">
+              <a
+                href="https://sutraiq.in"
+                className="text-primary underline"
+              >
                 https://sutraiq.in
               </a>
             </p>
           </section>
 
           <p className="text-center text-lg font-semibold text-primary pt-8">
-            Let’s build a better tech world—with clarity, integrity, and
-            community. 🚀
-          </p>
+  Your privacy is our priority. We are committed to building a better
+  tech world with trust and integrity. 🚀
+  <br /> 
+  Thank you for choosing SutraIQ!
+</p>
         </CardContent>
       </Card>
     </div>

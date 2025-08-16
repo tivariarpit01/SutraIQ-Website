@@ -14,6 +14,11 @@ type BlogPost = {
   createdAt: string;
 };
 
+// 👇 Custom type banaya for params
+interface Params {
+  params: { id: string };
+}
+
 function getImageUrl(image: string | undefined): string {
   if (!image) return "/fallback.jpg";
   if (image.includes("cloudinary.com") || image.includes("res.cloudinary.com")) return image;
@@ -36,11 +41,8 @@ async function getBlog(id: string): Promise<BlogPost | null> {
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+// ✅ No PageProps, using our Params type
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const blog = await getBlog(params.id);
   if (!blog) {
     return {
@@ -58,11 +60,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+// ✅ Also using Params here
+export default async function BlogDetailPage({ params }: Params) {
   const blog = await getBlog(params.id);
   if (!blog) return notFound();
 
