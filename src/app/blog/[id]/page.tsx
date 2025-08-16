@@ -41,7 +41,7 @@ async function getBlog(id: string): Promise<BlogPost | null> {
   }
 }
 
-// ✅ No PageProps, using our Params type
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const blog = await getBlog(params.id);
   if (!blog) {
@@ -76,7 +76,6 @@ export default async function BlogDetailPage({ params }: Params) {
           />
         </div>
       )}
-
       <h1 className="text-4xl font-bold mb-2">{blog.title}</h1>
       <div className="text-sm text-gray-500 mb-4">
         By {blog.author} • {format(new Date(blog.createdAt), "dd MMM yyyy")}
