@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
 
+// --- TYPE DEFINITIONS ---
 type BlogPost = {
   _id: string;
   title: string;
@@ -14,21 +15,31 @@ type BlogPost = {
   createdAt: string;
 };
 
+// This is the specific type for props in a dynamic route like [id]
+type Props = {
+  params: { id: string };
+};
+
+// --- HELPER FUNCTIONS ---
 function getImageUrl(image: string | undefined): string {
-  if (!image) return "/fallback.jpg";
-  if (image.includes("cloudinary.com") || image.includes("res.cloudinary.com")) return image;
-  if (image.startsWith("http")) return image;
+  if (!image) return "/fallback.jpg"; // A fallback image if none is provided
+  if (image.startsWith("http")) return image; // Already a full URL
   if (image.includes("/")) {
+    // Assumes a Cloudinary public ID with folders
     return `https://res.cloudinary.com/dubvvkgjd/image/upload/${image}`;
   }
+  // Fallback for local or direct backend paths
   return `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${image}`;
 }
 
 async function getBlog(id: string): Promise<BlogPost | null> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs/${id}`, {
-      next: { revalidate: 60 },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs/${id}`,
+      {
+        next: { revalidate: 60 }, // Revalidate data every 60 seconds
+      }
+    );
     if (!res.ok) return null;
     return await res.json();
   } catch {
@@ -36,37 +47,37 @@ async function getBlog(id: string): Promise<BlogPost | null> {
   }
 }
 
-// ✅ Inline type for params (instead of PageProps interface)
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+// --- METADATA GENERATION ---
+// ✅ FIX: Changed props to use the specific `Props` type instead of `any`.
+// ✅ FIX: Access `props.params.id` directly to work with Next.js 15.
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const blog = await getBlog(params.id);
+
   if (!blog) {
     return {
       title: "Blog Not Found",
-      description: "This blog doesn't exist.",
+      description: "This blog post could not be found.",
     };
   }
 
   return {
     title: `${blog.title} | SutraIQ`,
-    description: blog.content.slice(0, 120) + "...",
+    description: blog.content.slice(0, 155).trim() + "...",
     openGraph: {
       images: [getImageUrl(blog.image)],
     },
   };
 }
 
-// ✅ Same fix here
-export default async function BlogDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+// --- PAGE COMPONENT ---
+// ✅ FIX: Changed props to use the specific `Props` type instead of `any`.
+// ✅ FIX: Access `props.params.id` directly to work with Next.js 15.
+export default async function BlogDetailPage({ params }: Props) {
   const blog = await getBlog(params.id);
-  if (!blog) return notFound();
+
+  if (!blog) {
+    return notFound(); // Triggers the not-found.tsx page
+  }
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-4xl relative">
@@ -88,7 +99,7 @@ export default async function BlogDetailPage({
         <div dangerouslySetInnerHTML={{ __html: blog.content }} />
       </div>
 
-      {blog.tags.length > 0 && (
+      {blog.tags && blog.tags.length > 0 && (
         <div className="mt-6 flex flex-wrap gap-2">
           {blog.tags.map((tag, idx) => (
             <span
