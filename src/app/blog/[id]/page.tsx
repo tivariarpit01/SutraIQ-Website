@@ -29,9 +29,7 @@ async function getBlog(id: string): Promise<BlogPost | null> {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs/${id}`,
-      {
-        next: { revalidate: 60 },
-      }
+      { next: { revalidate: 60 } }
     );
     if (!res.ok) return null;
     return await res.json();
@@ -41,9 +39,11 @@ async function getBlog(id: string): Promise<BlogPost | null> {
 }
 
 // --- METADATA GENERATION ---
-// ✅ FIX: Using an inline type for props to satisfy the build compiler.
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const blog = await getBlog(params.id);
+export async function generateMetadata(
+  { params }: { params: Promise<{ id: string }> }
+): Promise<Metadata> {
+  const { id } = await params; // ✅ await params
+  const blog = await getBlog(id);
 
   if (!blog) {
     return {
@@ -62,9 +62,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 // --- PAGE COMPONENT ---
-// ✅ FIX: Using an inline type for props to satisfy the build compiler.
-export default async function BlogDetailPage({ params }: { params: { id: string } }) {
-  const blog = await getBlog(params.id);
+export default async function BlogDetailPage(
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params; // ✅ await params
+  const blog = await getBlog(id);
 
   if (!blog) {
     return notFound();
