@@ -15,20 +15,13 @@ type BlogPost = {
   createdAt: string;
 };
 
-// This is the specific type for props in a dynamic route like [id]
-type Props = {
-  params: { id: string };
-};
-
 // --- HELPER FUNCTIONS ---
 function getImageUrl(image: string | undefined): string {
-  if (!image) return "/fallback.jpg"; // A fallback image if none is provided
-  if (image.startsWith("http")) return image; // Already a full URL
+  if (!image) return "/fallback.jpg";
+  if (image.startsWith("http")) return image;
   if (image.includes("/")) {
-    // Assumes a Cloudinary public ID with folders
     return `https://res.cloudinary.com/dubvvkgjd/image/upload/${image}`;
   }
-  // Fallback for local or direct backend paths
   return `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/blogs/${image}`;
 }
 
@@ -37,7 +30,7 @@ async function getBlog(id: string): Promise<BlogPost | null> {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blogs/${id}`,
       {
-        next: { revalidate: 60 }, // Revalidate data every 60 seconds
+        next: { revalidate: 60 },
       }
     );
     if (!res.ok) return null;
@@ -48,9 +41,8 @@ async function getBlog(id: string): Promise<BlogPost | null> {
 }
 
 // --- METADATA GENERATION ---
-// ✅ FIX: Changed props to use the specific `Props` type instead of `any`.
-// ✅ FIX: Access `props.params.id` directly to work with Next.js 15.
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+// ✅ FIX: Using an inline type for props to satisfy the build compiler.
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const blog = await getBlog(params.id);
 
   if (!blog) {
@@ -70,13 +62,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // --- PAGE COMPONENT ---
-// ✅ FIX: Changed props to use the specific `Props` type instead of `any`.
-// ✅ FIX: Access `props.params.id` directly to work with Next.js 15.
-export default async function BlogDetailPage({ params }: Props) {
+// ✅ FIX: Using an inline type for props to satisfy the build compiler.
+export default async function BlogDetailPage({ params }: { params: { id: string } }) {
   const blog = await getBlog(params.id);
 
   if (!blog) {
-    return notFound(); // Triggers the not-found.tsx page
+    return notFound();
   }
 
   return (
