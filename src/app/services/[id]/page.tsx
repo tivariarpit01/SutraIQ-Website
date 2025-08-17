@@ -30,8 +30,11 @@ async function getService(id: string): Promise<Service | null> {
   return res.json();
 }
 
-export default async function ServiceDetailPage({ params }: { params: { id: string } }) {
-  const service = await getService(params.id);
+export default async function ServiceDetailPage(
+  { params }: { params: Promise<{ id: string }> } // 👈 params is a Promise
+) {
+  const { id } = await params; // 👈 await karna hi padega
+  const service = await getService(id);
 
   if (!service) {
     notFound();
@@ -47,7 +50,6 @@ export default async function ServiceDetailPage({ params }: { params: { id: stri
         height={400}
         className="rounded-lg mb-6 object-cover"
       />
-      
     </div>
   );
 }
