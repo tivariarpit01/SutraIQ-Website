@@ -21,12 +21,8 @@ const nextConfig = {
     ],
   },
 
-  eslint: {
-    ignoreDuringBuilds: true, // ✅ ESLint errors ignore kar de build pe
-  },
-
   typescript: {
-    ignoreBuildErrors: true, // ✅ TS errors ignore kar de build pe
+    ignoreBuildErrors: true, // ✅ still allowed in Next 16
   },
 };
 
