@@ -150,7 +150,7 @@ export default function Header() {
             </SheetTrigger>
 
             <SheetContent side="right" className="w-[80vw]">
-              <SheetTitle ></SheetTitle>
+              <SheetTitle></SheetTitle>
 
               <div className="flex flex-col gap-4 mt-6">
                 {navLinks.map((link) => (
