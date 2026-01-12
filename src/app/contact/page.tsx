@@ -1,107 +1,81 @@
-'use client';
+"use client";
+
+import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function ContactPage() {
   return (
-    <div className="flex flex-col relative">
-      {/* Hero Section */}
-      <section className="w-full py-20 md:py-28 lg:py-12 bg-secondary">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-            Get in Touch
-          </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed mt-6">
-            We're here to help and answer any question you might have. We look
-            forward to hearing from you.
-          </p>
-        </div>
-      </section>
+    <section className="py-20">
+      <div className="container mx-auto px-6">
 
-      {/* Contact Form and Info Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            <div className="bg-card p-8 rounded-lg shadow-lg border border-border/50">
-              <h2 className="font-headline text-3xl font-bold mb-6">
-                Send Us a Message
-              </h2>
-              <ContactForm />
-            </div>
-            <div className="flex flex-col justify-center">
-              <h2 className="font-headline text-3xl font-bold mb-6">
-                Contact Information
-              </h2>
-              <p className="text-muted-foreground mb-8 text-lg">
-                Have a question or a project in mind? Reach out to us directly
-                through any of the channels below. Our team is ready to assist
-                you.
-              </p>
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">Email</h3>
-                    <p className="text-muted-foreground">hello@sutraIQ.com</p>
-                    <a
-                      href="mailto:hello@sutraIQ.com"
-                      className="text-primary hover:underline"
-                    >
-                      Send an email
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <Phone className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">Phone</h3>
-                    <p className="text-muted-foreground">(+91) 7678181385</p>
-                    <a
-                      href="tel:+7678181385"
-                      className="text-primary hover:underline"
-                    >
-                      Call us
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <MapPin className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">Office</h3>
-                    <p className="text-muted-foreground">South West Delhi</p>
-                    <a href="#" className="text-primary hover:underline">
-                      Get directions
-                    </a>
-                  </div>
-                </div>
-              </div>
+        <div className="grid lg:grid-cols-2 gap-14 items-center">
+
+          {/* LEFT SMALL IMAGE */}
+          <div className="flex justify-center lg:justify-start">
+            <div className="relative w-[280px] h-[360px] sm:w-[320px] sm:h-[420px] rounded-3xl overflow-hidden shadow-2xl">
+              <Image
+                src="/images/services/contact-me.png"
+                alt="Contact SutraIQ"
+                fill
+                className="object-fit"
+              />
+              {/* subtle overlay */}
+              <div className="absolute inset-0 bg-black/10" />
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Map Section */}
-      <section className="w-full h-[400px] bg-secondary">
-        <div className="w-full h-full bg-muted flex items-center justify-center">
-          <p className="text-muted-foreground">Map Placeholder</p>
-          <iframe
-            width="400"
-            height="400"
-            scrolling="no"
-            style={{ margin: 0 }}
-            id="gmap_canvas"
-            src="https://maps.google.com/maps?width=400&height=400&hl=en&q=nangloi%20jat%20laxmi%20park&z=13&ie=UTF8&i"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          {/* RIGHT CONTENT */}
+          <div className="relative">
+            <h1 className="text-4xl font-bold mb-4">
+              Let’s Talk
+            </h1>
+
+            <p className="text-muted-foreground mb-8 max-w-xl">
+              Have an idea, project, or collaboration in mind?  
+              Share the details with us and we’ll help you turn it into a
+              powerful digital solution.
+            </p>
+
+            {/* FORM */}
+            <div className="bg-background border border-border/60 rounded-3xl p-8 shadow-lg">
+              <ContactForm />
+            </div>
+
+            {/* CONTACT INFO */}
+            <div className="mt-8 grid sm:grid-cols-2 gap-6">
+
+              <div className="flex items-start gap-4">
+                <Mail className="text-primary mt-1" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Email</p>
+                  <p className="font-medium">info@sutraiq.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <Phone className="text-primary mt-1" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Phone</p>
+                  <p className="font-medium">+91 8750709717</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 sm:col-span-2">
+                <MapPin className="text-primary mt-1" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Location</p>
+                  <p className="font-medium">
+                    India · Working with clients worldwide
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

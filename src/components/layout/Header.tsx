@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react"; // useState and useEffect are still needed for Sheet/Mobile navigation
+import { useState } from "react";
+import Image from "next/image";
+import { services } from "@/data/services";
+import { SheetTitle } from "@/components/ui/sheet";
+
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -10,27 +14,26 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
-import { Logo } from "@/components/icons/Logo";
+
+import { Menu, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Image from "next/image"; // Assuming you have an Image component for the logo
+
+/* ---------------- DATA ---------------- */
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
-// FIX: Removed the 'hydrated' state and useEffect from NavLink
+/* ---------------- COMPONENTS ---------------- */
+
 const NavLink = ({ href, label }: { href: string; label: string }) => {
   const pathname = usePathname();
-  // isActive is now calculated directly and consistently on both server and client
   const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
 
   return (
-    <Link href={href} passHref>
+    <Link href={href}>
       <span
         className={cn(
           "text-lg font-medium transition-colors hover:text-primary",
@@ -43,15 +46,13 @@ const NavLink = ({ href, label }: { href: string; label: string }) => {
   );
 };
 
-// FIX: Removed the 'hydrated' state and useEffect from MobileNavLink
 const MobileNavLink = ({ href, label }: { href: string; label: string }) => {
   const pathname = usePathname();
-  // isActive is now calculated directly and consistently on both server and client
   const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
 
   return (
     <SheetClose asChild>
-      <Link href={href} passHref>
+      <Link href={href}>
         <span
           className={cn(
             "block px-4 py-2 rounded-md text-xl",
@@ -67,70 +68,133 @@ const MobileNavLink = ({ href, label }: { href: string; label: string }) => {
   );
 };
 
+/* ---------------- HEADER ---------------- */
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
-        <Link href="/" className=" ">
+        {/* LOGO */}
+        <Link href="/">
           <Image
-            src="/images/Logo.png" // Adjust the path to your logo image
+            src="/images/Logo.png"
             alt="SutraIQ Logo"
-            width={40} // Adjust width as needed
-            height={40} // Adjust height as needed
-            className="h-38 w-38 md:h-40 md:w-40"
+            width={160}
+            height={40}
+            className="h-30 w-auto"
           />
         </Link>
 
+        {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
+
+          {/* DESKTOP SERVICES */}
+          {/* DESKTOP SERVICES */}
+          {/* DESKTOP SERVICES */}
+          <div className="relative group">
+            <span className="flex items-center gap-1 cursor-pointer text-lg font-medium text-muted-foreground hover:text-primary">
+              Services
+              <ChevronDown
+                className="
+        h-4 w-4
+        transition-transform duration-200
+        -rotate-180
+        group-hover:rotate-0
+      "
+              />
+            </span>
+
+            {/* DROPDOWN */}
+            <div
+              className="
+      absolute left-0 top-full mt-2 w-72 rounded-xl border 
+      bg-background shadow-xl
+      opacity-0 invisible
+      group-hover:opacity-100 group-hover:visible
+      transition-all duration-200
+    "
+            >
+              {services.map((service) => (
+                <Link
+                  key={service.href}
+                  href={service.href}
+                  className="block px-5 py-3 text-sm hover:bg-muted"
+                >
+                  {service.title}
+                </Link>
+              ))}
+            </div>
+          </div>
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
-          <Button
-            asChild
-            className="font-semibold bg-accent hover:bg-accent/90 text-accent-foreground"
-          >
+        {/* DESKTOP CTA */}
+        <div className="hidden md:flex">
+          <Button asChild className="bg-accent text-accent-foreground">
             <Link href="/get-started">Get Started</Link>
           </Button>
         </div>
 
+        {/* MOBILE MENU */}
         <div className="md:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[80vw] sm:w-[50vw]">
-              <div className="p-4">
-                <Link
-                  href="/"
-                  className="flex items-center gap-2 mb-8"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <Logo className="h-8 w-8" />
-                  <span className="text-xl font-bold font-headline">
-                    SutraIQ
-                  </span>
-                </Link>
-                <div className="flex flex-col gap-4">
-                  {navLinks.map((link) => (
-                    <MobileNavLink key={link.href} {...link} />
-                  ))}
-                  <SheetClose asChild>
-                    <Button
-                      asChild
-                      className="w-full mt-4 font-semibold text-lg py-6 bg-accent hover:bg-accent/90 text-accent-foreground"
-                    >
-                      <Link href="/get-started">Get Started</Link>
-                    </Button>
-                  </SheetClose>
+
+            <SheetContent side="right" className="w-[80vw]">
+              <SheetTitle ></SheetTitle>
+
+              <div className="flex flex-col gap-4 mt-6">
+                {navLinks.map((link) => (
+                  <MobileNavLink key={link.href} {...link} />
+                ))}
+
+                {/* SERVICES */}
+                <div>
+                  <button
+                    onClick={() => setServicesOpen(!servicesOpen)}
+                    className="flex w-full items-center justify-between px-4 py-2 text-xl font-semibold"
+                  >
+                    Services
+                    <ChevronDown
+                      className={`transition-transform ${
+                        servicesOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {servicesOpen && (
+                    <div className="ml-4 mt-2 flex flex-col gap-2">
+                      {services.map((service) => (
+                        <SheetClose key={service.href} asChild>
+                          <Link
+                            href={service.href}
+                            className="block px-4 py-2 text-base rounded-md hover:bg-muted"
+                          >
+                            {service.title}
+                          </Link>
+                        </SheetClose>
+                      ))}
+                    </div>
+                  )}
                 </div>
+
+                <SheetClose asChild>
+                  <Button
+                    asChild
+                    className="mt-4 w-full py-6 text-lg bg-accent text-accent-foreground"
+                  >
+                    <Link href="/get-started">Get Started</Link>
+                  </Button>
+                </SheetClose>
               </div>
             </SheetContent>
           </Sheet>

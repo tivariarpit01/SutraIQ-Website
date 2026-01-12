@@ -1,258 +1,163 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Users, Award, Globe, Heart, Twitter, Linkedin } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import api from "@/lib/axios";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
-interface TeamMember {
-  _id: string;
-  name: string;
-  role: string;
-  bio: string;
-  image: string;
-  socials?: {
-    linkedin?: string;
-    twitter?: string;
-  };
-}
+export default function AboutScrollSection() {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-const values = [
-  {
-    icon: <Users className="w-6 h-6 text-blue-600" />,
-    title: "Collaboration",
-    description: "We believe in the power of teamwork and open communication.",
-  },
-  {
-    icon: <Award className="w-6 h-6 text-blue-600" />,
-    title: "Excellence",
-    description: "We strive for excellence in every project and interaction.",
-  },
-  {
-    icon: <Globe className="w-6 h-6 text-blue-600" />,
-    title: "Innovation",
-    description: "We embrace new technologies and creative problem-solving.",
-  },
-  {
-    icon: <Heart className="w-6 h-6 text-blue-600" />,
-    title: "Passion",
-    description: "We are passionate about technology and helping our clients succeed.",
-  },
-];
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
 
-// FIXED getImageUrl
-function getImageUrl(image?: string): string {
-  if (!image) return "/fallback.jpg";
-
-  if (image.startsWith("http://") || image.startsWith("https://")) {
-    return image;
-  }
-
-  if (image.startsWith("/") && !image.startsWith("/uploads/")) {
-    return image;
-  }
-
-  if (image.includes("/") && !image.startsWith("/uploads/")) {
-    return `https://res.cloudinary.com/dubvvkgjd/image/upload/${image}`;
-  }
-
-  return `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/team/${image}`;
-}
-
-// ✅ ReadMore component
-const ReadMore = ({ text, maxLength = 300 }: { text: string; maxLength?: number }) => {
-  const [expanded, setExpanded] = useState(false);
-  if (text.length <= maxLength) return <p className="text-lg text-muted-foreground">{text}</p>;
-
-  return (
-    <p className="text-lg text-muted-foreground">
-      {expanded ? text : text.slice(0, maxLength) + "... "}
-      <button
-        className="text-primary font-semibold hover:underline ml-1"
-        onClick={() => setExpanded(!expanded)}
-      >
-        {expanded ? "Read Less" : "Read More"}
-      </button>
-    </p>
+  const imageIndex = useTransform(
+    scrollYProgress,
+    [0, 0.33, 0.66, 1],
+    [0, 1, 2, 2]
   );
-};
 
-export default function AboutPage() {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchTeam = async () => {
-      try {
-        const res = await api.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/team`
-        );
-        setTeamMembers(res.data || []);
-      } catch (err) {
-        console.error("❌ Team fetch failed:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTeam();
-  }, []);
+  const images = [
+    "/images/poster1.jpeg",
+    "/images/poster2.jpeg",
+    "/images/poster3.jpeg",
+  ];
 
   return (
-    <div className="flex flex-col relative ">
-      {/* Hero Section */}
-      <section className="w-full py-20 md:py-28 lg:py-12 bg-secondary">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-            The Minds Behind the Magic
-          </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed mt-6">
-            A passionate team crafting bold technology and creative design experiences.
-          </p>
-        </div>
-      </section>
+    <section ref={sectionRef} className="relative w-full ">
 
-      {/* Mission Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div>
-              <h2 className="font-headline text-3xl font-bold mb-4">Our Mission</h2>
-              <ReadMore
-                text={`Empowering businesses with transformative digital solutions is at the heart of everything we do. In today’s rapidly evolving technological landscape, we recognize that growth isn’t just about keeping up — it’s about staying ahead. Our mission is to enable businesses of all sizes to thrive through tailored, innovative, and future-ready solutions.
+      {/* ================= DESKTOP VERSION ================= */}
+      <div className="hidden lg:block h-[100vh] ">
+        <div className="sticky top-0 h-screen container mx-auto px-10 flex items-center gap-24">
 
-We don’t just provide services — we build long-term partnerships based on mutual trust, transparency, and a shared commitment to success. Our approach blends strategic thinking, cutting-edge technology, and creative problem-solving to drive real, measurable impact for our clients.
+          {/* LEFT CONTENT */}
+          <div className="w-1/2">
+            <span className="uppercase tracking-[0.25em] text-sm text-primary/70">
+              About Us
+            </span>
 
-At SutraIQ, we believe in excellence through collaboration. By aligning ourselves with our clients’ goals, we create scalable digital ecosystems that not only solve immediate challenges but also pave the way for sustained growth and innovation. Your success is our mission.`}
-              />
-
-              <h2 className="font-headline text-3xl font-bold mt-8 mb-4">Our Story</h2>
-              <ReadMore
-                text={`Founded in 2025, SutraIQ began as a vision shared by a small group of passionate tech enthusiasts determined to build something meaningful. What started as a humble team experimenting with code and design quickly evolved into a dynamic digital agency committed to solving real-world business challenges through technology.
-
-From the early days of late-night brainstorming sessions and building MVPs for startups, we’ve grown into a full-service digital powerhouse trusted by clients across industries. Our journey has been defined by a deep curiosity for emerging technologies and an unwavering commitment to quality craftsmanship.
-
-As we scaled, we remained rooted in our belief that technology should empower, not overwhelm. This belief fuels our approach to every project — combining strategic insight, human-centric design, and cutting-edge engineering to deliver solutions that don’t just function but truly inspire.
-
-Every line of code, every pixel, and every conversation reflects our core values of collaboration, innovation, and excellence. We’re proud of how far we've come, but we’re even more excited about where we're headed — alongside our clients, shaping the future one bold idea at a time.`}
-              />
-            </div>
-
-            <div className="w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl relative">
-              <Image
-                src="/images/about.jpg"
-                alt="AI Service"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Values */}
-      <section className="py-16 md:py-24 ">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              Our Values
+            <h2 className="mt-4 text-4xl sm:text-5xl font-bold leading-tight
+              bg-gradient-to-r from-primary via-accent to-primary
+              bg-clip-text text-transparent">
+              Driven by Quality. <br />
+              Built Across Every Digital Field.
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-lg">
-              These core values guide everything we do and shape the way we work with our clients and each other.
+
+            <p className="mt-10 text-xl text-white leading-relaxed max-w-xl">
+              We are SutraIQ — a full-service digital solutions company crafting
+              high-quality products across web, mobile, AI/ML, automation, and
+              emerging technologies.
+              <br /><br />
+              From visually powerful websites to intelligent systems and scalable
+              applications, every project is engineered with performance, clean
+              architecture, and long-term impact in mind.
+              <br /><br />
+              We partner with brands across industries that value precision,
+              clarity, and future-ready digital experiences.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, i) => (
+          {/* RIGHT IMAGE */}
+          <div className="w-1/2 relative flex items-center justify-center">
+            {images.map((img, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.4 }}
-                className="rounded-2xl border bg-card p-6 text-center shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.03]"
+                className="absolute flex items-center justify-center"
+                style={{
+                  opacity: useTransform(
+                    imageIndex,
+                    (v) => (Math.round(v) === i ? 1 : 0)
+                  ),
+                  scale: useTransform(
+                    imageIndex,
+                    (v) => (Math.round(v) === i ? 1 : 0.96)
+                  ),
+                }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
               >
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                  {value.icon}
+                {/* GOLDEN GLOW SHADOW */}
+                <div className="absolute bottom-[-45px] w-[380px] h-[90px] bg-[#d4af37]/45 blur-[70px] rounded-full" />
+
+                {/* IMAGE CARD */}
+                <div className="relative w-[480px] h-[600px] rounded-[30px] overflow-hidden z-10">
+                  <Image
+                    src={img}
+                    alt={`About ${i}`}
+                    fill
+                    className="object-cover"
+                    priority={i === 0}
+                  />
+
+                  {/* GOLD BORDER */}
+                  <div className="absolute inset-0 rounded-[30px] border border-[#d4af37]/60 pointer-events-none" />
                 </div>
-                <h3 className="text-xl font-semibold">{value.title}</h3>
-                <p className="text-muted-foreground text-sm mt-2">{value.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Team Section */}
-      <section className="py-16 md:py-24 relative">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              Meet Our Leadership
-            </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-lg">
-              The driving force behind SutraIQ innovation.
-            </p>
-          </div>
+      {/* ================= MOBILE VERSION ================= */}
+      <section className="lg:hidden py-20 px-5">
+      {/* TITLE */}
+      <div className="mb-10">
+        <span className="uppercase tracking-widest text-sm text-primary/70">
+          Who We Are
+        </span>
 
-          {loading ? (
-            <p className="text-center text-muted-foreground">Loading team...</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member) => {
-                const imageSrc = getImageUrl(member.image);
-                return (
-                  <Card
-                    key={member._id}
-                    className="text-center bg-card p-6 hover:shadow-xl transition-all duration-300 rounded-2xl"
-                  >
-                    <CardContent className="flex flex-col items-center">
-                      <div className="w-28 h-28 rounded-full overflow-hidden mb-4 border-4 border-primary/50 relative">
-                        <Image
-                          src={imageSrc}
-                          alt={member.name || "Team member"}
-                          fill
-                          className="object-contain bg-white p-1"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = "/fallback.jpg";
-                          }}
-                        />
-                      </div>
-                      <h3 className="text-xl font-bold">{member.name}</h3>
-                      <p className="text-primary font-semibold mb-2">{member.role}</p>
-                      <p className="text-muted-foreground text-sm mb-4">
-                        {member.bio || "No bio available."}
-                      </p>
-                      <div className="flex gap-2">
-                        {member.socials?.linkedin?.trim() && (
-                          <Button variant="ghost" size="icon" asChild>
-                            <Link href={member.socials.linkedin} target="_blank" aria-label="LinkedIn">
-                              <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary" />
-                            </Link>
-                          </Button>
-                        )}
-                        {member.socials?.twitter?.trim() && (
-                          <Button variant="ghost" size="icon" asChild>
-                            <Link href={member.socials.twitter} target="_blank" aria-label="Twitter">
-                              <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />
-                            </Link>
-                          </Button>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
-    </div>
+        <h2 className="mt-4 text-4xl sm:text-5xl font-bold leading-tight
+              bg-gradient-to-r from-primary via-accent to-primary
+              bg-clip-text text-transparent">
+          Driven by Quality. <br />
+          Built Across Every Digital Field.
+        </h2>
+      </div>
+
+      {/* SWIPE IMAGES */}
+      <motion.div
+        className="flex gap-6 overflow-x-auto no-scrollbar pb-6"
+        drag="x"
+        dragConstraints={{ left: -600, right: 0 }}
+      >
+        {images.map((img, i) => (
+          <motion.div
+            key={i}
+            whileTap={{ scale: 0.97 }}
+            className="relative min-w-[85%] h-[460px] rounded-[30px] overflow-hidden"
+          >
+            {/* GOLD GLOW */}
+            <div className="absolute inset-0 rounded-[30px] shadow-[0_30px_80px_rgba(212,175,55,0.35)] z-0" />
+
+            {/* GOLD BORDER */}
+            <div className="absolute inset-0 rounded-[30px] border border-[#d4af37]/60 z-10 pointer-events-none" />
+
+            <Image
+              src={img}
+              alt={`About image ${i + 1}`}
+              fill
+              className="object-fit"
+              priority={i === 0}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* TEXT */}
+      <p className="mt-10 text-lg text-white-foreground leading-relaxed">
+        We are SutraIQ — a full-service digital solutions company crafting
+        high-quality products across web, mobile, AI/ML, automation, and
+        emerging technologies.
+        <br /><br />
+        From visually powerful websites to intelligent systems and scalable
+        applications, we focus on performance, clean architecture, and
+        long-term impact.
+        <br /><br />
+        We partner with brands across industries that value quality,
+        clarity, and future-ready digital experiences.
+      </p>
+    </section>
+
+    </section>
   );
 }

@@ -1,120 +1,205 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Logo } from "@/components/icons/Logo";
-import { Twitter, Linkedin, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { Instagram, Facebook, Linkedin } from "lucide-react";
 
-// --- Data defined outside the component for better organization ---
-
-const socialLinks = [
-  { Icon: Twitter, label: "Twitter", href: "https://twitter.com/your-profile" },
-  {
-    Icon: Linkedin,
-    label: "LinkedIn",
-    href: "https://linkedin.com/in/your-profile",
-  },
-  { Icon: Github, label: "GitHub", href: "https://github.com/your-profile" },
-];
-
-const footerSections = [
-  {
-    title: "Services",
-    links: [
-      { name: "Web Development", href: "/services#web" },
-      { name: "App Development", href: "/services#app" },
-      { name: "AI Solutions", href: "/services#ai" },
-      { name: "Cloud Support", href: "/services#cloud" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About Us", href: "/about" },
-      { name: "Blog", href: "/blog" },
-      { name: "Contact", href: "/contact" },
-      { name: "Get Started", href: "/get-started" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
-      { name: "careers", href: "/careers" },
-    ],
-  },
-];
+const gradientUnderline =
+  "relative inline-block after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#d4af37] after:via-[#f5d76e] after:to-[#d4af37] after:transition-all after:duration-300 hover:after:w-full";
 
 export default function Footer() {
-  const [year, setYear] = useState("");
-
-  useEffect(() => {
-    // This effect runs only on the client, preventing a hydration mismatch.
-    setYear(new Date().getFullYear().toString());
-  }, []);
-
   return (
     <footer className="border-t border-border/40 bg-background relative">
-      <div className="container mx-auto px-4 py-12 md:px-6">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          {/* Logo & Social Links Section */}
-          <div className="md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <Image
-                src="/images/Logo.png" // Adjust the path to your logo image
-                alt="SutraIQ Logo"
-                width={40} // Adjust width as needed
-                height={40} // Adjust height as needed
-                className="h-38 w-38 md:h-40 md:w-40"
-              />
+      {/* ================= DESKTOP FOOTER ================= */}
+      <div className="hidden md:block container mx-auto px-4 pt-2 pb-6 ">
+        {/* Desktop Logo top-left */}
+        <div className="grid grid-cols-4 gap-10">
+          <Image
+            src="/images/logo.png"
+            alt="SutraIQ Logo"
+            width={170}
+            height={50}
+          />
+
+          {/* SOCIAL ICONS (desktop top-left) */}
+          {/* <div className="flex flex-col gap-3">
+            <Link className="p-2 rounded-full border hover:bg-pink-500 hover:text-white transition" href="#">
+              <Instagram size={18} />
             </Link>
-            <p className="text-muted-foreground text-sm">
-              Designing Tomorrow's Innovations.
-            </p>
-            <div className="mt-4 flex space-x-1">
-              {socialLinks.map((social) => (
-                <Button variant="ghost" size="icon" asChild key={social.label}>
-                  <Link
-                    href={social.href}
-                    aria-label={social.label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <social.Icon className="h-5 w-5" />
-                  </Link>
-                </Button>
-              ))}
-            </div>
+            <Link className="p-2 rounded-full border hover:bg-blue-600 hover:text-white transition" href="#">
+              <Facebook size={18} />
+            </Link>
+            <Link className="p-2 rounded-full border hover:bg-sky-600 hover:text-white transition" href="#">
+              <Linkedin size={18} />
+            </Link>
+          </div> */}
+
+          {/* SERVICES */}
+          <div>
+            <h4
+              className={`text-lg font-semibold mb-4 cursor-pointer ${gradientUnderline}`}
+            >
+              SutraIQ Services
+            </h4>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>
+                <Link href="/services/web-development">Web Development</Link>
+              </li>
+              <li>
+                <Link href="/services/mobile-development">
+                  Mobile App Development
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/ui-ux-design">UI/UX Design</Link>
+              </li>
+              <li>
+                <Link href="/services/ai-ml-projects">AI / ML Solutions</Link>
+              </li>
+               <li>
+              <Link href="/services/e-commerce-development">Ecommerce development</Link>
+            </li>
+              <li>
+                <Link href="/services/automation-solutions">Automation Services</Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Navigation Sections */}
-          {footerSections.map((section) => (
-            <div key={section.title}>
-              <h3 className="font-semibold mb-4">{section.title}</h3>
-              <ul className="space-y-2">
-                {/* REFACTOR: Simplified mapping logic with a consistent data structure */}
-                {section.links.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* ABOUT */}
+          <div>
+            <h4
+              className={`text-lg font-semibold mb-4 cursor-pointer ${gradientUnderline}`}
+            >
+              About SutraIQ
+            </h4>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>
+                <Link href="/about">About Us</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact Us</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* LEGAL */}
+          <div>
+            <h4
+              className={`text-lg font-semibold mb-4 cursor-pointer ${gradientUnderline}`}
+            >
+              Legal
+            </h4>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>
+                <Link href="/privacy">Privacy-Policy</Link>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Copyright Section */}
-        <div className="mt-8 border-t border-border/40 pt-6 text-center text-sm text-muted-foreground">
-          {/* REFACTOR: Simplified the client-side check */}
-          <p>{year && `© ${year} SutraIQ. All Rights Reserved.`}</p>
+        {/* BOTTOM */}
+        <div className="mt-8 pt-4 border-t border-border/40 text-sm text-muted-foreground flex justify-between">
+          <p>© {new Date().getFullYear()} SutraIQ. All rights reserved.</p>
+        </div>
+      </div>
+
+      {/* ================= MOBILE FOOTER ================= */}
+      <div className="md:hidden container mx-auto px-6 py-8">
+        {/* Logo */}
+        <div className="flex justify-start mb-6">
+          <Image
+            src="/images/logo.png"
+            alt="SutraIQ Logo"
+            width={150}
+            height={45}
+          />
+        </div>
+
+        {/* Social Icons */}
+        <div className="flex gap-3 mb-6">
+          <Link
+            className="p-2 rounded-full border hover:bg-pink-500 hover:text-white transition"
+            href="https://www.instagram.com/sutra_iq/"
+          >
+            <Instagram size={18} />
+          </Link>
+          <Link
+            className="p-2 rounded-full border hover:bg-blue-600 hover:text-white transition"
+            href="#"
+          >
+            <Facebook size={18} />
+          </Link>
+          <Link
+            className="p-2 rounded-full border hover:bg-sky-600 hover:text-white transition"
+            href="https://www.linkedin.com/company/sutraiq"
+          >
+            <Linkedin size={18} />
+          </Link>
+        </div>
+
+        {/* SERVICES */}
+        <div className="mb-6">
+          <h4
+            className={`text-lg font-semibold mb-2 cursor-pointer ${gradientUnderline}`}
+          >
+            SutraIQ Services
+          </h4>
+          <ul className="space-y-1 text-muted-foreground">
+            <li>
+              <Link href="/Web-development">Web Development</Link>
+            </li>
+            <li>
+              <Link href="/Mobile-development">Mobile App Development</Link>
+            </li>
+            <li>
+              <Link href="/ui-ux-design">UI/UX Design</Link>
+            </li>
+            <li>
+              <Link href="/ai-ml-projects">AI / ML Solutions</Link>
+            </li>
+            <li>
+              <Link href="/e-commerce-development">Ecommerce development</Link>
+            </li>
+            <li>
+              <Link href="/automation-solution">Automation Services</Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* ABOUT */}
+        <div className="mb-6">
+          <h4
+            className={`text-lg font-semibold mb-2 cursor-pointer ${gradientUnderline}`}
+          >
+            About SutraIQ
+          </h4>
+          <ul className="space-y-1 text-muted-foreground">
+            <li>
+              <Link href="/about">About Us</Link>
+            </li>
+            <li>
+              <Link href="/contact">Contact Us</Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* LEGAL */}
+        <div className="mb-6">
+          <h4
+            className={`text-lg font-semibold mb-2 cursor-pointer ${gradientUnderline}`}
+          >
+            Legal
+          </h4>
+          <ul className="space-y-1 text-muted-foreground">
+            <li>
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* BOTTOM */}
+        <div className="pt-4 border-t border-border/40 text-sm text-muted-foreground text-center">
+          <p>© {new Date().getFullYear()} SutraIQ. All rights reserved.</p>
         </div>
       </div>
     </footer>
