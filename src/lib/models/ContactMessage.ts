@@ -14,7 +14,7 @@ export interface IContactMessage extends Document {
 const ContactMessageSchema: Schema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
-  phoneNumber: { type: String }, // <--- ADD THIS LINE: phoneNumber field (optional, no 'required: true')
+  phoneNumber: { type: String }, // <--- : phoneNumber field (optional, no 'required: true')
   message: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 });

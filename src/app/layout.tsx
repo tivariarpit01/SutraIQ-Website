@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
 import { Toaster } from "@/components/ui/toaster";
 import WhatsAppSupport from "@/components/WhatsAppSupport";
 import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper";
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "SutraIQ | Digital Solutions Company",
+    title: "SutraIQ | AI Solutions Company",
     description:
       "High-performance web, mobile, AI & automation solutions built for modern businesses.",
     url: "https://sutraiq.com",
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
         url: "/images/og-image.png", // ⚠️ make sure this exists
         width: 1200,
         height: 630,
-        alt: "SutraIQ Digital Solutions",
+        alt: "SutraIQ AI Solutions",
       },
     ],
     locale: "en_US",
@@ -51,7 +50,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "SutraIQ | Digital Solutions Company",
+    title: "SutraIQ | AI Solutions Company",
     description:
       "Web, Mobile, AI & Automation solutions designed for performance, scale, and growth.",
     images: ["/images/og-image.png"],
