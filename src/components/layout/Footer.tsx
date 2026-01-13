@@ -15,14 +15,14 @@ export default function Footer() {
         {/* Desktop Logo top-left */}
         <div className="grid grid-cols-4 gap-10">
           <Image
-            src="/images/logo.png"
+            src="/images/Logo.png"
             alt="SutraIQ Logo"
             width={170}
             height={50}
           />
 
-          {/* SOCIAL ICONS (desktop top-left) */}
-          {/* <div className="flex flex-col gap-3">
+          {/* SOCIAL ICONS (desktop top-left)
+          <div className="flex flex-col gap-3">
             <Link className="p-2 rounded-full border hover:bg-pink-500 hover:text-white transition" href="#">
               <Instagram size={18} />
             </Link>
@@ -33,6 +33,26 @@ export default function Footer() {
               <Linkedin size={18} />
             </Link>
           </div> */}
+          <div className="flex gap-3 mb-6">
+          <Link
+            className="p-2 rounded-full border hover:bg-pink-500 hover:text-white transition"
+            href="https://www.instagram.com/sutra_iq/"
+          >
+            <Instagram size={18} />
+          </Link>
+          <Link
+            className="p-2 rounded-full border hover:bg-blue-600 hover:text-white transition"
+            href="#"
+          >
+            <Facebook size={18} />
+          </Link>
+          <Link
+            className="p-2 rounded-full border hover:bg-sky-600 hover:text-white transition"
+            href="https://www.linkedin.com/company/sutraiq"
+          >
+            <Linkedin size={18} />
+          </Link>
+        </div>
 
           {/* SERVICES */}
           <div>
