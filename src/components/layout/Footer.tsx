@@ -108,7 +108,7 @@ export default function Footer() {
         {/* Logo */}
         <div className="flex justify-start mb-6">
           <Image
-            src="/images/logo.png"
+            src="/images/Logo.png"
             alt="SutraIQ Logo"
             width={150}
             height={45}
