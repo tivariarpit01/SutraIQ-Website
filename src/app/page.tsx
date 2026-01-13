@@ -193,7 +193,7 @@ const technologies = [
   },
   {
     name: "Katalon",
-    image: "/images/katalon.png",
+    image: "/images/Katalon.png",
     glow: "from-orange-400 via-amber-500 to-yellow-500",
   },
   {
@@ -214,7 +214,7 @@ const trustedByLogos = [
   { name: "Meta", image: "/images/trusted/meta.webp" },
   { name: "Freelancer", image: "/images/trusted/freel.webp" },
   { name: "Glassdoor", image: "/images/trusted/glassdoor.png" },
-  { name: "India Mart", image: "/images/trusted/indiamart.png" },
+  { name: "India Mart", image: "/images/trusted/Indiamart.png" },
   { name: "Upwork", image: "/images/trusted/upwork.png" },
   { name: "Adobe", image: "/images/trusted/Adobe.png" },
   { name: "Apple", image: "/images/trusted/Apple.png" },
@@ -592,8 +592,8 @@ bg-gradient-to-br from-[#0B1220] via-[#0E1730] to-[#111A2E]"
           <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-border rounded-xl overflow-hidden">
             {[
               { title: "HealthCare", icon: "images/industries/Health.png" },
-              { title: "E-Finance", icon: "images/industries/E-finance.png" },
-              { title: "Insurance", icon: "images/industries/insurance.png" },
+              { title: "E-Finance", icon: "images/industries/E-Finance.png" },
+              { title: "Insurance", icon: "images/industries/Insurance.png" },
               { title: "Education", icon: "images/industries/Education.png" },
               {
                 title: "Energy & Utilities",
