@@ -159,32 +159,50 @@ export default function Footer() {
 
         {/* SERVICES */}
         <div className="mb-6">
-          <h4
-            className={`text-lg font-semibold mb-2 cursor-pointer ${gradientUnderline}`}
-          >
-            SutraIQ Services
-          </h4>
-          <ul className="space-y-1 text-muted-foreground">
-            <li>
-              <Link href="/Web-development">Web Development</Link>
-            </li>
-            <li>
-              <Link href="/Mobile-development">Mobile App Development</Link>
-            </li>
-            <li>
-              <Link href="/ui-ux-design">UI/UX Design</Link>
-            </li>
-            <li>
-              <Link href="/ai-ml-projects">AI / ML Solutions</Link>
-            </li>
-            <li>
-              <Link href="/e-commerce-development">Ecommerce development</Link>
-            </li>
-            <li>
-              <Link href="/automation-solution">Automation Services</Link>
-            </li>
-          </ul>
-        </div>
+<h4
+    className={`text-lg font-semibold mb-2 cursor-pointer ${gradientUnderline}`}
+  >
+    SutraIQ Services
+  </h4>
+
+  <ul className="space-y-1 text-muted-foreground">
+    <li>
+      <Link href="/services/web-development">
+        Web Development
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/services/mobile-development">
+        Mobile App Development
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/services/ui-ux-design">
+        UI/UX Design
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/services/ai-ml-projects">
+        AI / ML Solutions
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/services/e-commerce-development">
+        Ecommerce Development
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/services/automation-solutions">
+        Automation Services
+      </Link>
+    </li>
+  </ul>
+</div>
 
         {/* ABOUT */}
         <div className="mb-6">
@@ -212,7 +230,7 @@ export default function Footer() {
           </h4>
           <ul className="space-y-1 text-muted-foreground">
             <li>
-              <Link href="/privacy-policy">Privacy Policy</Link>
+              <Link href="/privacy">Privacy Policy</Link>
             </li>
           </ul>
         </div>

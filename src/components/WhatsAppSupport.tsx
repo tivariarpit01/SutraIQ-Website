@@ -4,7 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const WhatsAppSupport = () => {
-  const phoneNumber = "7678181385";
+  const phoneNumber = "8487945654";
 
   return (
     <motion.a
