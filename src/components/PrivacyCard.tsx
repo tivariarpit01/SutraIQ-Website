@@ -115,10 +115,10 @@ export default function PrivacyPolicyPage() {
             <p>
               📧{" "}
               <a
-                href="mailto:legal@sutraiq.in"
+                href="mailto:contact@sutraiq.com"
                 className="underline text-yellow-300"
               >
-                info@sutraiq.com
+                contact@sutraiq.com
               </a>
             </p>
             <p>

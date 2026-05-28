@@ -46,12 +46,28 @@ export default function ContactPage() {
             <div className="mt-8 grid sm:grid-cols-2 gap-6">
 
               <div className="flex items-start gap-4">
-                <Mail className="text-primary mt-1" />
-                <div>
-                  <p className="text-sm text-muted-foreground">Email</p>
-                  <p className="font-medium">info@sutraiq.com</p>
+  <Mail className="text-primary mt-1" />
+
+  <div>
+    <p className="text-sm text-muted-foreground">Email</p>
+
+    <div className="flex flex-col gap-1">
+      <a
+        href="mailto:contact@sutraiq.com"
+        className="font-medium hover:text-primary transition-colors"
+      >
+        contact@sutraiq.com
+      </a>
+
+      <a
+        href="mailto:cmo@sutraiq.com"
+        className="font-medium hover:text-primary transition-colors"
+      >
+        cmo@sutraiq.com
+                  </a>
                 </div>
               </div>
+            </div>
 
               <div className="flex items-start gap-4">
                 <Phone className="text-primary mt-1" />
