@@ -6,7 +6,7 @@ import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper";
 import AnimatedBackground from "@/components/ui/Animatedbaground";
 
 export const metadata: Metadata = {
-   metadataBase: new URL("https://sutraiq.com"),
+   metadataBase: new URL("https://www.sutraiq.com"),
    
   title: "SutraIQ | Web, Mobile, AI & Automation Solutions",
   description:
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "SutraIQ | AI Solutions Company",
     description:
       "High-performance web, mobile, AI & automation solutions built for modern businesses.",
-    url: "https://sutraiq.com",
+    url: "https://www.sutraiq.com",
     siteName: "SutraIQ",
     images: [
       {
