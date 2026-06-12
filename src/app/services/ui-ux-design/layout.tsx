@@ -1,23 +1,33 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Creative UI/UX Design & Prototyping Services | SutraIQ",
+  title: "UI/UX Design Services India — Figma & Product Design | SutraIQ",
   description:
-    "Craft intuitive and visually stunning user interfaces. Our UI/UX design services focus on user-centric digital experiences that drive engagement and conversions.",
+    "User-centred UI/UX design for web and mobile products. Figma prototyping, design systems, and conversion-focused interfaces by SutraIQ's Bengaluru design team. Free audit.",
   keywords: [
-    "UI/UX design agency",
-    "User interface design",
-    "User experience design",
-    "Web design services",
-    "App prototyping",
+    "UI UX design company India",
+    "Figma design agency Bengaluru",
+    "product design company India",
+    "UX design services India",
+    "app UI design India",
+    "design system India",
     "SutraIQ",
   ],
+  alternates: {
+    canonical: "https://www.sutraiq.com/services/ui-ux-design",
+  },
   openGraph: {
-    title: "Creative UI/UX Design & Prototyping Services | SutraIQ",
+    title: "UI/UX Design Services India — Figma & Product Design | SutraIQ",
     description:
-      "Craft intuitive and visually stunning user interfaces focused on user-centric digital experiences that drive engagement and conversions.",
+      "User-centred Figma design for web & mobile. Design systems, prototyping, conversion-focused UI. Bengaluru.",
     url: "https://www.sutraiq.com/services/ui-ux-design",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UI/UX Design Services India | SutraIQ",
+    description:
+      "Figma UI/UX design for web & mobile apps. Design systems & prototyping. Bengaluru-based.",
   },
 };
 

@@ -13,6 +13,7 @@ import { AiAutomationIcon } from "@/components/icons/AiAutomationIcon";
 import { AppDevIcon } from "@/components/icons/AppDevIcon";
 import { CloudSupportIcon } from "@/components/icons/CloudSupportIcon";
 import TestimonialSwiper from "@/components/TestimonialSwiper";
+import { HomeFAQ } from "@/components/layout/HomeFAQ"; 
 
 import { Star, ArrowRight } from "lucide-react";
 import {
@@ -253,14 +254,14 @@ export default function HomePage() {
         <div className="relative z-[3] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="flex items-center min-h-[100svh]">
             <div className="max-w-2xl">
-              <motion.h1
+              <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 className="text-3xl sm:text-6xl md:text-5xl lg:text-6xl font-bold mb-6"
               >
                 Designing Tomorrow’s <br /> Innovations
-              </motion.h1>
+              </motion.h2>
 
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
@@ -640,7 +641,7 @@ bg-gradient-to-br from-[#0B1220] via-[#0E1730] to-[#111A2E]"
         <div className="container mx-auto px-4 relative">
           {/* Heading */}
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-14">
-            Trusted by Industry Leaders
+            Technologies & Platforms We Work With
           </h2>
 
           {/* Fade edges */}
@@ -719,6 +720,10 @@ bg-gradient-to-br from-[#0B1220] via-[#0E1730] to-[#111A2E]"
           <TestimonialSwiper testimonials={testimonials} />
         </div>
       </motion.section>
+
+      {/* FAQs SECTION ADDED HERE */}
+      {/* <HomeFAQ /> */}
+
     </div>
   );
 }

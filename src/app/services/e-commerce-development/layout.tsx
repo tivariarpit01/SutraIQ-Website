@@ -1,23 +1,33 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Custom E-Commerce Development Services | SutraIQ",
+  title: "E-Commerce Development Company India — Shopify & Next.js | SutraIQ",
   description:
-    "Build high-converting, scalable e-commerce platforms tailored to your brand. We deliver secure payment integrations, seamless UX, and robust backend architectures.",
+    "Custom e-commerce websites and stores built for Indian businesses. Shopify, Next.js + Stripe/Razorpay integration. Fast, scalable, conversion-optimised. Free quote.",
   keywords: [
-    "E-commerce development company",
-    "Custom online stores",
-    "E-commerce web design",
-    "Scalable e-commerce platforms",
-    "Payment gateway integration",
+    "e-commerce development company India",
+    "Shopify development India",
+    "custom online store development Bengaluru",
+    "Next.js e-commerce India",
+    "Razorpay integration India",
+    "e-commerce website cost India",
     "SutraIQ",
   ],
+  alternates: {
+    canonical: "https://www.sutraiq.com/services/e-commerce-development",
+  },
   openGraph: {
-    title: "Custom E-Commerce Development Services | SutraIQ",
+    title: "E-Commerce Development Company India | SutraIQ",
     description:
-      "Build high-converting, scalable e-commerce platforms tailored to your brand with secure payment integrations and robust backend architectures.",
+      "Custom e-commerce stores with Shopify, Next.js & Razorpay. Fast, scalable, conversion-optimised. Bengaluru-based team.",
     url: "https://www.sutraiq.com/services/e-commerce-development",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "E-Commerce Development Company India | SutraIQ",
+    description:
+      "Shopify & Next.js e-commerce stores for Indian businesses. Razorpay, Stripe, fast & scalable.",
   },
 };
 

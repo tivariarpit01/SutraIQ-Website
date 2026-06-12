@@ -10,6 +10,8 @@ import { Cpu, Search, Layout } from "lucide-react";
 
 
 export default function WebDevelopmentPage() {
+
+  
   return (
     <div className="flex flex-col relative">
       {/* HERO SECTION */}
